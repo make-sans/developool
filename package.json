@@ -1,0 +1,26 @@
+{
+  "name": "4-sem-project",
+  "version": "1.0.0",
+  "description": "Website for the 4th semester project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/make-sans/4-sem-project.git"
+  },
+  "author": "Make-Sans",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/make-sans/4-sem-project/issues"
+  },
+  "homepage": "https://github.com/make-sans/4-sem-project#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4"
+  }
+}
