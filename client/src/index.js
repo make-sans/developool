@@ -7,12 +7,14 @@ import store from "./store";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Route exact path="/" component={App} />
       <Route exact path="/register" component={Register} />
+      <Route exact path="/login" component={Login} />
     </Router>
   </Provider>,
   document.getElementById("root")
