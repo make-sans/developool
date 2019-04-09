@@ -62,3 +62,4 @@ typings/
 
 # our ignores
 package-lock.json
+config/
