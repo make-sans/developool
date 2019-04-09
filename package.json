@@ -4,7 +4,8 @@
   "description": "Website for the 4th semester project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,10 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.0",
+    "nodemon": "^1.18.11"
   }
 }
