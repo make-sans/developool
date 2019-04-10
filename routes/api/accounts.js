@@ -1,5 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 const Account = require('../../models/Account');
@@ -12,16 +14,21 @@ router.get('/', (req, res) => {
     .catch(() => res.status(404).json({ accounts: [] }));
 });
 
+// Registration route
+// api/accounts POST
 router.post('/', (req, res) => {
-  // TODO implement json validation
   const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    res.status(400).json({ msg: 'Please enter all fields' });
+    return;
+  }
 
-  if(!username || !email || !password)
-    return res.status(400).json({ msg: 'Please enter all fields' });
-
-  Account.findOne({ email: email })
+  Account.findOne({ email })
     .then((account) => {
-      if (account) return res.status(400).json({ msg: 'User already exists' });
+      if (account) {
+        res.status(400).json({ msg: 'User already exists' });
+        return;
+      }
 
       const newAccount = new Account({
         username,
@@ -29,25 +36,36 @@ router.post('/', (req, res) => {
         passwordHash: password,
       });
 
-      // Create salt and hash password
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) throw err;
+      bcrypt.genSalt(10, (saltingError, salt) => {
+        if (saltingError) throw saltingError;
+
         bcrypt.hash(password, salt, (hashingError, hash) => {
-          if (hashingError) throw err;
+          if (hashingError) throw hashingError;
           newAccount.passwordHash = hash;
-          newAccount.save()
-            .then((user) => {
-              res.json({
+        });
+      });
+
+      newAccount.save()
+        .then((user) => {
+          jwt.sign(
+            { id: user.id },
+            config.get('jwtSecret'),
+            { expiresIn: 3600 },
+            (tokenError, token) => {
+              if (tokenError) throw tokenError;
+              return res.json({
+                token,
                 user: {
                   id: user.id,
                   username: user.username,
                   email: user.email,
                 },
               });
-            });
+            },
+          );
         });
-      });
-    });
+    })
+    .catch(err => console.log(err));
 });
 
 router.delete('/:id', (req, res) => {
