@@ -25,7 +25,7 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    //this.props.loginUser(user);
+    this.props.loginUser(user, this.props.history);
   };
   render() {
     const { errors } = this.state;
@@ -87,6 +87,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    //    loginUser
+    loginUser
   }
 )(Login);

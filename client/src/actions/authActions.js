@@ -1,4 +1,4 @@
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from "./types";
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS, AUTHENTICATED } from "./types";
 import axios from "axios";
 
 // register user
@@ -12,3 +12,15 @@ export const registerUser = (userData, history) => dispatch => {
     )
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
+
+// sign in
+export const loginUser = (userData, history) => dispatch => {
+  axios
+    .post("http://localhost:5000/api/users/login", userData)
+    .then(res =>
+      localStorage.setItem("user", res.data.token),
+      dispatch({ type: AUTHENTICATED }),
+      history.push("/")
+    )
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+}
