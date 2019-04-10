@@ -20,7 +20,7 @@ export const loginUser = (userData, history) => dispatch => {
     .then(res => {
       dispatch({ type: AUTHENTICATED });
       localStorage.setItem("user", res.data.token);
-      history.push("/")
+      history.push("/");
     })
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 }
