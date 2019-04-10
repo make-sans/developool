@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 const Account = require('../../models/Account');
@@ -13,18 +14,39 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   // TODO implement json validation
+  const { username, email, password } = req.body;
 
-  const account = new Account({
-    username: req.body.username,
-    email: req.body.email,
-    passwordHash: req.body.password,
-  });
+  if(!username || !email || !password)
+    return res.status(400).json({ msg: 'Please enter all fields' });
 
-  account.save()
-    .then(acc => res.json(acc))
-    .catch((err) => {
-      res.status(500).json({ success: false });
-      console.log(err);
+  Account.findOne({ email: email })
+    .then((account) => {
+      if (account) return res.status(400).json({ msg: 'User already exists' });
+
+      const newAccount = new Account({
+        username,
+        email,
+        passwordHash: password,
+      });
+
+      // Create salt and hash password
+      bcrypt.genSalt(10, (err, salt) => {
+        if (err) throw err;
+        bcrypt.hash(password, salt, (hashingError, hash) => {
+          if (hashingError) throw err;
+          newAccount.passwordHash = hash;
+          newAccount.save()
+            .then((user) => {
+              res.json({
+                user: {
+                  id: user.id,
+                  username: user.username,
+                  email: user.email,
+                },
+              });
+            });
+        });
+      });
     });
 });
 
