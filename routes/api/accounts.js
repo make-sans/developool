@@ -33,7 +33,6 @@ router.post('/', (req, res) => {
       const newAccount = new Account({
         username,
         email,
-        passwordHash: password,
       });
 
       bcrypt.genSalt(10, (saltingError, salt) => {
@@ -42,28 +41,29 @@ router.post('/', (req, res) => {
         bcrypt.hash(password, salt, (hashingError, hash) => {
           if (hashingError) throw hashingError;
           newAccount.passwordHash = hash;
+
+          newAccount.save()
+            .then((user) => {
+              jwt.sign(
+                { id: user.id },
+                config.get('jwtSecret'),
+                { expiresIn: 3600 },
+                (tokenError, token) => {
+                  if (tokenError) throw tokenError;
+                  return res.json({
+                    token,
+                    user: {
+                      id: user.id,
+                      username: user.username,
+                      email: user.email,
+                    },
+                  });
+                },
+              );
+            })
+            .catch(err => console.log(err));
         });
       });
-
-      newAccount.save()
-        .then((user) => {
-          jwt.sign(
-            { id: user.id },
-            config.get('jwtSecret'),
-            { expiresIn: 3600 },
-            (tokenError, token) => {
-              if (tokenError) throw tokenError;
-              return res.json({
-                token,
-                user: {
-                  id: user.id,
-                  username: user.username,
-                  email: user.email,
-                },
-              });
-            },
-          );
-        });
     })
     .catch(err => console.log(err));
 });
