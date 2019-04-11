@@ -1,4 +1,4 @@
-import { AUTHENTICATED } from "../actions/types";
+import { AUTHENTICATED, GET_ERRORS } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
@@ -11,12 +11,12 @@ export default (state = initialState, action) => {
       return {
         result: action.payload
       };
+    case GET_ERRORS:
+      return {
+        ...state, errors: action.payload
+      };
     case AUTHENTICATED:
       return { ...state, isAuthenticated: true };
-    case "LOGIN_FAILURE":
-      return {
-
-      };
     case "LOGOUT":
       return {
 

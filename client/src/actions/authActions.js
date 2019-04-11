@@ -4,7 +4,7 @@ import axios from "axios";
 // register user
 export const registerUser = (userData, history) => dispatch => {
   axios
-    .post("http://localhost:5000/api/users/register", userData)
+    .post("http://localhost:5000/api/accounts/", userData)
     .then(res =>
       //redirect to email sent
       //redirect to login
@@ -16,7 +16,7 @@ export const registerUser = (userData, history) => dispatch => {
 // sign in
 export const loginUser = (userData, history) => dispatch => {
   axios
-    .post("http://localhost:5000/api/users/login", userData)
+    .post("http://localhost:5000/api/accounts/", userData)
     .then(res => {
       dispatch({ type: AUTHENTICATED });
       localStorage.setItem("user", res.data.token);

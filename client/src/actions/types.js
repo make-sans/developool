@@ -3,3 +3,4 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 // authentication
 export const AUTHENTICATED = "AUTHENTICATED";
+export const UNAUTHENTICATED = "UNAUTHENTICATED";

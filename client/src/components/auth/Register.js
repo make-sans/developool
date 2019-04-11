@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import TextFieldGroup from "../common/TextFieldGroup";
+import { registerUser } from "../../actions/authActions";
 import { connect } from "react-redux";
 
 class Register extends Component {
@@ -35,7 +36,7 @@ class Register extends Component {
       password2: this.state.password2
     };
     //call action to register
-    //this.props.registerUser(newUser);
+    this.props.registerUser(newUser);
   };
 
   render() {
@@ -107,5 +108,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  {
+    registerUser
+  }
 )(Register);
