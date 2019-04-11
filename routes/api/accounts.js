@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
   Account.findOne({ email })
     .then(account => {
       if (account) {
-        res.status(400).json({ msg: 'User already exists' });
+        res.status(400).json({ email: 'User already exists' });
         return;
       }
 

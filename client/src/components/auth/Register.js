@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import TextFieldGroup from "../common/TextFieldGroup";
-import { registerUser } from "../../actions/authActions";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import TextFieldGroup from '../common/TextFieldGroup';
+import { registerUser } from '../../actions/authActions';
+import { connect } from 'react-redux';
 
 class Register extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
-      email: "",
-      password: "",
-      password2: "",
+      username: '',
+      email: '',
+      password: '',
+      password2: '',
       errors: {}
     };
   }
@@ -30,13 +30,13 @@ class Register extends Component {
   onSubmitRegister = e => {
     e.preventDefault();
     const newUser = {
-      name: this.state.name,
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     };
     //call action to register
-    this.props.registerUser(newUser);
+    this.props.registerUser(newUser, this.props.history);
   };
 
   render() {
@@ -51,10 +51,10 @@ class Register extends Component {
             <form onSubmit={this.onSubmitRegister}>
               <TextFieldGroup
                 placeholder="Name"
-                name="name"
-                value={this.state.name}
+                name="username"
+                value={this.state.username}
                 onChange={this.onChange}
-                error={errors.name}
+                error={errors.username}
               />
               <TextFieldGroup
                 placeholder="Email Address"
