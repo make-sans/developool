@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth');
 
 const router = express.Router();
 const Account = require('../../models/Account');
@@ -9,7 +10,7 @@ const Account = require('../../models/Account');
 //load input validation
 const validateRegisterInput = require('../../validation/register');
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
   Account.find()
     .then(accounts => {
       res.json(accounts);
