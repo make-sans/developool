@@ -1,4 +1,4 @@
-import { AUTHENTICATED } from "../actions";
+import { AUTHENTICATED } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,

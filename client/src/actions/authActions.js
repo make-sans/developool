@@ -17,10 +17,10 @@ export const registerUser = (userData, history) => dispatch => {
 export const loginUser = (userData, history) => dispatch => {
   axios
     .post("http://localhost:5000/api/users/login", userData)
-    .then(res =>
-      localStorage.setItem("user", res.data.token),
-      dispatch({ type: AUTHENTICATED }),
-      history.push("/")
-    )
+    .then(res => {
+      dispatch({ type: AUTHENTICATED });
+      localStorage.setItem("user", res.data.token);
+      history.push("/");
+    })
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 }
