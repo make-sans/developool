@@ -6,9 +6,12 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const Account = require('../../models/Account');
 
+//load input validation
+const validateRegisterInput = require('../../validation/register');
+
 router.get('/', (req, res) => {
   Account.find()
-    .then((accounts) => {
+    .then(accounts => {
       res.json(accounts);
     })
     .catch(() => res.status(404).json({ accounts: [] }));
@@ -17,14 +20,14 @@ router.get('/', (req, res) => {
 // Registration route
 // api/accounts POST
 router.post('/', (req, res) => {
-  const { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    res.status(400).json({ msg: 'Please enter all fields' });
-    return;
+  const { errors, isValid } = validateRegisterInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
   }
+  const { username, email, password } = req.body;
 
   Account.findOne({ email })
-    .then((account) => {
+    .then(account => {
       if (account) {
         res.status(400).json({ msg: 'User already exists' });
         return;
@@ -32,7 +35,7 @@ router.post('/', (req, res) => {
 
       const newAccount = new Account({
         username,
-        email,
+        email
       });
 
       bcrypt.genSalt(10, (saltingError, salt) => {
@@ -42,8 +45,9 @@ router.post('/', (req, res) => {
           if (hashingError) throw hashingError;
           newAccount.passwordHash = hash;
 
-          newAccount.save()
-            .then((user) => {
+          newAccount
+            .save()
+            .then(user => {
               jwt.sign(
                 { id: user.id },
                 config.get('jwtSecret'),
@@ -55,10 +59,10 @@ router.post('/', (req, res) => {
                     user: {
                       id: user.id,
                       username: user.username,
-                      email: user.email,
-                    },
+                      email: user.email
+                    }
                   });
-                },
+                }
               );
             })
             .catch(err => console.log(err));
@@ -70,10 +74,10 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   Account.findById(req.params.id)
-    .then((account) => {
+    .then(account => {
       account.remove().then(() => res.json({ success: true }));
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(404).json({ success: false });
       console.log(err);
     });
@@ -81,19 +85,20 @@ router.delete('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   Account.findById(req.params.id)
-    .then((account) => {
+    .then(account => {
       account.username = req.body.username || account.username;
       account.passwordHash = req.body.password || account.passwordHash;
       account.email = req.body.email || account.email;
 
-      account.save()
+      account
+        .save()
         .then(acc => res.json(acc))
-        .catch((err) => {
+        .catch(err => {
           res.status(500).json({ success: false });
           console.log(err);
         });
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(404).json({ success: false });
       console.log(err);
     });
