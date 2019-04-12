@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/authActions';
@@ -14,6 +15,7 @@ class Navbar extends Component {
         <li className="nav-item" key="signout">
           <a href="" className="nav-link" onClick={this.props.logoutUser}>
             Sign out
+            <i class="fas fa-sign-out-alt px-2" />
           </a>
         </li>
       ];
@@ -56,6 +58,10 @@ class Navbar extends Component {
     );
   }
 }
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
 function mapStateToProps(state) {
   return {
     auth: state.auth
