@@ -30,7 +30,7 @@ export const loginUser = userData => dispatch => {
   axios
     .post('http://localhost:5000/api/auth', userData)
     .then(res => {
-      const { token } = res.data;
+      const token = res.data;
       //save to localstorage
       localStorage.setItem('jwtToken', token);
       //set token to auth header
