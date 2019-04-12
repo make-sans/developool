@@ -1,5 +1,10 @@
-import { AUTHENTICATED, GET_ERRORS, EMAIL_SENT } from '../actions/types';
-
+import {
+  AUTHENTICATED,
+  GET_ERRORS,
+  EMAIL_SENT,
+  SET_CURRENT_USER
+} from '../actions/types';
+import isEmpty from '../utils/is-empty';
 const initialState = {
   isAuthenticated: false,
   user: {},
@@ -8,14 +13,16 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'SIMPLE_ACTION':
-      return {
-        result: action.payload
-      };
     case GET_ERRORS:
       return {
         ...state,
         errors: action.payload
+      };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        isAuthenticated: !isEmpty(action.payload),
+        user: action.payload
       };
     case AUTHENTICATED:
       return { ...state, isAuthenticated: true };

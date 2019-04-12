@@ -4,5 +4,6 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 // authentication
 export const AUTHENTICATED = 'AUTHENTICATED';
 export const UNAUTHENTICATED = 'UNAUTHENTICATED';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 export const EMAIL_SENT = 'EMAIL_SENT';
