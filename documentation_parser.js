@@ -40,8 +40,8 @@ function createTableBody(items) {
       for (let key in item.body.fields) {
         result += `**${key}**: ${item.body.fields[key]}<br/>`
       }
-      result += 'Example:<br/>';
-      result += '```' + JSON.stringify(item.body.example) + '```';
+      // result += 'Example:<br/>';
+      // result += '```' + JSON.stringify(item.body.example) + '```';
       result += '|';
     } else {
       result += '-|';
