@@ -12,10 +12,15 @@ class Navbar extends Component {
             Protected
           </Link>
         </li>,
+        <li key="" className="nav-item">
+          <Link className="nav-link" to="/profile">
+            Profile
+          </Link>
+        </li>,
         <li className="nav-item" key="signout">
           <a href="" className="nav-link" onClick={this.props.logoutUser}>
             Sign out
-            <i class="fas fa-sign-out-alt px-2" />
+            <i className="fas fa-sign-out-alt px-2" />
           </a>
         </li>
       ];
