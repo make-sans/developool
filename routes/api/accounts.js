@@ -3,23 +3,24 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
-
-const router = express.Router();
+const validateRegisterInput = require('../../validation/register');
 const Account = require('../../models/Account');
 
-//load input validation
-const validateRegisterInput = require('../../validation/register');
+const router = express.Router();
 
-router.get('/', auth, (req, res) => {
+// /api/accounts GET
+router.get('/', auth, (_, res) => {
   Account.find()
     .then(accounts => {
-      res.json(accounts);
+      res.status(200).json(accounts);
     })
-    .catch(() => res.status(404).json({ accounts: [] }));
+    .catch((err) => {
+      res.status(500).json({ error: "Something went wrong!" });
+      console.log(err);
+  });
 });
 
-// Registration route
-// api/accounts POST
+// /api/accounts POST
 router.post('/', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
   if (!isValid) {
@@ -30,7 +31,7 @@ router.post('/', (req, res) => {
   Account.findOne({ email })
     .then(account => {
       if (account) {
-        res.status(400).json({ email: 'User already exists' });
+        res.status(409).json({ email: 'User already exists' });
         return;
       }
 
@@ -48,61 +49,66 @@ router.post('/', (req, res) => {
 
           newAccount
             .save()
-            .then(user => {
+            .then((account) => {
               jwt.sign(
-                { id: user.id },
+                {
+                  id: account.id,
+                  username: account.username,
+                  email: account.email,
+                },
                 config.get('jwtSecret'),
-                { expiresIn: 3600 },
+                { 
+                  expiresIn: 3600
+                },
                 (tokenError, token) => {
                   if (tokenError) throw tokenError;
-                  return res.json({
-                    token,
-                    user: {
-                      id: user.id,
-                      username: user.username,
-                      email: user.email
-                    }
-                  });
+                  res.status(200).json(token);
                 }
               );
             })
-            .catch(err => console.log(err));
+            .catch((err) => {
+              res.status(500).json({ msg: 'Something wen\'t wrong' });
+              console.log(err);
+            });
         });
       });
     })
-    .catch(err => console.log(err));
-});
-
-router.delete('/:id', (req, res) => {
-  Account.findById(req.params.id)
-    .then(account => {
-      account.remove().then(() => res.json({ success: true }));
-    })
-    .catch(err => {
-      res.status(404).json({ success: false });
-      console.log(err);
+    .catch((err) => {
+      res.status(500).json({ msg: 'Something wen\'t wrong' });
+      console.log(err)
     });
 });
 
-router.put('/:id', (req, res) => {
-  Account.findById(req.params.id)
-    .then(account => {
-      account.username = req.body.username || account.username;
-      account.passwordHash = req.body.password || account.passwordHash;
-      account.email = req.body.email || account.email;
+// router.delete('/:id', (req, res) => {
+//   Account.findById(req.params.id)
+//     .then(account => {
+//       account.remove().then(() => res.json({ success: true }));
+//     })
+//     .catch(err => {
+//       res.status(404).json({ success: false });
+//       console.log(err);
+//     });
+// });
 
-      account
-        .save()
-        .then(acc => res.json(acc))
-        .catch(err => {
-          res.status(500).json({ success: false });
-          console.log(err);
-        });
-    })
-    .catch(err => {
-      res.status(404).json({ success: false });
-      console.log(err);
-    });
-});
+// router.put('/:id', (req, res) => {
+//   Account.findById(req.params.id)
+//     .then(account => {
+//       account.username = req.body.username || account.username;
+//       account.passwordHash = req.body.password || account.passwordHash;
+//       account.email = req.body.email || account.email;
+
+//       account
+//         .save()
+//         .then(acc => res.json(acc))
+//         .catch(err => {
+//           res.status(500).json({ success: false });
+//           console.log(err);
+//         });
+//     })
+//     .catch(err => {
+//       res.status(404).json({ success: false });
+//       console.log(err);
+//     });
+// });
 
 module.exports = router;

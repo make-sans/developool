@@ -4,52 +4,54 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const Account = require('../../models/Account');
 const auth = require('../../middleware/auth');
+const validateLoginInput = require('../../validation/login');
 
 const router = express.Router();
 
+// /api/auth POST
 router.post('/', (req, res) => {
-  // const { errors, isValid } = validateRegisterInput(req.body);
-  // if (!isValid) {
-  //   return res.status(400).json(errors);
-  // }
-  // const { username, email, password } = req.body;
+  const { errors, isValid } = validateLoginInput(req.body);
+  if (!isValid) {
+    res.status(400).json(errors);
+    return;
+  }
 
   const { email, password } = req.body;
-  
+
   Account.findOne({ email })
     .then((account) => {
       if (!account) {
-        res.status(400).json({ msg: 'User doesn\'t exist' });
+        res.status(401).json({ email: 'Invalid credentials' });
         return;
       }
 
       bcrypt.compare(password, account.passwordHash)
         .then((match) => {
           if (!match) {
-            res.status(400).json({ msg: 'Invalid credentials' });
+            res.status(401).json({ password: 'Invalid credentials' });
             return;
           }
-          
+
           jwt.sign(
-            { id: account.id },
+            {
+              id: account.id,
+              username: account.username,
+              email: account.email,
+            },
             config.get('jwtSecret'),
-            { expiresIn: 3600 },
+            { 
+              expiresIn: 3600
+            },
             (tokenError, token) => {
               if (tokenError) throw tokenError;
-              return res.json({
-                token,
-                user: {
-                  id: account.id,
-                  username: account.username,
-                  email: account.email
-                }
-              });
+              res.status(200).json(token);
             }
           );
         })
     });
 });
 
+// /api/auth/user GET
 router.get('/user', auth, (req, res) => {
   Account.findById(req.user.id)
     .select('-passwordHash')
