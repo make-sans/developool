@@ -1,0 +1,35 @@
+{
+  "table_headers": ["Route", "Headers", "Body", "Responses", "Description"],
+  "items": [
+    {
+      "route": "/api/accounts",
+      "method": "GET",
+      "headers": {
+        "Authorization": "admin token"
+      },
+      "responses": {
+        "200": "Returns all accounts in database",
+        "401": "Not authenticated",
+        "500": "Any other server error"
+      },
+      "description": "lorem ipsum"
+    },
+    {
+      "route": "/api/accounts",
+      "method": "POST",
+      "body": {
+        "type": "application/json",
+        "fields": {
+          "username": "(string) - the username",
+          "password": "(string) - the password",
+          "email": "(string) - the email"
+        },
+        "example": {
+          "username": "Federlizer",
+          "email": "mail@mail.com",
+          "password": "12345"
+        }
+      }
+    }
+  ]
+}
