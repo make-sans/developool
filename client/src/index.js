@@ -42,10 +42,12 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Navbar />
-      <Route exact path="/" component={App} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/login" component={Login} />
-      <PrivateRoute path="/protected" component={Protected} />
+      <div className="container-fluid">
+        <Route exact path="/" component={App} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+        <PrivateRoute path="/protected" component={Protected} />
+      </div>
     </Router>
   </Provider>,
   document.getElementById('root')
