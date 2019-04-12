@@ -1,18 +1,31 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import TextFieldGroup from "../common/TextFieldGroup";
-import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import TextFieldGroup from '../common/TextFieldGroup';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       errors: {}
     };
+  }
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/protected');
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push('/protected');
+    }
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
   onChange = e => {
     this.setState({
@@ -25,7 +38,7 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.loginUser(user, this.props.history);
+    this.props.loginUser(user);
   };
   render() {
     const { errors } = this.state;
@@ -75,12 +88,12 @@ class Login extends Component {
   }
 }
 Login.propTypes = {
-  //loginUser: PropTypes.func.isRequired,
-  //auth: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  //auth: state.auth,
+  auth: state.auth,
   errors: state.errors
 });
 
