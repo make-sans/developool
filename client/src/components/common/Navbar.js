@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/authActions';
-class Navbar extends Component {
+
+export class Navbar extends Component {
   // prepare navigation list items
   navbarLinks() {
     if (this.props.auth.isAuthenticated) {
