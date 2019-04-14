@@ -1,13 +1,22 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const config = require('config');
-const jwt = require('jsonwebtoken');
 const validateRegisterInput = require('../../validation/register');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const Account = require('../../models/Account');
+const VerificationToken = require('../../models/VerificationToken');
 
 const router = express.Router();
+const emailTransporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: config.get('emailUser'),
+    pass: config.get('emailPass'),
+  }
+})
 
-// /api/accounts POST
+// /api/register POST
 router.post('/', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
   if (!isValid) {
@@ -37,21 +46,35 @@ router.post('/', (req, res) => {
           newAccount
             .save()
             .then((account) => {
-              jwt.sign(
-                {
-                  id: account.id,
-                  username: account.username,
-                  email: account.email,
-                },
-                config.get('jwtSecret'),
-                { 
-                  expiresIn: 3600
-                },
-                (tokenError, token) => {
-                  if (tokenError) throw tokenError;
-                  res.status(200).json(token);
-                }
-              );
+              const verificationToken = new VerificationToken({
+                accountId: account.id,
+                token: crypto.randomBytes(16).toString("hex"),
+              });
+
+              verificationToken.save()
+                .then((token) => {
+                  const link = `http://${req.headers.host}/api/register/confirm/${token.token}`;
+                  const mailOptions = {
+                    from: config.get('emailUser'),
+                    to: account.email,
+                    subject: 'Account verification',
+                    text: `Please click the following link to verify your account.\n${link}\n`
+                  }
+
+                  emailTransporter.sendMail(mailOptions, (err, info) => {
+                    if (err) {
+                      res.status(500).json({ msg: 'Something wen\'t wrong' });
+                      return;
+                    }
+
+                    res.status(200).json({ msg: `A verification email has been sent to ${account.email}.`})
+                    console.log(info);
+                  })
+                })
+                .catch((err) => {
+                  res.status(500).json({ msg: 'Something wen\'t wrong' });
+                  console.log(err);
+                });
             })
             .catch((err) => {
               res.status(500).json({ msg: 'Something wen\'t wrong' });
@@ -63,6 +86,46 @@ router.post('/', (req, res) => {
     .catch((err) => {
       res.status(500).json({ msg: 'Something wen\'t wrong' });
       console.log(err)
+    });
+});
+
+router.get('/confirm/:token', (req, res) => {
+  const userToken = req.params.token;
+  if (!userToken) return;
+
+  VerificationToken.findOne({ token: userToken })
+    .then((token) => {
+      if (!token) {
+        res.status(400).json({ msg: 'No such token found, maybe your token expired?' });
+        return;
+      }
+      
+      Account.findOne({ _id: token.accountId })
+        .then((account) => {
+          if (!account) {
+            res.status(400).json({ msg: 'Unable to find account bound to this token.' });
+            return;
+          }
+          if (account.verified) {
+            res.status(400).json({ msg: 'This account has already been verified' });
+            return;
+          }
+
+          account.verified = true;
+          account.save()
+            .then((account) => {
+              res.status(200).json({ msg: 'Account verified successfuly' });
+            })
+            .catch((err) => {
+              res.status(500).json({ msg: 'Something wen\'t wrong' });
+            });
+        })
+        .catch((err) => {
+          res.status(500).json({ msg: 'Something wen\'t wrong' });
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({ msg: 'Something wen\'t wrong' });
     });
 });
 
