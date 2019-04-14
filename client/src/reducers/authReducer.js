@@ -2,13 +2,15 @@ import {
   AUTHENTICATED,
   GET_ERRORS,
   EMAIL_SENT,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  CONFIRM_SUCCESSFUL
 } from '../actions/types';
 import isEmpty from '../utils/is-empty';
 const initialState = {
   isAuthenticated: false,
   user: {},
-  emailSent: false
+  emailSent: false,
+  emailConfirmed: false
 };
 
 export default (state = initialState, action) => {
@@ -31,6 +33,10 @@ export default (state = initialState, action) => {
         ...state,
         emailSent: true
       };
+    case CONFIRM_SUCCESSFUL:
+      return {
+        ...state, emailConfirmed: true
+      }
     case 'LOGOUT':
       return {};
     default:

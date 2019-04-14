@@ -4,7 +4,8 @@ import {
   CLEAR_ERRORS,
   AUTHENTICATED,
   SERVER_ERROR,
-  EMAIL_SENT
+  EMAIL_SENT,
+  CONFIRM_SUCCESSFUL
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -16,10 +17,10 @@ export const registerUser = userData => dispatch => {
   axios
     .post('http://localhost:5000/api/register/', userData)
     .then(res =>
-      //redirect to email sent
-      {
-        dispatch({ type: EMAIL_SENT });
-      }
+    //redirect to email sent
+    {
+      dispatch({ type: EMAIL_SENT });
+    }
     )
     .catch(err => {
       if (err.response) {
@@ -54,6 +55,16 @@ export const loginUser = userData => dispatch => {
       }
     });
 };
+
+//confirm email
+export const confirmEmail = (token) => dispatch => {
+  axios.get(`http://localhost:5000/api/register/confirm/${token}`).then(res => {
+    dispatch({ type: CONFIRM_SUCCESSFUL, payload: {} })
+  }).catch(err => {
+    console.log(err.response)
+    dispatch({ type: GET_ERRORS, payload: err.response.data })
+  })
+}
 
 //log user out
 export const logoutUser = () => dispatch => {
