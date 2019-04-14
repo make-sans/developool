@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const VerificationTokenSchema = new mongoose.Schema({
-  _userId: {
+  accountId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'Account',
