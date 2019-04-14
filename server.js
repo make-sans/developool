@@ -4,6 +4,7 @@ const cors = require('cors');
 const config = require('config');
 const accounts = require('./routes/api/accounts');
 const auth = require('./routes/api/auth');
+const register = require('./routes/api/registration');
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ mongoose
   .catch(err => console.log(err));
 
 // Routes
+app.use('/api/register', register);
 app.use('/api/accounts', accounts);
 app.use('/api/auth', auth);
 
