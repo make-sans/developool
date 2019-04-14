@@ -5,7 +5,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './store';
 import jwt_decode from 'jwt-decode';
-
+import ErrorWrapperHOC from './components/common/ErrorWrapperHOC';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Register from './components/auth/Register';
@@ -40,15 +40,17 @@ if (localStorage.jwtToken) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <Navbar />
-      <div className="container-fluid">
-        <Route exact path="/" component={App} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-        <PrivateRoute path="/protected" component={Protected} />
-      </div>
-    </Router>
+    <ErrorWrapperHOC>
+      <Router>
+        <Navbar />
+        <div className="container-fluid">
+          <Route exact path="/" component={App} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <PrivateRoute path="/protected" component={Protected} />
+        </div>
+      </Router>
+    </ErrorWrapperHOC>
   </Provider>,
   document.getElementById('root')
 );
