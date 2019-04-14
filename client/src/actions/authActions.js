@@ -3,6 +3,7 @@ import {
   SET_CURRENT_USER,
   CLEAR_ERRORS,
   AUTHENTICATED,
+  SERVER_ERROR,
   EMAIL_SENT
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
@@ -21,7 +22,11 @@ export const registerUser = userData => dispatch => {
       }
     )
     .catch(err => {
-      dispatch({ type: GET_ERRORS, payload: err.response.data });
+      if (err.response) {
+        dispatch({ type: GET_ERRORS, payload: err.response.data });
+      } else {
+        dispatch({ type: SERVER_ERROR });
+      }
     });
 };
 
@@ -30,7 +35,7 @@ export const loginUser = userData => dispatch => {
   axios
     .post('http://localhost:5000/api/auth', userData)
     .then(res => {
-      const { token } = res.data;
+      const token = res.data;
       //save to localstorage
       localStorage.setItem('jwtToken', token);
       //set token to auth header
@@ -41,7 +46,13 @@ export const loginUser = userData => dispatch => {
       dispatch(setCurrentUser(decoded));
       //
     })
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+    .catch(err => {
+      if (err.response) {
+        dispatch({ type: GET_ERRORS, payload: err.response.data });
+      } else {
+        dispatch({ type: SERVER_ERROR });
+      }
+    });
 };
 
 //log user out
