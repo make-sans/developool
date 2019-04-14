@@ -15,3 +15,5 @@ router.get('/', auth, (_, res) => {
       console.log(err);
   });
 });
+
+module.exports = router;
