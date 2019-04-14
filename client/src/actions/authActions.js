@@ -14,7 +14,7 @@ import jwt_decode from 'jwt-decode';
 // register user
 export const registerUser = userData => dispatch => {
   axios
-    .post('http://localhost:5000/api/accounts/', userData)
+    .post('http://localhost:5000/api/register/', userData)
     .then(res =>
       //redirect to email sent
       {
