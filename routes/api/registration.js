@@ -64,6 +64,7 @@ router.post('/', (req, res) => {
                   emailTransporter.sendMail(mailOptions, (err, info) => {
                     if (err) {
                       res.status(500).json({ msg: 'Something wen\'t wrong' });
+                      console.log(err);
                       return;
                     }
 

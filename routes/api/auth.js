@@ -25,15 +25,14 @@ router.post('/', (req, res) => {
         return;
       }
 
-      if (!account.verified) {
-        res.status(400).json({ verification: 'Email has not been verified.' });
-        return;
-      }
-
       bcrypt.compare(password, account.passwordHash)
         .then((match) => {
           if (!match) {
             res.status(401).json({ password: 'Invalid credentials' });
+            return;
+          }
+          if (!account.verified) {
+            res.status(400).json({ verification: 'Email has not been verified.' });
             return;
           }
 
@@ -54,6 +53,7 @@ router.post('/', (req, res) => {
           );
         })
     });
+
 });
 
 // /api/auth/user GET
