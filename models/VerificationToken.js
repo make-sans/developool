@@ -4,7 +4,7 @@ const VerificationTokenSchema = new mongoose.Schema({
   accountId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Account',
+    ref: 'accounts',
   },
   token: {
     type: String,
