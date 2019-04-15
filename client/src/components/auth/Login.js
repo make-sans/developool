@@ -57,7 +57,7 @@ export class Login extends Component {
                   type="email"
                   value={this.state.email}
                   onChange={this.onChange}
-                  error={errors.email}
+                  error={errors.email || errors.verification}
                 />
                 <TextFieldGroup
                   placeholder="Password"

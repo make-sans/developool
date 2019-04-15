@@ -3,7 +3,9 @@ import {
   SET_CURRENT_USER,
   CLEAR_ERRORS,
   AUTHENTICATED,
-  EMAIL_SENT
+  SERVER_ERROR,
+  EMAIL_SENT,
+  CONFIRM_SUCCESSFUL
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -13,15 +15,19 @@ import jwt_decode from 'jwt-decode';
 // register user
 export const registerUser = userData => dispatch => {
   axios
-    .post('http://localhost:5000/api/accounts/', userData)
+    .post('http://localhost:5000/api/register/', userData)
     .then(res =>
-      //redirect to email sent
-      {
-        dispatch({ type: EMAIL_SENT });
-      }
+    //redirect to email sent
+    {
+      dispatch({ type: EMAIL_SENT });
+    }
     )
     .catch(err => {
-      dispatch({ type: GET_ERRORS, payload: err.response.data });
+      if (err.response) {
+        dispatch({ type: GET_ERRORS, payload: err.response.data });
+      } else {
+        dispatch({ type: SERVER_ERROR });
+      }
     });
 };
 
@@ -41,8 +47,24 @@ export const loginUser = userData => dispatch => {
       dispatch(setCurrentUser(decoded));
       //
     })
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+    .catch(err => {
+      if (err.response) {
+        dispatch({ type: GET_ERRORS, payload: err.response.data });
+      } else {
+        dispatch({ type: SERVER_ERROR });
+      }
+    });
 };
+
+//confirm email
+export const confirmEmail = (token) => dispatch => {
+  axios.get(`http://localhost:5000/api/register/confirm/${token}`).then(res => {
+    dispatch({ type: CONFIRM_SUCCESSFUL, payload: {} })
+  }).catch(err => {
+    console.log(err.response)
+    dispatch({ type: GET_ERRORS, payload: err.response.data })
+  })
+}
 
 //log user out
 export const logoutUser = () => dispatch => {

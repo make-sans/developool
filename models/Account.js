@@ -16,6 +16,10 @@ const AccountSchema = new Schema({
     required: true,
     unique: true,
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Account = mongoose.model('account', AccountSchema);

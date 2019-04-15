@@ -15,7 +15,7 @@
       "description": "Returns all accounts saved on the database."
     },
     {
-      "route": "/api/accounts",
+      "route": "/api/register",
       "method": "POST",
       "body": {
         "type": "application/json",

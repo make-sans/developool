@@ -25,6 +25,11 @@ router.post('/', (req, res) => {
         return;
       }
 
+      if (!account.verified) {
+        res.status(400).json({ verification: 'Email has not been verified.' });
+        return;
+      }
+
       bcrypt.compare(password, account.passwordHash)
         .then((match) => {
           if (!match) {

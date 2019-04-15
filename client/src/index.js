@@ -5,9 +5,9 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './store';
 import jwt_decode from 'jwt-decode';
-
+import ErrorWrapperHOC from './components/common/ErrorWrapperHOC';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Profile from './components/profile/Profile';
@@ -16,6 +16,7 @@ import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import PrivateRoute from './components/common/PrivateRoute';
 import Navbar from './components/common/Navbar';
+import ConfirmEmail from './components/auth/ConfirmEmail';
 
 //check for token
 if (localStorage.jwtToken) {
@@ -41,16 +42,22 @@ if (localStorage.jwtToken) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <Navbar />
-      <div className="container-fluid">
-        <Route exact path="/" component={App} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-        <PrivateRoute path="/profile" component={Profile} />
-        <PrivateRoute path="/protected" component={Protected} />
-      </div>
-    </Router>
+    <ErrorWrapperHOC>
+      <Router>
+        <Navbar />
+
+        <div className="container-fluid">
+          <Switch>
+            <Route exact path='/confirm/:token' component={ConfirmEmail} />
+            <Route exact path="/" component={App} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/protected" component={Protected} />
+          </Switch>
+        </div>
+      </Router>
+    </ErrorWrapperHOC>
   </Provider>,
   document.getElementById('root')
 );
