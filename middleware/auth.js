@@ -15,7 +15,7 @@ function auth(req, res, next) {
       return;
     }
 
-    req.user = decoded;
+    req.account = decoded;
     next();
   });
 }
