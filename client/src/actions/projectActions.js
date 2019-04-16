@@ -13,7 +13,6 @@ export const createProject = (projectData, history) => dispatch => {
 //get a project by id
 export const getProject = id => dispatch => {
   dispatch({ type: PROJECT_LOADING });
-  console.log('get project');
   axios
     .get(`http://localhost:5000/api/project/${id.toString()}`)
     .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
