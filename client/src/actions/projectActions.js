@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_PROJECT, PROJECT_LOADING } from './types';
+import { GET_ERRORS, GET_PROJECT, GET_PROJECTS, PROJECT_LOADING } from './types';
 
 //create a project
 export const createProject = (projectData, history) => dispatch => {
@@ -19,5 +19,16 @@ export const getProject = id => dispatch => {
     .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
     .catch(err => {
       dispatch({ type: GET_PROJECT, payload: null });
+    });
+};
+
+//get a list of projects
+export const getProjects = () => dispatch => {
+  dispatch({ type: PROJECT_LOADING });
+  axios
+    .get(`http://localhost:5000/api/projects/`)
+    .then(res => dispatch({ type: GET_PROJECTS, payload: res.data }))
+    .catch(err => {
+      dispatch({ type: GET_PROJECTS, payload: null });
     });
 };
