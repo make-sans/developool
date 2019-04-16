@@ -40,7 +40,7 @@ class CreateProject extends Component {
       skills: this.state.skills,
       private: this.state.private
     };
-    this.props.createProject(newProject);
+    this.props.createProject(newProject, this.props.history);
   };
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
