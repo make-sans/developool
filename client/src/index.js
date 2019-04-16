@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Profile from './components/profile/Profile';
+import Projects from './components/project/Projects';
 import Protected from './components/common/Protected';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
@@ -54,6 +55,7 @@ ReactDOM.render(
             <Route exact path="/" component={App} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/projects" component={Projects} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/protected" component={Protected} />
             <PrivateRoute path="/create-project" component={CreateProject} />

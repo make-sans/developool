@@ -64,7 +64,7 @@ export const confirmEmail = (token) => dispatch => {
     console.log(err.response)
     dispatch({ type: GET_ERRORS, payload: err.response.data })
   })
-}
+};
 
 //log user out
 export const logoutUser = () => dispatch => {
