@@ -17,6 +17,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Navbar from './components/common/Navbar';
 import ConfirmEmail from './components/auth/ConfirmEmail';
 import CreateProject from './components/create-project/CreateProject';
+import Project from './components/project/Project';
 
 //check for token
 if (localStorage.jwtToken) {
@@ -54,6 +55,7 @@ ReactDOM.render(
             <Route exact path="/login" component={Login} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/create-project" component={CreateProject} />
+            <PrivateRoute path="/project/:id" component={Project} />
           </Switch>
         </div>
       </Router>
