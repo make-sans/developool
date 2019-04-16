@@ -6,7 +6,7 @@ import { registerUser } from '../../actions/authActions';
 import { connect } from 'react-redux';
 import EmailSent from './EmailSent';
 
-class Register extends Component {
+export class Register extends Component {
   constructor() {
     super();
     this.state = {
