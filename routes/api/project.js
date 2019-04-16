@@ -4,6 +4,18 @@ const validator = require('../../validation/projects');
 
 const router = require('express').Router();
 
+router.get('/:id', auth, (req, res) => {
+  Project.findOne({ _id: req.params.id, ownerId: req.account.id })
+    .then((project) => {
+      if (!project) {
+        res.status(404).json({ msg: 'Project with that ID doesn\'t exist' });
+        return;
+      }
+
+      res.status(200).json(project);
+    })
+})
+
 router.post('/', auth, (req, res) => {
   const { errors, isValid } = validator.createProject(req.body);
   if (!isValid) {
