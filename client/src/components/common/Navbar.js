@@ -10,8 +10,8 @@ export class Navbar extends Component {
     if (this.props.auth.isAuthenticated) {
       return [
         <li key="secret" className="nav-item">
-          <Link className="nav-link" to="/protected">
-            Protected
+          <Link className="nav-link" to="/create-project">
+            Create Project
           </Link>
         </li>,
         <li key="" className="nav-item">
@@ -40,7 +40,7 @@ export class Navbar extends Component {
       </li>
     ];
   }
-  
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
