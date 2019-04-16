@@ -5,7 +5,7 @@ const validator = require('../../validation/projects');
 const router = require('express').Router();
 
 router.get('/:id', auth, (req, res) => {
-  Project.findOne({ _id: req.params.id, ownerId: req.account.id })
+  Project.findOne({ _id: req.params.id })
     .then((project) => {
       if (!project) {
         res.status(404).json({ msg: 'Project with that ID doesn\'t exist' });
@@ -14,6 +14,9 @@ router.get('/:id', auth, (req, res) => {
 
       res.status(200).json(project);
     })
+    .catch(err =>
+      res.status(404).json({ msg: "Project with that ID doesn't exist" })
+    );
 })
 
 router.post('/', auth, (req, res) => {
@@ -42,14 +45,14 @@ router.post('/', auth, (req, res) => {
       })
 
       newProject.save()
-      .then((project) => {
-        res.status(200).json(project);
-      })
-      .catch((err) => {
-        res.status(500).json({ msg: 'Something went wrong in the server' });
-        console.log(err);
-        return;
-      })
+        .then((project) => {
+          res.status(200).json(project);
+        })
+        .catch((err) => {
+          res.status(500).json({ msg: 'Something went wrong in the server' });
+          console.log(err);
+          return;
+        })
     })
     .catch((err) => {
       res.status(500).json({ msg: 'Something has gone wrong with the server' });
