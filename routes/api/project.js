@@ -14,7 +14,7 @@ router.post('/', auth, (req, res) => {
   Project.findOne({ title, ownerId: req.account.id })
     .then((project) => {
       if (project) {
-        res.status(400).json({ msg: 'You have already created a project with that title! Please use another one' });
+        res.status(409).json({ msg: 'You have already created a project with that title! Please use another one' });
         return;
       }
 
