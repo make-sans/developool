@@ -6,31 +6,62 @@ import Spinner from '../common/Spinner';
 
 class Project extends Component {
   componentDidMount() {
-    console.log('didmount');
     this.props.getProject(this.props.match.params.id);
   }
+
+  renderSkillList = skills => {
+    return skills.length > 0 ? (
+      skills.map(skill => (
+        <li key={skill} className="skill-interest-list-item">
+          {skill}
+        </li>
+      ))
+    ) : (
+      <p>No skills</p>
+    );
+  };
+  renderInterestList = interests => {
+    return interests.length > 0 ? (
+      interests.map(interest => (
+        <li key={interest} className="skill-interest-list-item">
+          {interest}
+        </li>
+      ))
+    ) : (
+      <p>No interests</p>
+    );
+  };
+
   render() {
-    const { loading, project } = this.props;
+    const { project, loading } = this.props.projects;
     let projectContent;
-    if (loading) {
-      projectContent = <Spinner />;
-    }
+
     if (project === null) {
+      //getProject returned error
       projectContent = <div>Project not found</div>;
-    } else {
-      console.log(project);
+    } else if (Object.keys(project).length > 0) {
+      //everything fine
       projectContent = (
         <div className="col">
-          {/* <h2>{project.title}</h2>
-          <p>{project.publicDescription}</p> */}
-        </div>
-      );
-      return (
-        <div className="container">
-          <div className="row">{projectContent}</div>
+          <h2>{project.title}</h2>
+          <p>{project.publicDescription}</p>
+          <p>Skills</p>
+          <ul className="skill-interest-list">
+            {this.renderSkillList(project.skills)}
+          </ul>
+          <p>Interests</p>
+          <ul className="skill-interest-list">
+            {this.renderInterestList(project.interests)}
+          </ul>
         </div>
       );
     }
+
+    return (
+      <div className="container project mt-4">
+        {loading ? <Spinner /> : <div className="row">{projectContent}</div>}
+      </div>
+    );
   }
 }
 Project.propTypes = {
