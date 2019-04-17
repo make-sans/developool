@@ -11,7 +11,8 @@ class Project extends Component {
   }
 
   onDeleteProject = e => {
-    this.props.deleteProject(this.props.projects.project._id, this.props.history)
+    if (window.confirm('Are you sure you want to delete this project?'))
+      this.props.deleteProject(this.props.projects.project._id, this.props.history)
   }
 
   renderSkillList = skills => {
@@ -69,7 +70,7 @@ class Project extends Component {
                 )}
             </div>
 
-            <div className="dropdown">
+            <div className="dropdown align-self-start">
               <i
                 className="fas fa-ellipsis-v"
                 id="project-options"
@@ -89,7 +90,7 @@ class Project extends Component {
                     <div href='' onClick={this.onDeleteProject} className="dropdown-item">Delete project</div>
                   </div>
                 ) : (
-                    <div />
+                    <div> No available actions </div>
                   )}
               </div>
             </div>
