@@ -3,8 +3,10 @@ import {
   GET_ERRORS,
   GET_PROJECT,
   GET_PROJECTS,
-  PROJECT_LOADING
+  PROJECT_LOADING,
+  DELETE_PROJECT
 } from './types';
+
 
 //create a project
 export const createProject = (projectData, history) => dispatch => {
@@ -42,5 +44,16 @@ export const editProject = (id, projectData, history) => dispatch => {
   axios
     .put(`http://localhost:5000/api/project/${id.toString()}`, projectData)
     .then(res => history.push(`/project/${res.data._id}`))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+
+//delete a project
+export const deleteProject = (id, history) => dispatch => {
+  axios
+    .delete(`http://localhost:5000/api/project/${id.toString()}`)
+    .then(res => {
+      dispatch({ type: DELETE_PROJECT, payload: id });
+      history.push('/projects')
+    })
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
