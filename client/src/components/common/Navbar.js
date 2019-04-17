@@ -9,17 +9,17 @@ export class Navbar extends Component {
   navbarLinks() {
     if (this.props.auth.isAuthenticated) {
       return [
-        <li key="secret" className="nav-item">
+        <li className="nav-item" key="secret">
           <Link className="nav-link" to="/create-project">
             Create Project
           </Link>
         </li>,
-        <li key="" className="nav-item">
+        <li className="nav-item" key="profile">
           <Link className="nav-link" to="/profile">
             Profile
           </Link>
         </li>,
-        <li className="nav-item" key="signout">
+        <li className="nav-item" key="signout" >
           <a href="" className="nav-link" onClick={this.props.logoutUser}>
             Sign out
             <i className="fas fa-sign-out-alt px-2" />
@@ -28,7 +28,7 @@ export class Navbar extends Component {
       ];
     }
     return [
-      <li className="nav-item">
+      <li className="nav-item" key="projectsPub">
         <Link className="nav-link" to="/projects">
           Projects
       </Link>
@@ -65,7 +65,13 @@ export class Navbar extends Component {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">{this.navbarLinks()}</ul>
+          <ul className="navbar-nav ml-auto">
+            <li key="projects" className="nav-item">
+              <Link className="nav-link" to="/projects">
+                Projects
+          </Link>
+            </li>
+            {this.navbarLinks()}</ul>
         </div>
       </nav>
     );
