@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_PROJECT, GET_PROJECTS, PROJECT_LOADING } from './types';
+import {
+  GET_ERRORS,
+  GET_PROJECT,
+  GET_PROJECTS,
+  PROJECT_LOADING
+} from './types';
 
 //create a project
 export const createProject = (projectData, history) => dispatch => {
@@ -30,4 +35,12 @@ export const getProjects = () => dispatch => {
     .catch(err => {
       dispatch({ type: GET_PROJECTS, payload: null });
     });
+};
+
+//edit a project
+export const editProject = (id, projectData, history) => dispatch => {
+  axios
+    .put(`http://localhost:5000/api/project/${id.toString()}`, projectData)
+    .then(res => history.push(`/project/${res.data._id}`))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
