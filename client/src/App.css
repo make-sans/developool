@@ -62,6 +62,12 @@
   border-radius: 32px;
 }
 .skill-interest-list-item:hover {
-  background-color: #b4b4b4;
+  background-color: #d1d1d1;
   cursor: pointer;
+}
+#project-options:hover {
+  cursor: pointer;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: #d1d1d1;
 }
