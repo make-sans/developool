@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Register } from '../../src/components/auth/Register';
+import { Register } from '../../components/auth/Register';
 
 const setup = () => {
     // set the required props for the component

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Login } from '../../src/components/auth/Login';
+import { Login } from '../../components/auth/Login';
 
 // test setup
 const setup = () => {

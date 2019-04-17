@@ -26,7 +26,7 @@ export class ListProjects extends Component {
         if (loading) {
             projectsList = <Spinner />;
         }
-        if (!projects) {
+        if (projects.length <= 0) {
             projectsList = <div>No projects currently available to join :(</div>;
         }
         else {
