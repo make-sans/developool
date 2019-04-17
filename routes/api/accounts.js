@@ -1,9 +1,9 @@
+const auth = require('../../middleware/auth');
 const express = require('express');
 const Account = require('../../models/Account');
 const Project = require('../../models/Project')
-const auth = require('../../middleware/auth');
 
-const router = express.Router();
+const router = express();
 
 // /api/accounts GET
 router.get('/', auth, (_, res) => {
@@ -18,13 +18,14 @@ router.get('/', auth, (_, res) => {
 });
 
 // /api/accounts/:id GET
-router.get('/:id', auth, (req, res) => {
-  Account.findById(req.params.id)
-    .select('-passwordHash')
-    .then((account) => {
-      res.json(account);
-    });
-})
+// router.get('/:id', auth, (req, res) => {
+//   Account.findById(req.params.id)
+//     .select('-passwordHash')
+//     .then((account) => {
+//       res.json(account);
+//     });
+// })
+
 // /api/accounts/projects GET
 router.get('/projects', auth, (req, res) => {
   Project.find({ ownerId: req.account.id })
@@ -32,5 +33,7 @@ router.get('/projects', auth, (req, res) => {
       res.status(200).json(projects);
     })
 });
+
+
 
 module.exports = router;
