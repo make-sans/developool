@@ -26,7 +26,7 @@ export class ListProjects extends Component {
         if (loading) {
             projectsList = <Spinner />;
         }
-        if (projects === null) {
+        if (!projects) {
             projectsList = <div>No projects currently available to join :(</div>;
         }
         else {
@@ -34,13 +34,13 @@ export class ListProjects extends Component {
             projectsList = projects.map(project => (
                 <div className="card mb-4 shadow-sm rounded">
                     <div className="card-body">
-                        <h5 className="card-title">{project.title}</h5>
+                        <h3 className="card-title font-weight-lighter">{project.title}</h3>
                         <p className="card-text">{project.publicDescription}</p>
-                        <p>Skills</p>
+                        <p className="font-weight-bold">Skills</p>
                         <ul className="skill-interest-list">
                             {this.renderList(project.skills)}
                         </ul>
-                        <p>Interests</p>
+                        <p className="font-weight-bold">Interests</p>
                         <ul className="skill-interest-list">
                             {this.renderList(project.interests)}
                         </ul>
