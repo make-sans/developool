@@ -4,7 +4,7 @@ This is the backend and frontend part of our 4th semester project. It's an expre
 ## API
 You can consult the API summary in the wiki by clicking [here](https://github.com/make-sans/4-sem-project/wiki/API-Summary)
 
-## Contributers
+## Contributors
 Alex Ignacz
 
 Stefan Joemagi
