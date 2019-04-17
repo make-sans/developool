@@ -16,6 +16,24 @@ function createProjectValidator(data) {
   };
 };
 
+function updateProjectValidator(data) {
+  const errors = {};
+
+  if (!data.title) {
+    if (Validator.isEmpty(data.title)) {
+      errors.title = 'New title can\'t be empty';
+    }
+  }
+
+  // TODO check for types
+
+  return {
+    errors,
+    isValid: isEmpty(errors),
+  }
+}
+
 module.exports = {
   createProject: createProjectValidator,
+  updateProject: updateProjectValidator,
 }
