@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getProject } from '../../actions/projectActions';
+import { getProject, deleteProject } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 import { Link } from 'react-router-dom';
 
 class Project extends Component {
   componentDidMount() {
     this.props.getProject(this.props.match.params.id);
+  }
+
+  onDeleteProject = e => {
+    this.props.deleteProject(this.props.projects.project._id, this.props.history)
   }
 
   renderSkillList = skills => {
@@ -18,8 +22,8 @@ class Project extends Component {
         </li>
       ))
     ) : (
-      <p>No skills</p>
-    );
+        <p>No skills</p>
+      );
   };
   renderInterestList = interests => {
     return interests.length > 0 ? (
@@ -29,8 +33,8 @@ class Project extends Component {
         </li>
       ))
     ) : (
-      <p>No interests</p>
-    );
+        <p>No interests</p>
+      );
   };
 
   render() {
@@ -50,7 +54,20 @@ class Project extends Component {
       projectContent = (
         <div className="col border rounded p-3">
           <div className="project-header d-flex justify-content-between align-items-center">
-            <h2>{project.title}</h2>
+            <div className="d-flex align-items-center">
+              <h2 className="mr-3">{project.title}</h2>
+              {project.private ? (
+                <div className="project-visibility private">
+                  <i className="fas fa-lock pr-2" />
+                  Private
+                </div>
+              ) : (
+                  <div className="project-visibility public">
+                    <i className="fas fa-lock-open pr-2" />
+                    Public
+                </div>
+                )}
+            </div>
 
             <div className="dropdown">
               <i
@@ -61,13 +78,19 @@ class Project extends Component {
                 aria-expanded="false"
               />
               <div className="dropdown-menu" aria-labelledby="project-options">
-                <Link
-                  to={`/project/edit/${project._id}`}
-                  className="dropdown-item"
-                >
-                  Edit project
-                </Link>
-                <Link className="dropdown-item">Delete project</Link>
+                {project.ownerId === this.props.auth.user.id ? (
+                  <div>
+                    <Link
+                      to={`/project/edit/${project._id}`}
+                      className="dropdown-item"
+                    >
+                      Edit project
+                    </Link>
+                    <div href='' onClick={this.onDeleteProject} className="dropdown-item">Delete project</div>
+                  </div>
+                ) : (
+                    <div />
+                  )}
               </div>
             </div>
           </div>
@@ -93,6 +116,7 @@ class Project extends Component {
 }
 Project.propTypes = {
   getProject: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired,
   projects: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -102,5 +126,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getProject }
+  { getProject, deleteProject }
 )(Project);
