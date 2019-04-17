@@ -6,6 +6,9 @@ You can consult the API summary in the wiki by clicking [here](https://github.co
 
 ## Contributers
 Alex Ignacz
+
 Stefan Joemagi
+
 Stefan Borisov
+
 Nikola Velichkov
