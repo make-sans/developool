@@ -18,6 +18,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import Navbar from './components/common/Navbar';
 import ConfirmEmail from './components/auth/ConfirmEmail';
 import CreateProject from './components/create-project/CreateProject';
+import EditProject from './components/project/EditProject';
 import Project from './components/project/Project';
 
 //check for token
@@ -57,7 +58,12 @@ ReactDOM.render(
             <Route exact path="/projects" component={Projects} />
             <PrivateRoute path="/profile" component={Profile} />
             <PrivateRoute path="/create-project" component={CreateProject} />
-            <PrivateRoute path="/project/:id" component={Project} />
+            <PrivateRoute exact path="/project/:id" component={Project} />
+            <PrivateRoute
+              exact
+              path="/project/edit/:id"
+              component={EditProject}
+            />
           </Switch>
         </div>
       </Router>
