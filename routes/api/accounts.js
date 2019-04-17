@@ -13,7 +13,16 @@ router.get('/', auth, (_, res) => {
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong!" });
       console.log(err);
-  });
+    });
+});
+
+// /api/accounts/:id GET
+router.get('/:id', auth, (req, res) => {
+  Account.findById(req.params.id)
+    .select('-passwordHash')
+    .then((account) => {
+      res.json(account);
+    })
 });
 
 module.exports = router;
