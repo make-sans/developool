@@ -32,7 +32,10 @@ class CreateProject extends Component {
             <div className="col-md-7 m-auto">
               <h1 className="display-4 text-center">Create a project</h1>
               <p className="lead text-center" />
-              <ProjectFields onSubmit={this.onCreateProjectSubmit} />
+              <ProjectFields
+                onSubmit={this.onCreateProjectSubmit}
+                cancelRoute={'/'}
+              />
             </div>
           </div>
         </div>
