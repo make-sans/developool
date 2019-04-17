@@ -58,8 +58,12 @@ class Project extends Component {
     }
 
     return (
-      <div className="container project mt-4">
-        {loading ? <Spinner /> : <div className="row">{projectContent}</div>}
+      <div className="container mt-4">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="row border rounded p-3">{projectContent}</div>
+        )}
       </div>
     );
   }
