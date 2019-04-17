@@ -4,6 +4,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SuggestInput from '../common/SuggestInput';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const SKILLS = [
   'C#',
@@ -166,16 +167,21 @@ class ProjectFields extends Component {
             Make it private
           </label>
         </div>
-
-        <input
-          type="submit"
-          value="Submit"
-          className="btn btn-primary btn-block mt-4"
-        />
+        <div className="form-row mt-3 justify-content-end">
+          <div className="col-auto">
+            <Link to={this.props.cancelRoute} className="btn btn-secondary">
+              Cancel
+            </Link>
+          </div>
+          <div className="col-auto">
+            <input type="submit" value="Submit" className="btn btn-primary" />
+          </div>
+        </div>
       </form>
     );
   }
 }
+
 ProjectFields.propTypes = {
   errors: PropTypes.object.isRequired
 };
