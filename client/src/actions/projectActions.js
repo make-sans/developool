@@ -30,7 +30,7 @@ export const getProject = id => dispatch => {
 export const getProjects = () => dispatch => {
   dispatch({ type: PROJECT_LOADING });
   axios
-    .get(`http://localhost:5000/api/projects/`)
+    .get(`http://localhost:5000/api/project/`)
     .then(res => dispatch({ type: GET_PROJECTS, payload: res.data }))
     .catch(err => {
       dispatch({ type: GET_PROJECTS, payload: null });

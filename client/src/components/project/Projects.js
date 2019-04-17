@@ -26,14 +26,14 @@ export class ListProjects extends Component {
         else {
             // map projects to list of projects with markup
             projectsList = projects.map(project => (
-                <div className="project w-30 col-md-4" key={project.id}>
+                <div className="project w-30 col-md-4" key={project._id}>
                     <div className="card m-2">
                         <div className="card-body">
                             <h5 className="card-title">{project.title}</h5>
                             <p className="card-text">{project.publicDescription}</p>
                             <p>{project.interests}</p>
                             <p>{project.skills}</p>
-                            <a href="#" className="btn btn-primary">Go somewhere</a>
+                            <a href={'/project/' + project._id} className="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
