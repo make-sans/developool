@@ -69,14 +69,14 @@ router.post('/', auth, (req, res) => {
 });
 
 router.put('/:id', auth, (req, res) => {
-  const {errors, isValid } = validator.updateProject(req.body);
+  const { errors, isValid } = validator.updateProject(req.body);
   if (!isValid) {
     res.status(400).json(errors);
     return;
   }
   const { title, publicDescription, privateDescription, interests, skills, private } = req.body;
-  
-  Project.findOne({_id: req.params.id , ownerId: req.account.id })
+
+  Project.findOne({ _id: req.params.id, ownerId: req.account.id })
     .then((project) => {
       if (!project) {
         res.status(404).json({ msg: 'You do not own such a project.' });
@@ -88,7 +88,9 @@ router.put('/:id', auth, (req, res) => {
       project.privateDescription = privateDescription ? privateDescription : project.privateDescription;
       project.interests = interests ? interests : project.interests;
       project.skills = skills ? skills : project.skills;
-      project.private = private ? private : project.private;
+
+      //since 'private' is a boolean this kind of checking doesn't work
+      //project.private = private ? private : project.private;
 
       project.save()
         .then((project) => {
@@ -110,7 +112,7 @@ router.put('/:id', auth, (req, res) => {
 });
 
 router.delete('/:id', auth, (req, res) => {
-  Project.findOne({_id: req.params.id , ownerId: req.account.id })
+  Project.findOne({ _id: req.params.id, ownerId: req.account.id })
     .then((project) => {
       if (!project) {
         res.status(404).json({ msg: 'You do not own such a project.' });
