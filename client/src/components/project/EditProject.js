@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SuggestInput from '../common/SuggestInput';
-import { getProject } from '../../actions/projectActions';
+import { getProject, editProject } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 import ProjectFields from './ProjectFields';
 
@@ -28,14 +28,19 @@ class EditProject extends Component {
   onEditProjectSubmit = (e, state) => {
     e.preventDefault();
     const newProject = {
-      title: this.state.title,
-      publicDescription: this.state.publicDescription,
-      privateDescription: this.state.privateDescription,
-      interests: this.state.interests,
-      skills: this.state.skills,
-      private: this.state.private
+      title: state.title,
+      publicDescription: state.publicDescription,
+      privateDescription: state.privateDescription,
+      interests: state.interests,
+      skills: state.skills,
+      private: state.private
     };
-    // this.props.createProject(newProject, this.props.history);
+    console.log(newProject);
+    this.props.editProject(
+      this.props.match.params.id,
+      newProject,
+      this.props.history
+    );
   };
   render() {
     const { project, loading } = this.props.projects;
@@ -69,7 +74,8 @@ class EditProject extends Component {
 EditProject.propTypes = {
   auth: PropTypes.object.isRequired,
   projects: PropTypes.object.isRequired,
-  getProject: PropTypes.func.isRequired
+  getProject: PropTypes.func.isRequired,
+  editProject: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -77,5 +83,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getProject }
+  { getProject, editProject }
 )(EditProject);
