@@ -47,25 +47,31 @@ class EditProject extends Component {
     let projectContent;
     if (project === null || project.ownerId !== this.props.auth.user.id) {
       //getProject returned error
-      projectContent = <div>Project not found</div>;
+      projectContent = (
+        <div className="col text-center  mt-5">
+          <i class="fas fa-search-minus fa-7x text-black-50 mb-2" />
+          <h1 className="display-4 text-black-50">Project not found</h1>
+        </div>
+      );
     } else if (Object.keys(project).length > 0) {
       //everything fine
       projectContent = (
-        <div className="col">
+        <div className="col-md-7 m-auto p-4">
+          <h1 className="display-4 text-center">Edit project</h1>
           <ProjectFields
             onSubmit={this.onEditProjectSubmit}
             project={project}
+            cancelRoute={`/project/${project._id}`}
           />
         </div>
       );
     }
     return (
       <div className="container mt-4">
-        <h1>Edit project</h1>
         {loading ? (
           <Spinner />
         ) : (
-          <div className="row border rounded p-3">{projectContent}</div>
+          <div className="row  mt-3 ">{projectContent}</div>
         )}
       </div>
     );
