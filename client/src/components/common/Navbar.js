@@ -28,11 +28,6 @@ export class Navbar extends Component {
       ];
     }
     return [
-      <li className="nav-item" key="projectsPub">
-        <Link className="nav-link" to="/projects">
-          Projects
-      </Link>
-      </li>,
       <li className="nav-item" key="signin">
         <Link className="nav-link" to="/login">
           Login

@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProjects } from '../../actions/projectActions';
@@ -33,7 +34,9 @@ export class ListProjects extends Component {
                             <p className="card-text">{project.publicDescription}</p>
                             <p>{project.interests}</p>
                             <p>{project.skills}</p>
-                            <a href={'/project/' + project._id} className="btn btn-primary">Go somewhere</a>
+                            <Link to={'/project/'+ project._id} className="btn btn-primary">
+                                Project page
+                            </Link>
                         </div>
                     </div>
                 </div>
