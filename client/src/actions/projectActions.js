@@ -3,6 +3,7 @@ import {
   GET_ERRORS,
   GET_PROJECT,
   GET_PROJECTS,
+  GET_USER_PROJECTS,
   PROJECT_LOADING,
   DELETE_PROJECT
 } from './types';
@@ -36,6 +37,17 @@ export const getProjects = () => dispatch => {
     .then(res => dispatch({ type: GET_PROJECTS, payload: res.data }))
     .catch(err => {
       dispatch({ type: GET_PROJECTS, payload: null });
+    });
+};
+
+//get all user created projects
+export const getUserProjects = () => dispatch => {
+  dispatch({ type: PROJECT_LOADING });
+  axios
+    .get(`http://localhost:5000/api/accounts/projects/`)
+    .then(res => dispatch({ type: GET_USER_PROJECTS, payload: res.data }))
+    .catch(err => {
+      dispatch({ type: GET_USER_PROJECTS, payload: null });
     });
 };
 

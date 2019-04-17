@@ -7,8 +7,14 @@ import { logoutUser } from '../../actions/authActions';
 export class Navbar extends Component {
   // prepare navigation list items
   navbarLinks() {
+    // when authenticated user
     if (this.props.auth.isAuthenticated) {
       return [
+        <li className="nav-item" key="my-projects">
+          <Link className="nav-link" to="/my-projects">
+            My projects
+        </Link>
+        </li>,
         <li className="nav-item" key="secret">
           <Link className="nav-link" to="/create-project">
             Create Project

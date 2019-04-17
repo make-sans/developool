@@ -1,5 +1,6 @@
 const express = require('express');
 const Account = require('../../models/Account');
+const Project = require('../../models/Project')
 const auth = require('../../middleware/auth');
 
 const router = express.Router();
@@ -13,7 +14,15 @@ router.get('/', auth, (_, res) => {
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong!" });
       console.log(err);
-  });
+    });
+});
+
+// /api/accounts/projects GET
+router.get('/projects', auth, (req, res) => {
+  Project.find({ ownerId: req.account.id })
+    .then((projects) => {
+      res.status(200).json(projects);
+    })
 });
 
 module.exports = router;
