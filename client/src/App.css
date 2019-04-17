@@ -71,3 +71,15 @@
 .dropdown-menu .dropdown-item:hover {
   background-color: #d1d1d1;
 }
+.project-visibility.private {
+  background-color: #c02323;
+}
+.project-visibility.public {
+  background-color: #129032;
+}
+.project-visibility {
+  font-size: 0.75rem;
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  color: white;
+}
