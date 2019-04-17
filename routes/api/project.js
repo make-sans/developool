@@ -61,4 +61,71 @@ router.post('/', auth, (req, res) => {
     })
 });
 
+router.put('/:id', auth, (req, res) => {
+  const {errors, isValid } = validator.updateProject(req.body);
+  if (!isValid) {
+    res.status(400).json(errors);
+    return;
+  }
+  const { title, publicDescription, privateDescription, interests, skills, private } = req.body;
+  
+  Project.findOne({_id: req.params.id , ownerId: req.account.id })
+    .then((project) => {
+      if (!project) {
+        res.status(404).json({ msg: 'You do not own such a project.' });
+        return;
+      }
+
+      project.title = title ? title : project.title;
+      project.publicDescription = publicDescription ? publicDescription : project.publicDescription;
+      project.privateDescription = privateDescription ? privateDescription : project.privateDescription;
+      project.interests = interests ? interests : project.interests;
+      project.skills = skills ? skills : project.skills;
+      project.private = private ? private : project.private;
+
+      project.save()
+        .then((project) => {
+          res.status(200).json(project);
+          return;
+        })
+        .catch((err) => {
+          res.status(500).json({ msg: 'Something went wrong' });
+          console.log(err);
+          return;
+        })
+    })
+    .catch((err) => {
+      res.status(500).json({ msg: 'Something went wrong' });
+      console.log(err);
+      return;
+    })
+
+});
+
+router.delete('/:id', auth, (req, res) => {
+  Project.findOne({_id: req.params.id , ownerId: req.account.id })
+    .then((project) => {
+      if (!project) {
+        res.status(404).json({ msg: 'You do not own such a project.' });
+        return;
+      }
+
+      project.delete()
+        .then((project) => {
+          res.status(200).json(project);
+          return;
+        })
+        .catch((err) => {
+          res.status(500).json({ msg: 'Something went wrong' });
+          console.log(err);
+          return;
+        })
+    })
+    .catch((err) => {
+      res.status(500).json({ msg: 'Something went wrong' });
+      console.log(err);
+      return;
+    })
+});
+
 module.exports = router;
