@@ -19,6 +19,13 @@ router.get('/:id', auth, (req, res) => {
     );
 })
 
+router.get('/', (req, res) => {
+  Project.find({})
+    .then((projects) => {
+      res.status(200).json(projects);
+    })
+})
+
 router.post('/', auth, (req, res) => {
   const { errors, isValid } = validator.createProject(req.body);
   if (!isValid) {
