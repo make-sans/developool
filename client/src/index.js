@@ -12,6 +12,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Profile from './components/profile/Profile';
 import Projects from './components/project/Projects';
+import UserProjects from './components/project/UserProjects';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -57,6 +58,7 @@ ReactDOM.render(
             <Route exact path="/login" component={Login} />
             <Route exact path="/projects" component={Projects} />
             <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/my-projects" component={UserProjects} />
             <PrivateRoute path="/create-project" component={CreateProject} />
             <PrivateRoute exact path="/project/:id" component={Project} />
             <PrivateRoute

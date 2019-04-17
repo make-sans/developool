@@ -13,5 +13,6 @@ export const EMAIL_SENT = 'EMAIL_SENT';
 //project
 export const PROJECT_LOADING = 'PROJECT_LOADING';
 export const GET_PROJECTS = 'GET_PROJECTS';
+export const GET_USER_PROJECTS = 'GET_USER_PROJECTS';
 export const GET_PROJECT = 'GET_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';

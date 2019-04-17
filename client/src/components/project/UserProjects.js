@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getProjects } from '../../actions/projectActions';
+import { getUserProjects } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 
 
-export class ListProjects extends Component {
+export class UserProjects extends Component {
     // get the data as soon as component is initialzied
     componentDidMount() {
-        this.props.getProjects();
+        this.props.getUserProjects();
     }
     // render array into list items, if none found then display None
     renderList = list => {
@@ -26,8 +26,8 @@ export class ListProjects extends Component {
         if (loading) {
             projectsList = <Spinner />;
         }
-        if (!projects) {
-            projectsList = <div>No projects currently available to join :(</div>;
+        if (projects.length <=0) {
+            projectsList = <div>You haven't created any projects :(</div>;
         }
         else {
             // map projects to list of projects with markup
@@ -64,8 +64,8 @@ export class ListProjects extends Component {
     }
 }
 
-ListProjects.propTypes = {
-    getProjects: PropTypes.func.isRequired,
+UserProjects.propTypes = {
+    getUserProjects: PropTypes.func.isRequired,
     projects: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
@@ -73,5 +73,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
     mapStateToProps,
-    { getProjects }
-)(ListProjects);
+    { getUserProjects }
+)(UserProjects);

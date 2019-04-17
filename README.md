@@ -5,10 +5,10 @@ This is the backend and frontend part of our 4th semester project. It's an expre
 You can consult the API summary in the wiki by clicking [here](https://github.com/make-sans/4-sem-project/wiki/API-Summary)
 
 ## Contributors
-Alex Ignacz
+[Alex Ignacz](https://github.com/ignaczalexander)
 
-Stefan Jõemägi
+[Stefan Jõemägi](https://github.com/stefanjm)
 
-Stefan Borisov
+[Stefan Borisov](https://github.com/ComradeQvestion)
 
-Nikola Velichkov
+[Nikola Velichkov](https://github.com/Federlizer)
