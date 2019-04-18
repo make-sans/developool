@@ -19,7 +19,7 @@ export class Register extends Component {
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/protected');
+      this.props.history.push('/');
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -54,55 +54,55 @@ export class Register extends Component {
             {this.props.auth.emailSent ? (
               <EmailSent />
             ) : (
-              <div>
-                <h1 className="display-4 text-center">Sign Up</h1>
-                <p className="lead text-center">Create your account</p>
-                <form onSubmit={this.onSubmitRegister}>
-                  <TextFieldGroup
-                    placeholder="Name"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChange}
-                    error={errors.username}
-                  />
-                  <TextFieldGroup
-                    placeholder="Email Address"
-                    name="email"
-                    type="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    error={errors.email}
-                  />
-                  <TextFieldGroup
-                    placeholder="Password"
-                    name="password"
-                    type="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    error={errors.password}
-                  />
-                  <TextFieldGroup
-                    placeholder="Confirm Password"
-                    name="password2"
-                    type="password"
-                    value={this.state.password2}
-                    onChange={this.onChange}
-                    error={errors.password2}
-                  />
-                  <input
-                    type="submit"
-                    value="Register"
-                    className="btn btn-primary btn-block mt-4"
-                  />
-                </form>
-                <div className="text-center mt-2">
-                  <p className="d-inline">Already registered? </p>
-                  <Link className="text-dark underline" to="/login">
-                    Login here
+                <div>
+                  <h1 className="display-4 text-center">Sign Up</h1>
+                  <p className="lead text-center">Create your account</p>
+                  <form onSubmit={this.onSubmitRegister}>
+                    <TextFieldGroup
+                      placeholder="Name"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.onChange}
+                      error={errors.username}
+                    />
+                    <TextFieldGroup
+                      placeholder="Email Address"
+                      name="email"
+                      type="email"
+                      value={this.state.email}
+                      onChange={this.onChange}
+                      error={errors.email}
+                    />
+                    <TextFieldGroup
+                      placeholder="Password"
+                      name="password"
+                      type="password"
+                      value={this.state.password}
+                      onChange={this.onChange}
+                      error={errors.password}
+                    />
+                    <TextFieldGroup
+                      placeholder="Confirm Password"
+                      name="password2"
+                      type="password"
+                      value={this.state.password2}
+                      onChange={this.onChange}
+                      error={errors.password2}
+                    />
+                    <input
+                      type="submit"
+                      value="Register"
+                      className="btn btn-primary btn-block mt-4"
+                    />
+                  </form>
+                  <div className="text-center mt-2">
+                    <p className="d-inline">Already registered? </p>
+                    <Link className="text-dark underline" to="/login">
+                      Login here
                   </Link>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </div>
       </div>

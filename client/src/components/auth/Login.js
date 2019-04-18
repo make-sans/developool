@@ -16,7 +16,7 @@ export class Login extends Component {
   }
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/protected');
+      this.props.history.push('/');
     }
   }
   componentWillReceiveProps(nextProps) {
