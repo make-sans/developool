@@ -105,7 +105,7 @@ class ProjectFields extends Component {
           type="text"
           value={this.state.title}
           onChange={this.onChange}
-          error={errors.title}
+          error={errors.title || errors.msg}
         />
         <TextAreaFieldGroup
           label="Description"
