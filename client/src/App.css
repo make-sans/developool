@@ -61,9 +61,29 @@
   padding: 0.25rem 0.7rem;
   border-radius: 32px;
 }
-.skill-interest-list-item:hover {
-  background-color: #d1d1d1;
+.skill-list .skill-interest-list-item {
+  display: inline-block;
+  margin: 0 0.75rem 0.25rem 0;
+  padding: 0.25rem 0.7rem;
+  border-radius: 32px;
+  background-color: #dfdfdf;
+}
+.interest-list .skill-interest-list-item {
+  background-color: #dfdfdf;
+  display: inline-block;
+  margin: 0 0.75rem 0.25rem 0;
+  padding: 0.25rem 0.7rem;
+  border-radius: 32px;
+  background-color: #1d1d1d;
+  color: white;
+}
+.interest-list.hover .skill-interest-list-item:hover {
   cursor: pointer;
+  background-color: #3f3f3f;
+}
+.skill-list.hover .skill-interest-list-item:hover {
+  cursor: pointer;
+  background-color: #d1d1d1;
 }
 #project-options:hover {
   cursor: pointer;

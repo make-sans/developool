@@ -37,11 +37,11 @@ export class UserProjects extends Component {
                         <h3 className="card-title font-weight-lighter">{project.title}</h3>
                         <p className="card-text">{project.publicDescription}</p>
                         <p className="font-weight-bold">Skills</p>
-                        <ul className="skill-interest-list">
+                        <ul className="skill-list">
                             {this.renderList(project.skills)}
                         </ul>
                         <p className="font-weight-bold">Interests</p>
-                        <ul className="skill-interest-list">
+                        <ul className="interest-list">
                             {this.renderList(project.interests)}
                         </ul>
                         <Link to={'/project/' + project._id} className="btn btn-primary">

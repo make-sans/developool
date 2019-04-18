@@ -135,7 +135,7 @@ class ProjectFields extends Component {
             placeholder={'What skills are needed for this project?'}
           />
         </div>
-        <ul className="skill-interest-list">{skillList}</ul>
+        <ul className="skill-list hover">{skillList}</ul>
         <div className="form-group">
           <label>Interests</label>
 
@@ -145,7 +145,7 @@ class ProjectFields extends Component {
             placeholder={'What interests are suitable for this project?'}
           />
         </div>
-        <ul className="skill-interest-list">{interestList}</ul>
+        <ul className="interest-list hover">{interestList}</ul>
 
         <div className="form-check">
           <input

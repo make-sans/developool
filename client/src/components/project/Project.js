@@ -23,7 +23,7 @@ class Project extends Component {
         </li>
       ))
     ) : (
-        <p>No skills</p>
+        <p className='font-italic text-muted'>No skills</p>
       );
   };
   renderInterestList = interests => {
@@ -34,7 +34,7 @@ class Project extends Component {
         </li>
       ))
     ) : (
-        <p>No interests</p>
+        <p className='font-italic text-muted'>No interests</p>
       );
   };
 
@@ -96,12 +96,12 @@ class Project extends Component {
             </div>
           </div>
           <p>{project.publicDescription}</p>
-          <p>Skills</p>
-          <ul className="skill-interest-list">
+          <p className="font-weight-bold">Skills</p>
+          <ul className="skill-list">
             {this.renderSkillList(project.skills)}
           </ul>
-          <p>Interests</p>
-          <ul className="skill-interest-list">
+          <p className="font-weight-bold">Interests</p>
+          <ul className="interest-list">
             {this.renderInterestList(project.interests)}
           </ul>
         </div>
