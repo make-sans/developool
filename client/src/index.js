@@ -30,7 +30,7 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   //set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
-
+  console.log(decoded)
   //check for expired token
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
@@ -38,10 +38,13 @@ if (localStorage.jwtToken) {
     store.dispatch(logoutUser());
     //clear current profile
     //store.dispatch(clearCurrentProfile());
-
-    //redirect to login
-    window.location.href = '/login';
   }
+}
+else {
+  //logout
+  store.dispatch(logoutUser());
+  //clear current profile
+  //store.dispatch(clearCurrentProfile());
 }
 
 ReactDOM.render(
@@ -51,12 +54,11 @@ ReactDOM.render(
         <Navbar />
 
         <div className="container-fluid">
+          <Route exact path="/confirm/:token" component={ConfirmEmail} />
+          <Route exact path="/" component={App} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/projects" component={Projects} />
           <Switch>
-            <Route exact path="/confirm/:token" component={ConfirmEmail} />
-            <Route exact path="/" component={App} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/projects" component={Projects} />
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/my-projects" component={UserProjects} />
             <PrivateRoute exact path="/create-project" component={CreateProject} />
@@ -66,6 +68,7 @@ ReactDOM.render(
               path="/project/edit/:id"
               component={EditProject}
             />
+            <Route exact path="/login" component={Login} />
           </Switch>
         </div>
       </Router>
