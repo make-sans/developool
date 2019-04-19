@@ -15,11 +15,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_ERRORS:
-      return {
-        ...state,
-        errors: action.payload
-      };
     case SET_CURRENT_USER:
       return {
         ...state,
