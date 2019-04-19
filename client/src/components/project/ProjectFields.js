@@ -147,7 +147,7 @@ class ProjectFields extends Component {
         </div>
         <ul className="skill-interest-list">{interestList}</ul>
 
-        <div className="form-check">
+        <div className="custom-control custom-checkbox">
           <input
             onChange={e => {
               this.onChange({
@@ -157,13 +157,13 @@ class ProjectFields extends Component {
                 }
               });
             }}
-            className="form-check-input"
+            className="custom-control-input"
             type="checkbox"
             id="private"
             name="private"
             checked={this.state.private}
           />
-          <label className="form-check-label" htmlFor="private">
+          <label className="custom-control-label" htmlFor="private">
             Make it private
           </label>
         </div>
