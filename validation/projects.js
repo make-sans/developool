@@ -17,15 +17,26 @@ function createProjectValidator(data) {
 };
 
 function updateProjectValidator(data) {
-  const errors = {};
+  let errors = {};
 
   if (!data.title) {
     if (Validator.isEmpty(data.title)) {
-      errors.title = 'New title can\'t be empty';
+      errors.title = 'Title is required';
     }
   }
 
-  // TODO check for types
+  data.title = !isEmpty(data.title) ? data.title : '';
+
+  if (!Validator.isLength(data.title, { min: 2, max: 40 })) {
+    errors.title = 'Title needs to be between 2 and 40 characters';
+  }
+
+  if (Validator.isEmpty(data.title)) {
+    errors.title = 'Title is required';
+  }
+
+  if (typeof data.private !== 'undefined' && typeof data.private !== 'boolean')
+    errors.private = 'Private or public must be a boolean';
 
   return {
     errors,

@@ -88,9 +88,7 @@ router.put('/:id', auth, (req, res) => {
       project.privateDescription = privateDescription ? privateDescription : project.privateDescription;
       project.interests = interests ? interests : project.interests;
       project.skills = skills ? skills : project.skills;
-
-      //since 'private' is a boolean this kind of checking doesn't work
-      //project.private = private ? private : project.private;
+      project.private = typeof private === 'boolean' ? private : project.private;
 
       project.save()
         .then((project) => {
