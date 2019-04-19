@@ -25,7 +25,7 @@ export class UserProjects extends Component {
     } else {
       // map projects to list of projects with markup
       projectsList = projects.map(project => (
-        <div className="card mb-4 shadow-sm rounded">
+        <div className="card mb-4 shadow-sm rounded" key={project._id}>
           <div className="card-body">
             <h3 className="card-title font-weight-lighter">{project.title}</h3>
             <p className="card-text">{project.publicDescription}</p>
