@@ -10,6 +10,13 @@ function createProjectValidator(data) {
     errors.title = 'Title mustn\'t be empty!';
   }
 
+  if (data.skills && data.skills.length > 25) {
+    errors.skills = 'You can only add up to 25 skills'
+  }
+  if (data.interests && data.interests.length > 25) {
+    errors.interests = 'You can only add up to 25 interests'
+  }
+
   return {
     errors,
     isValid: isEmpty(errors),
@@ -37,6 +44,13 @@ function updateProjectValidator(data) {
 
   if (typeof data.private !== 'undefined' && typeof data.private !== 'boolean')
     errors.private = 'Private or public must be a boolean';
+
+  if (data.skills && data.skills.length > 25) {
+    errors.skills = 'You can only add up to 25 skills'
+  }
+  if (data.interests && data.interests.length > 25) {
+    errors.interests = 'You can only add up to 25 interests'
+  }
 
   return {
     errors,
