@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getProject, deleteProject } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 import { Link } from 'react-router-dom';
+import InterestSkillList from './InterestSkillList';
 
 class Project extends Component {
   componentDidMount() {
@@ -12,29 +13,9 @@ class Project extends Component {
 
   onDeleteProject = e => {
     if (window.confirm('Are you sure you want to delete this project?'))
-      this.props.deleteProject(this.props.projects.project._id, this.props.history)
-  }
-
-  renderSkillList = skills => {
-    return skills.length > 0 ? (
-      skills.map(skill => (
-        <li key={skill} className="skill-interest-list-item">
-          {skill}
-        </li>
-      ))
-    ) : (
-        <p className='font-italic text-muted'>No skills</p>
-      );
-  };
-  renderInterestList = interests => {
-    return interests.length > 0 ? (
-      interests.map(interest => (
-        <li key={interest} className="skill-interest-list-item">
-          {interest}
-        </li>
-      ))
-    ) : (
-        <p className='font-italic text-muted'>No interests</p>
+      this.props.deleteProject(
+        this.props.projects.project._id,
+        this.props.history
       );
   };
 
@@ -63,11 +44,11 @@ class Project extends Component {
                   Private
                 </div>
               ) : (
-                  <div className="project-visibility public">
-                    <i className="fas fa-lock-open pr-2" />
-                    Public
+                <div className="project-visibility public">
+                  <i className="fas fa-lock-open pr-2" />
+                  Public
                 </div>
-                )}
+              )}
             </div>
 
             <div className="dropdown align-self-start">
@@ -87,23 +68,30 @@ class Project extends Component {
                     >
                       Edit project
                     </Link>
-                    <div href='' onClick={this.onDeleteProject} className="dropdown-item">Delete project</div>
+                    <div
+                      href=""
+                      onClick={this.onDeleteProject}
+                      className="dropdown-item"
+                    >
+                      Delete project
+                    </div>
                   </div>
                 ) : (
-                    <div> No available actions </div>
-                  )}
+                  <div> No available actions </div>
+                )}
               </div>
             </div>
           </div>
           <p>{project.publicDescription}</p>
-          <p className="font-weight-bold">Skills</p>
-          <ul className="skill-list">
-            {this.renderSkillList(project.skills)}
-          </ul>
-          <p className="font-weight-bold">Interests</p>
-          <ul className="interest-list">
-            {this.renderInterestList(project.interests)}
-          </ul>
+
+          <InterestSkillList
+            list={project.skills}
+            customStyle={'skill-list-item'}
+          />
+          <InterestSkillList
+            list={project.interests}
+            customStyle={'interest-list-item'}
+          />
         </div>
       );
     }
