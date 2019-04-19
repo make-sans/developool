@@ -52,38 +52,33 @@
 .skill-interest-list {
   list-style-type: none;
   overflow: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  padding-left: 0;
 }
-.skill-interest-list-item {
-  background-color: #dfdfdf;
+.skill-interest-list:last-child {
+  margin-bottom: 0;
+}
+.skill-interest-list li {
   display: inline-block;
   margin: 0 0.75rem 0.25rem 0;
   padding: 0.25rem 0.7rem;
   border-radius: 32px;
+  font-size: 0.75rem;
 }
-.skill-list .skill-interest-list-item {
-  display: inline-block;
-  margin: 0 0.75rem 0.25rem 0;
-  padding: 0.25rem 0.7rem;
-  border-radius: 32px;
-  background-color: #dfdfdf;
-}
-.interest-list .skill-interest-list-item {
-  background-color: #dfdfdf;
-  display: inline-block;
-  margin: 0 0.75rem 0.25rem 0;
-  padding: 0.25rem 0.7rem;
-  border-radius: 32px;
-  background-color: #1d1d1d;
+.skill-interest-list .interest-list-item {
+  background-color: #363636;
   color: white;
 }
-.interest-list.hover .skill-interest-list-item:hover {
+.skill-interest-list .interest-list-item.hover:hover {
   cursor: pointer;
-  background-color: #3f3f3f;
+  background-color: #272727;
 }
-.skill-list.hover .skill-interest-list-item:hover {
+.skill-interest-list .skill-list-item.hover:hover {
   cursor: pointer;
   background-color: #d1d1d1;
+}
+.skill-interest-list .skill-list-item {
+  background-color: #dfdfdf;
 }
 #project-options:hover {
   cursor: pointer;
