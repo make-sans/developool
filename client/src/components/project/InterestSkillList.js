@@ -12,7 +12,7 @@ export default class InterestSkillList extends Component {
           </li>
         );
       } else {
-        listItems.push(<li>{`+ ${list.length - i} More`}</li>);
+        listItems.push(<li key={'count'}>{`+ ${list.length - i} More`}</li>);
         break;
       }
     }
