@@ -49,7 +49,7 @@ class EditProject extends Component {
       //getProject returned error
       projectContent = (
         <div className="col text-center  mt-5">
-          <i class="fas fa-search-minus fa-7x text-black-50 mb-2" />
+          <i className="fas fa-search-minus fa-7x text-black-50 mb-2" />
           <h1 className="display-4 text-black-50">Project not found</h1>
         </div>
       );
