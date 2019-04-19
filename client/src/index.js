@@ -52,22 +52,21 @@ ReactDOM.render(
     <ErrorWrapperHOC>
       <Router>
         <Navbar />
-
         <div className="container-fluid">
+          <Switch>
           <Route exact path="/confirm/:token" component={ConfirmEmail} />
           <Route exact path="/" component={App} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/projects" component={Projects} />
-          <Switch>
-            <PrivateRoute exact path="/profile" component={Profile} />
-            <PrivateRoute exact path="/my-projects" component={UserProjects} />
-            <PrivateRoute exact path="/create-project" component={CreateProject} />
+          <PrivateRoute
+            exact
+            path="/project/edit/:id"
+            component={EditProject}
+          />
+          <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/my-projects" component={UserProjects} />
+          <PrivateRoute exact path="/create-project" component={CreateProject} />
             <PrivateRoute exact path="/project/:id" component={Project} />
-            <PrivateRoute
-              exact
-              path="/project/edit/:id"
-              component={EditProject}
-            />
             <Route exact path="/login" component={Login} />
           </Switch>
         </div>
