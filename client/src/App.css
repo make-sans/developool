@@ -1,3 +1,6 @@
+.bg-dark {
+  background-color: #161616 !important;
+}
 .react-autosuggest__container {
   position: relative;
   width: 100%;
