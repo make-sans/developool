@@ -33,7 +33,7 @@ router.post('/', auth, (req, res) => {
   }
   const { title, publicDescription, privateDescription, interests, skills, private } = req.body;
 
-  Project.findOne({ title, ownerId: req.account.id })
+  Project.findOne({ title, 'owner.id': req.account.id })
     .then((project) => {
       if (project) {
         res.status(409).json({ msg: 'You have already created a project with that title! Please use another one' });
@@ -79,7 +79,7 @@ router.put('/:id', auth, (req, res) => {
   }
   const { title, publicDescription, privateDescription, interests, skills, private } = req.body;
 
-  Project.findOne({ _id: req.params.id, ownerId: req.account.id })
+  Project.findOne({ _id: req.params.id, 'owner.id': req.account.id })
     .then((project) => {
       if (!project) {
         res.status(404).json({ msg: 'You do not own such a project.' });
@@ -113,7 +113,7 @@ router.put('/:id', auth, (req, res) => {
 });
 
 router.delete('/:id', auth, (req, res) => {
-  Project.findOne({ _id: req.params.id, ownerId: req.account.id })
+  Project.findOne({ _id: req.params.id, 'owner.id': req.account.id })
     .then((project) => {
       if (!project) {
         res.status(404).json({ msg: 'You do not own such a project.' });
@@ -151,7 +151,7 @@ router.post('/join/:projectID', auth, (req, res) => {
         return;
       }
 
-      if (project.ownerId.toString() === req.account.id.toString()) {
+      if (project.owner.id.toString() === req.account.id.toString()) {
         res.status(400).json({ msg: 'You can\'t join your own project as a member' });
         return;
       }
@@ -166,14 +166,14 @@ router.post('/join/:projectID', auth, (req, res) => {
 
       project.save()
         .then((project) => {
-          res.status(200).json({ msg: 'Member has been added to the member list' });
+          res.status(200).json(project);
         })
         .catch((err) => {
           res.status(500).json({ msg: 'Something went wrong' });
           console.log(err);
         });
     })
-    .catch((err) =>{
+    .catch((err) => {
       res.status(500).json({ msg: 'Something went wrong' });
       console.log(err);
     });
@@ -187,7 +187,7 @@ router.post('/leave/:projectID', auth, (req, res) => {
         return;
       }
 
-      if (project.ownerId.toString() === req.account.id.toString()) {
+      if (project.owner.id.toString() === req.account.id.toString()) {
         res.status(400).json({ msg: 'You can\'t leave a project as an owner. Transfer ownership to another member first.' });
         return;
       }
@@ -202,7 +202,7 @@ router.post('/leave/:projectID', auth, (req, res) => {
       project.members = newMemberList;
       project.save()
         .then((project) => {
-          res.status(200).json({ msg: 'Left project successfuly' });
+          res.status(200).json(project);
         })
         .catch((err) => {
           res.status(500).json({ msg: 'Something went wrong' });
