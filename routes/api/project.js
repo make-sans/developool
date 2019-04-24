@@ -149,13 +149,13 @@ router.post('/join/:projectID', auth, (req, res) => {
       }
 
       if (project.ownerId.toString() === req.account.id.toString()) {
-        res.status(403).json({ msg: 'You can\'t join your own project as a member' });
+        res.status(400).json({ msg: 'You can\'t join your own project as a member' });
         return;
       }
 
       const alreadyAMember = project.members.some((memberID) => memberID === req.account.id);
       if (alreadyAMember) {
-        res.status(400).json({ msg: 'You\'re already a member of this project' });
+        res.status(409).json({ msg: 'You\'re already a member of this project' });
         return;
       }
 
