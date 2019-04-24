@@ -31,10 +31,17 @@ const ProjectSchema = new Schema({
     type: Array,
     default: [],
   },
-  ownerId: {
-    type: Schema.Types.ObjectId,
-    ref: 'accounts',
-  }
+  owner: {
+    id: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'accounts',
+    },
+    username: {
+      type: String,
+      required: true,
+    }
+  },
 });
 
 const Project = mongoose.model('project', ProjectSchema);
