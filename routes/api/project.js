@@ -46,9 +46,12 @@ router.post('/', auth, (req, res) => {
         privateDescription,
         interests,
         skills,
-        private,
+        private: false,
         members: [],
-        ownerId: req.account.id,
+        owner: {
+          id: req.account.id,
+          username: req.account.username,
+        }
       })
 
       newProject.save()
