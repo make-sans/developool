@@ -8,7 +8,6 @@ import {
   DELETE_PROJECT
 } from './types';
 
-
 //create a project
 export const createProject = (projectData, history) => dispatch => {
   axios
@@ -65,7 +64,22 @@ export const deleteProject = (id, history) => dispatch => {
     .delete(`http://localhost:5000/api/project/${id.toString()}`)
     .then(res => {
       dispatch({ type: DELETE_PROJECT, payload: id });
-      history.push('/projects')
+      history.push('/projects');
     })
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+
+//join a project
+export const joinProject = proj_id => dispatch => {
+  axios
+    .post(``)
+    .then(res => dispatch({ type: GET_PROJECT, payload: proj_id }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+//leave a project
+export const leaveProject = proj_id => dispatch => {
+  axios
+    .post(``)
+    .then(res => dispatch({ type: GET_PROJECT, payload: proj_id }))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
