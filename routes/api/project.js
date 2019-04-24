@@ -135,4 +135,45 @@ router.delete('/:id', auth, (req, res) => {
     })
 });
 
+router.post('/join/:projectID', auth, (req, res) => {
+  Project.findOne({ _id: req.params.projectID })
+    .then((project) => {
+      if (!project) {
+        res.status(404).json({ msg: 'Project with that ID doens\'t exist' });
+        return;
+      }
+
+      if (project.private) {
+        res.status(403).json({ msg: 'You do not have permissions to join this project' });
+        return;
+      }
+
+      if (project.ownerId.toString() === req.account.id.toString()) {
+        res.status(403).json({ msg: 'You can\'t join your own project as a member' });
+        return;
+      }
+
+      const alreadyAMember = project.members.some((memberID) => memberID === req.account.id);
+      if (alreadyAMember) {
+        res.status(400).json({ msg: 'You\'re already a member of this project' });
+        return;
+      }
+
+      project.members.push(req.account.id);
+
+      project.save()
+        .then((project) => {
+          res.status(200).json({ msg: 'Member has been added to the member list' });
+        })
+        .catch((err) => {
+          res.status(500).json({ msg: 'Something went wrong' });
+          console.log(err);
+        });
+    })
+    .catch((err) =>{
+      res.status(500).json({ msg: 'Something went wrong' });
+      console.log(err);
+    });
+});
+
 module.exports = router;
