@@ -6,6 +6,7 @@ const accounts = require('./routes/api/accounts');
 const auth = require('./routes/api/auth');
 const register = require('./routes/api/registration');
 const project = require('./routes/api/project');
+const profile = require('./routes/api/profile');
 
 const app = express();
 app.use(cors());
@@ -24,6 +25,7 @@ app.use('/api/register', register);
 app.use('/api/accounts', accounts);
 app.use('/api/auth', auth);
 app.use('/api/project', project);
+app.use('/api/profile', profile);
 
 app.listen(config.get('port'), () =>
   console.log(`Server started on port ${config.get('port')}`)
