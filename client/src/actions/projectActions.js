@@ -72,14 +72,14 @@ export const deleteProject = (id, history) => dispatch => {
 //join a project
 export const joinProject = proj_id => dispatch => {
   axios
-    .post(``)
-    .then(res => dispatch({ type: GET_PROJECT, payload: proj_id }))
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+    .post(`http://localhost:5000/api/project/join/${proj_id.toString()}`)
+    .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: { id: proj_id, ...err.response.data } }));
 };
 //leave a project
 export const leaveProject = proj_id => dispatch => {
   axios
-    .post(``)
-    .then(res => dispatch({ type: GET_PROJECT, payload: proj_id }))
-    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+    .post(`http://localhost:5000/api/project/leave/${proj_id.toString()}`)
+    .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: { id: proj_id, error: err.response.data } }));
 };
