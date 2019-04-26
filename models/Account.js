@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose.Schema;
+const Schema  = mongoose.Schema;
 
 const AccountSchema = new Schema({
   username: {
@@ -20,9 +20,9 @@ const AccountSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  profile: {
-    id: Schema.Types.ObjectId,
-    required: true,
+  profileId: {
+    type: Schema.Types.ObjectId,
+    required: false,
     ref: 'profile'
   },
 });
