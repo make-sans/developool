@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getProject, deleteProject } from '../../actions/projectActions';
+import {
+  getProject,
+  deleteProject,
+  joinProject,
+  leaveProject
+} from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 import { Link } from 'react-router-dom';
 import InterestSkillList from './InterestSkillList';
@@ -19,6 +24,13 @@ class Project extends Component {
       );
   };
 
+  onJoinProject = e => {
+    this.props.joinProject(this.props.projects.project._id);
+  };
+  onLeaveProject = e => {
+    this.props.leaveProject(this.props.projects.project._id);
+  };
+
   render() {
     const { project, loading } = this.props.projects;
     let projectContent;
@@ -33,11 +45,15 @@ class Project extends Component {
       );
     } else if (Object.keys(project).length > 0) {
       //everything fine
+      console.log(project);
       projectContent = (
         <div className="col border rounded p-3">
           <div className="project-header d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
-              <h2 className="mr-3">{project.title}</h2>
+              <h2 className="mr-2">{project.title}</h2>
+              <p className="text-muted m-0 mr-3">{`· by ${
+                project.ownerName
+              }`}</p>
               {project.private ? (
                 <div className="project-visibility private">
                   <i className="fas fa-lock pr-2" />
@@ -83,6 +99,25 @@ class Project extends Component {
             list={project.interests}
             customStyle={'interest-list-item'}
           />
+          <div className="row justify-content-end">
+            <div className="col-auto">
+              {project.members.some(memb => memb == this.auth.user.id) ? (
+                <button
+                  onClick={this.onLeaveProject}
+                  className="btn btn-danger btn-block"
+                >
+                  Leave project
+                </button>
+              ) : (
+                <button
+                  onClick={this.onJoinProject}
+                  className="btn btn-primary btn-block"
+                >
+                  Join project
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       );
     }
@@ -97,6 +132,7 @@ class Project extends Component {
 Project.propTypes = {
   getProject: PropTypes.func.isRequired,
   deleteProject: PropTypes.func.isRequired,
+  joinProject: PropTypes.func.isRequired,
   projects: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -106,5 +142,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getProject, deleteProject }
+  { getProject, deleteProject, joinProject, leaveProject }
 )(Project);
