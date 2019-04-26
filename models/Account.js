@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
+const { Schema } = mongoose.Schema;
 
 const AccountSchema = new Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   passwordHash: {
     type: String,
@@ -19,6 +19,11 @@ const AccountSchema = new Schema({
   verified: {
     type: Boolean,
     default: false,
+  },
+  profile: {
+    id: Schema.Types.ObjectId,
+    required: true,
+    ref: 'profile'
   },
 });
 
