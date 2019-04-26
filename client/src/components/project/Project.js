@@ -50,8 +50,8 @@ class Project extends Component {
                 </div>
                 )}
             </div>
-
-            {project.ownerId === this.props.auth.user.id ? (
+            
+            {project.owner.id === this.props.auth.user.id ? (
               <div className="dropdown align-self-start">
                 <i
                   className="fas fa-ellipsis-v"
@@ -65,11 +65,10 @@ class Project extends Component {
                     <Link to={`/project/edit/${project._id}`} className="dropdown-item">
                       Edit project
                     </Link>
-                    <div href="" onClick={this.onDeleteProject} className="dropdown-item">
+                    <button onClick={this.onDeleteProject} className="dropdown-item">
                       Delete project
-                    </div>
+                    </button>
                   </div>
-                  <div> No available actions </div>
                 </div>
               </div>
             ) : (<div />)}
