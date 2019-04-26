@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose.Schema;
 
-const VerificationTokenSchema = new mongoose.Schema({
+const VerificationTokenSchema = new Schema({
   accountId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -18,5 +19,5 @@ const VerificationTokenSchema = new mongoose.Schema({
   },
 });
 
-const VerificationToken = mongoose.model('VerificationToken', VerificationTokenSchema);
+const VerificationToken = mongoose.model('verificationToken', VerificationTokenSchema);
 module.exports = VerificationToken;
