@@ -44,43 +44,35 @@ class Project extends Component {
                   Private
                 </div>
               ) : (
-                <div className="project-visibility public">
-                  <i className="fas fa-lock-open pr-2" />
-                  Public
+                  <div className="project-visibility public">
+                    <i className="fas fa-lock-open pr-2" />
+                    Public
                 </div>
-              )}
+                )}
             </div>
 
-            <div className="dropdown align-self-start">
-              <i
-                className="fas fa-ellipsis-v"
-                id="project-options"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              />
-              <div className="dropdown-menu" aria-labelledby="project-options">
-                {project.ownerId === this.props.auth.user.id ? (
+            {project.ownerId === this.props.auth.user.id ? (
+              <div className="dropdown align-self-start">
+                <i
+                  className="fas fa-ellipsis-v"
+                  id="project-options"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                />
+                <div className="dropdown-menu" aria-labelledby="project-options">
                   <div>
-                    <Link
-                      to={`/project/edit/${project._id}`}
-                      className="dropdown-item"
-                    >
+                    <Link to={`/project/edit/${project._id}`} className="dropdown-item">
                       Edit project
                     </Link>
-                    <div
-                      href=""
-                      onClick={this.onDeleteProject}
-                      className="dropdown-item"
-                    >
+                    <div href="" onClick={this.onDeleteProject} className="dropdown-item">
                       Delete project
                     </div>
                   </div>
-                ) : (
                   <div> No available actions </div>
-                )}
+                </div>
               </div>
-            </div>
+            ) : (<div />)}
           </div>
           <p>{project.publicDescription}</p>
 
