@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import isEmpty from '../../utils/is-empty';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SuggestInput from '../common/SuggestInput';
@@ -47,7 +48,7 @@ class EditProject extends Component {
     let projectContent;
     // ecma 7+ check if project object is empty, null check won't do here because when the loading reducer is fired it returns an empty object
     //  which then throws an undefined when checking for project.owner.id
-    if (Object.entries(project).length === 0 || project.owner.id !== this.props.auth.user.id) {
+    if (isEmpty(project) || project.owner.id !== this.props.auth.user.id) {
       //getProject returned error
       projectContent = (
         <div className="col text-center  mt-5">
@@ -55,7 +56,7 @@ class EditProject extends Component {
           <h1 className="display-4 text-black-50">Project not found</h1>
         </div>
       );
-    } else if (Object.keys(project).length > 0) {
+    } else {
       //everything fine
       projectContent = (
         <div className="col-md-7 m-auto p-4">
