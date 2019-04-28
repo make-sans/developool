@@ -12,7 +12,7 @@ import {
 export const getCurrentProfile = () => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get("/api/profile")
+        .get('http://localhost:5000/api/profile')
         .then(res => {
             dispatch({
                 type: GET_PROFILE,
@@ -68,4 +68,18 @@ export const createProfile = profileData => dispatch => {
                 payload: err.response.data
             })
         );
-}
+};
+
+//edit profile
+export const editProfile = (profileData, history) => dispatch => {
+    axios
+        .put('http://localhost:5000/api/profile', profileData)
+        .then(res =>
+            history.push('/profile')
+        )
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            }))
+};
