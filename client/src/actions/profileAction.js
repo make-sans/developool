@@ -55,8 +55,10 @@ export const getProfileById = id => dispatch => {
 
 //create profile
 export const createProfile = profileData => dispatch => {
+    console.log(profileData)
+    const body = { profile: profileData }
     axios
-        .post("http://localhost:5000/api/profile", profileData)
+        .post("http://localhost:5000/api/profile", body)
         .then(res => {
             console.log(res.data)
         })
