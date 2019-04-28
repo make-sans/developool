@@ -45,7 +45,9 @@ class EditProject extends Component {
   render() {
     const { project, loading } = this.props.projects;
     let projectContent;
-    if (project === null || project.ownerId !== this.props.auth.user.id) {
+    // ecma 7+ check if project object is empty, null check won't do here because when the loading reducer is fired it returns an empty object
+    //  which then throws an undefined when checking for project.owner.id
+    if (Object.entries(project).length === 0 || project.owner.id !== this.props.auth.user.id) {
       //getProject returned error
       projectContent = (
         <div className="col text-center  mt-5">

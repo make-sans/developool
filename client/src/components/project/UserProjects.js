@@ -16,6 +16,7 @@ export class UserProjects extends Component {
     // get the properties
     const { loading } = this.props;
     const projects = this.props.projects.projects;
+    console.dir(projects);
     let projectsList;
     if (loading) {
       projectsList = <Spinner />;
