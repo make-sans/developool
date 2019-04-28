@@ -41,6 +41,20 @@ class ProfileFields extends Component {
             console.log('profile supplied - its an update');
 
             //set state to profile values
+            this.setState({
+                firstName: profile.firstName,
+                lastName: profile.lastName,
+                interests: profile.interests,
+                skills: profile.skills,
+                education: profile.education,
+                pastExperience: profile.pastExperience,
+                projects: profile.projects,
+                github: profile.github,
+                facebook: profile.github,
+                linkedin: profile.linkedin,
+                twitter: profile.twitter,
+                instagram: profile.instagram
+              });
         }
     }
     componentWillReceiveProps(nextProps) {
