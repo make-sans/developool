@@ -38,7 +38,7 @@ export const setProfileLoading = () => {
 export const getProfileById = id => dispatch => {
     dispatch(setProfileLoading());
     axios
-        .get(`/api/profile/handle/${id}`)
+        .get(`http://localhost:5000/api/profile/${id}`)
         .then(res => {
             dispatch({
                 type: GET_PROFILE,
@@ -52,3 +52,18 @@ export const getProfileById = id => dispatch => {
             })
         );
 };
+
+//create profile
+export const createProfile = profileData => dispatch => {
+    axios
+        .post("http://localhost:5000/api/profile", profileData)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+}
