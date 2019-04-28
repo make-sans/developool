@@ -22,6 +22,7 @@ import CreateProject from './components/create-project/CreateProject';
 import EditProject from './components/project/EditProject';
 import Project from './components/project/Project';
 import CreateProfile from './components/profile/CreateProfile';
+import EditProfile from './components/profile/EditProfile';
 
 //check for token
 if (localStorage.jwtToken) {
@@ -66,6 +67,7 @@ ReactDOM.render(
             />
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+            <PrivateRoute exact path="/edit-profile" component={EditProfile} />
             <PrivateRoute exact path="/profile/:id" component={Profile} />
             <PrivateRoute exact path="/my-projects" component={UserProjects} />
             <PrivateRoute exact path="/create-project" component={CreateProject} />
