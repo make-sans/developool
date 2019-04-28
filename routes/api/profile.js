@@ -37,10 +37,10 @@ router.get('/:account_id', (req, res) => {
 })
 
 /* Creates a profile for the authenticated account.
-*
-* /api/profile/ POST
-* Protected
-*/
+ *
+ * /api/profile/ POST
+ * Protected
+ */
 router.post('/', auth, (req, res) => {
   // No need for validation, since the Schema will only grab what's needed and
   // there are no required fields.
@@ -59,7 +59,7 @@ router.post('/', auth, (req, res) => {
     }
 
     if (account.profileId !== undefined) {
-      res.status(404)
+      res.status(409)
         .json({ msg: 'A profile already exists, try updating it.' });
       return;
     }
@@ -84,6 +84,54 @@ router.post('/', auth, (req, res) => {
       console.log(err);
     });
   })
-})
+});
+
+/* Updates a profile for the authenticated account
+ *
+ * /api/profile PUT
+ * Protected
+ */
+router.put('/', auth, (req, res) => {
+  Account.findById(req.account.id, (err, account) => {
+    if (err) {
+      res.status(500).end();
+      throw err;
+    }
+    
+    if (!account) {
+      res.status(404).end();
+      return;
+    }
+
+    if(account.profileId === undefined) {
+      res.status(400).json({
+        msg: 'No profile created on this account'
+      });
+      return;
+    }
+
+    const update = {};
+    if (req.body.firstName) update.firstName = req.body.firstName;
+    if (req.body.lastName) update.lastName = req.body.lastName;
+    if (req.body.interests) update.interests = req.body.interests;
+    if (req.body.skills) update.skills = req.body.skills;
+    if (req.body.education) update.education = req.body.education;
+    if (req.body.pastExperience) update.pastExperience = req.body.pastExperience;
+    if (req.body.github) update.github = req.body.github;
+    if (req.body.facebook) update.facebook = req.body.facebook;
+    if (req.body.linkedin) update.linkedin = req.body.linkedin;
+    if (req.body.twitter) update.twitter = req.body.twitter;
+    if (req.body.instagram) update.instagram = req.body.instagram;
+
+    Profile.findByIdAndUpdate(account.profileId, { $set : update }, { new: true }, (err, profile) => {
+      if (err) {
+        res.status(500).end();
+        throw err;
+      }
+
+      res.status(200).json(profile);
+    })
+  })
+});
 
 module.exports = router;
