@@ -27,16 +27,14 @@ class CreateProject extends Component {
   render() {
     return (
       <div className="create-project">
-        <div className="container">
-          <div className="row align-items-center mt-5">
-            <div className="col-md-7 m-auto">
-              <h1 className="display-4 text-center">Create a project</h1>
-              <p className="lead text-center" />
-              <ProjectFields
-                onSubmit={this.onCreateProjectSubmit}
-                cancelRoute={'/'}
-              />
-            </div>
+        <div className="row align-items-center mt-5">
+          <div className="col-md-7 m-auto">
+            <h1 className="display-4 text-center">Create a project</h1>
+            <p className="lead text-center" />
+            <ProjectFields
+              onSubmit={this.onCreateProjectSubmit}
+              cancelRoute={'/'}
+            />
           </div>
         </div>
       </div>
