@@ -4,6 +4,42 @@ const Account = require('../../models/Account');
 
 router = require('express').Router();
 
+/* Get currently authenticated accounts profile
+ * /api/profile/ GET
+ * Protected
+*/
+router.get('/', auth, (req, res) => {
+  Account.findById(req.account.id, (err, account) => {
+    if (err) {
+      res.status(500).json({ msg: 'Our problem.' });
+      console.log(err);
+      return;
+    }
+
+    if (!account) {
+      res.status(404).json({ msg: 'Account wasn\'t found' });
+      return;
+    }
+
+    if (account.profileId === undefined) {
+      res.status(404).end();
+      return;
+    }
+
+    Profile.findById(account.profileId, (err, profile) => {
+      if (err) {
+        res.status(500).end();
+        console.log(err);
+        return;
+      }
+
+      if (profile) {
+        res.status(200).json(profile);
+      }
+    });
+  })
+});
+
 router.get('/:account_id', (req, res) => {
   Account.findById(req.params.account_id, (err, account) => {
     if (err) {
@@ -67,22 +103,22 @@ router.post('/', auth, (req, res) => {
     const { profile } = req.body;
     const newProfile = new Profile(profile);
 
-    
+
     newProfile.save()
-    .then((profile) => {
-      account.profileId = profile.id;
-      account.save()
-        .then(() => {
-          res.status(200).json(profile);
-        })
-        .catch((err) => {
-          res.status(500).json(err);
-        });
-    })
-    .catch((err) => {
-      res.status(500).json({ msg: 'Something went worng.' });
-      console.log(err);
-    });
+      .then((profile) => {
+        account.profileId = profile.id;
+        account.save()
+          .then(() => {
+            res.status(200).json(profile);
+          })
+          .catch((err) => {
+            res.status(500).json(err);
+          });
+      })
+      .catch((err) => {
+        res.status(500).json({ msg: 'Something went worng.' });
+        console.log(err);
+      });
   })
 });
 
@@ -97,13 +133,13 @@ router.put('/', auth, (req, res) => {
       res.status(500).end();
       throw err;
     }
-    
+
     if (!account) {
       res.status(404).end();
       return;
     }
 
-    if(account.profileId === undefined) {
+    if (account.profileId === undefined) {
       res.status(400).json({
         msg: 'No profile created on this account'
       });
@@ -123,7 +159,7 @@ router.put('/', auth, (req, res) => {
     if (req.body.twitter) update.twitter = req.body.twitter;
     if (req.body.instagram) update.instagram = req.body.instagram;
 
-    Profile.findByIdAndUpdate(account.profileId, { $set : update }, { new: true }, (err, profile) => {
+    Profile.findByIdAndUpdate(account.profileId, { $set: update }, { new: true }, (err, profile) => {
       if (err) {
         res.status(500).end();
         throw err;
