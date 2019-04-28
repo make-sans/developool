@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ProfileFields from './ProfileFields';
+//import ProfileFields from './ProfileFields';
 
 export default class CreateProfile extends Component {
     render() {
@@ -8,7 +8,7 @@ export default class CreateProfile extends Component {
                 <div className="row"><div className="col">
                     <h1 className="display-4 text-center">Create youre profile</h1>
                     <p className="lead text-center" />
-                    <ProfileFields />
+                    {/* <ProfileFields /> */ }
 
                 </div></div>
             </div>
