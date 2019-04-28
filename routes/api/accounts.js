@@ -28,7 +28,7 @@ router.get('/', auth, (_, res) => {
 
 // /api/accounts/projects GET
 router.get('/projects', auth, (req, res) => {
-  Project.find({ ownerId: req.account.id })
+  Project.find({ 'owner.id' : req.account.id })
     .then((projects) => {
       res.status(200).json(projects);
     })
