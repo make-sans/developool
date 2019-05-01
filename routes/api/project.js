@@ -204,7 +204,9 @@ router.post('/join/:projectID', auth, (req, res) => {
         return;
       }
 
-      const alreadyAMember = project.members.some((memberID) => memberID === req.account.id);
+      const alreadyAMember = project.members.some((memberID) => 
+        memberID === req.account.id
+      );
       if (alreadyAMember) {
         res.status(409).json({ msg: 'You\'re already a member of this project' });
         return;
@@ -240,7 +242,9 @@ router.post('/leave/:projectID', auth, (req, res) => {
         return;
       }
 
-      const isAMember = project.members.some((memberID) => memberID === req.account.id);
+      const isAMember = project.members.some((memberID) => 
+        memberID === req.account.id
+      );
       if (!isAMember) {
         res.status(403).json({ msg: 'You\'re not a member of this project.' });
         return;
