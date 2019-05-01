@@ -24,7 +24,7 @@ function createProjectValidator(data) {
 };
 
 function updateProjectValidator(data) {
-  let errors = {};
+  const errors = {};
 
   if (!data.title) {
     if (Validator.isEmpty(data.title)) {
@@ -58,7 +58,47 @@ function updateProjectValidator(data) {
   }
 }
 
+function filterProjectsValidator(data) {
+  const errors = {};
+
+  if (data.title !== undefined) {
+    if (typeof data.title !== 'string') {
+      errors.title = 'Title must be a string';
+    }
+  }
+
+  if (data.public !== undefined) {
+    if (typeof data.public !== 'boolean') {
+      errors.public = 'Public must be a boolean';
+    }
+  }
+
+  if (data.private !== undefined) {
+    if (typeof data.public !== 'boolean') {
+      errors.private = 'Private must be a boolean';
+    }
+  }
+
+  if (data.skills !== undefined) {
+    if (!Array.isArray(data.skills)) {
+      errors.skills = 'Skills must be an array';
+    }
+  }
+
+  if (data.interests !== undefined) {
+    if (!Array.isArray(data.interests)) {
+      errors.interests = 'Interests must be an array';
+    }
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors),
+  }
+}
+
 module.exports = {
   createProject: createProjectValidator,
   updateProject: updateProjectValidator,
+  filterProjects: filterProjectsValidator,
 }

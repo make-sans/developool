@@ -20,11 +20,59 @@ router.get('/:id', auth, (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  Project.find({})
+  const { errors, isValid } = validator.filterProjects(req.body);
+  if (!isValid) {
+    res.status(400).json(errors);
+    return;
+  }
+
+  const query = {}
+
+  if (req.body.public !== undefined) query.private = !req.body.public;
+  if (req.body.private !== undefined) query.private = req.body.private;
+
+  Project.find(query)
     .then((projects) => {
+
+      if (req.body.title !== undefined) {
+        projects = projects.filter(
+          (project) => project.title.includes(req.body.title)
+        );
+      }
+
+      if (req.body.skills !== undefined) {
+        projects = projects.filter((project) => {
+          const skillsToMatch = req.body.skills.length;
+          let matched = 0;
+          
+          req.body.skills.forEach((skill) => {
+            if (project.skills.includes(skill)) {
+              matched += 1;
+            }
+          })
+
+          return matched >= skillsToMatch;
+        })
+      }
+
+      if (req.body.interests !== undefined) {
+        projects = projects.filter((project) => {
+          const interestsToMatch = req.body.interests.length;
+          let matched = 0;
+          
+          req.body.interests.forEach((interest) => {
+            if (project.interests.includes(interest)) {
+              matched += 1;
+            }
+          })
+
+          return matched >= interestsToMatch;
+        })
+      }
+
       res.status(200).json(projects);
     })
-})
+});
 
 router.post('/', auth, (req, res) => {
   const { errors, isValid } = validator.createProject(req.body);
