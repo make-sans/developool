@@ -50,7 +50,7 @@ class ProfileFields extends Component {
                 pastExperience: profile.pastExperience,
                 projects: profile.projects,
                 github: profile.github,
-                facebook: profile.github,
+                facebook: profile.facebook,
                 linkedin: profile.linkedin,
                 twitter: profile.twitter,
                 instagram: profile.instagram
