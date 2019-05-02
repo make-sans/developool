@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TextFieldGroup from '../common/TextFieldGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SuggestInput from '../common/SuggestInput';
 import PropTypes from 'prop-types';
@@ -24,8 +25,10 @@ class ProfileFields extends Component {
             lastName: '',
             interests: [],
             skills: [],
-            education: [{ instituteName: "", degree: "", fieldOfStudy: "", fromDate: "", endDate: "", description: "" }],
+            education: [],
+            educationInput: { instituteName: '', degree: '', fieldOfStudy: '', fromDate: '', endDate: '', description: '' },
             pastExperience: [],
+            experienceInput: { company: '', title: '', location: '', fromDate: '', endDate: '', description: '' },
             projects: [],
             github: '',
             facebook: '',
@@ -89,25 +92,48 @@ class ProfileFields extends Component {
             [e.target.name]: e.target.value
         });
     };
+    onChangeEducation = e => {
+        this.setState({
+            educationInput: { ...this.state.educationInput, [e.target.name]: e.target.value }
+        })
+    }
+    onChangeExperience = e => {
+        this.setState({
+            experienceInput: { ...this.state.experienceInput, [e.target.name]: e.target.value }
+        })
+    }
 
     // Education
-    addEducation = () => {
+    addEducation = (e) => {
+        e.preventDefault()
         this.setState({
-            education: this.state.education.concat([{ instituteName: "", degree: "", fieldOfStudy: "", fromDate: "", endDate: "", description: "" }])
+            education: [...this.state.education, { instituteName: this.state.educationInput.instituteName, degree: this.state.educationInput.degree, fieldOfStudy: this.state.educationInput.fieldOfStudy, fromDate: this.state.educationInput.fromDate, endDate: this.state.educationInput.endDate, description: this.state.educationInput.description }]
+            , educationInput: { instituteName: '', degree: '', fieldOfStudy: '', fromDate: '', endDate: '', description: '' },
         });
     };
 
-    removeEducation = (id) => {
+    removeEducation = (i) => {
         this.setState({
-            education: this.state.education.filter((s, eid) => id !== eid)
+            education: this.state.education.filter((edu, j) => i !== j)
         });
     };
-
 
     // Experience
-    addExperience = () => {
-
+    addExperience = (e) => {
+        e.preventDefault()
+        this.setState({
+            pastExperience: [...this.state.pastExperience, { company: this.state.experienceInput.company, title: this.state.experienceInput.title, location: this.state.experienceInput.location, fromDate: this.state.experienceInput.fromDate, endDate: this.state.experienceInput.endDate, description: this.state.experienceInput.description }], experienceInput: { company: '', title: '', location: '', fromDate: '', endDate: '', description: '' },
+        });
     };
+
+    removeExperience = (i) => {
+        this.setState({
+            pastExperience: this.state.pastExperience.filter((exp, j) => i !== j)
+        });
+    };
+
+
+
 
     render() {
         const { errors } = this.state;
@@ -149,26 +175,22 @@ class ProfileFields extends Component {
                     onChange={this.onChange}
                     error={errors.lastName}
                 />
-
-
                 <div className="form-group">
                     <label>Skills</label>
                     <SuggestInput
                         suggestions={SKILLS}
                         onSelected={this.onSkillSelected}
-                        placeholder={'What skills are needed for this project?'}
+                        placeholder={'What skills do you have?'}
                     />
                     {errors.skills && <div className="invalid-feedback d-block">{errors.skills}</div>}
-
                 </div>
                 <ul className="skill-interest-list">{skillList}</ul>
                 <div className="form-group">
                     <label>Interests</label>
-
                     <SuggestInput
                         suggestions={INTERESTS}
                         onSelected={this.onInterestSelected}
-                        placeholder={'What interests are suitable for this project?'}
+                        placeholder={'What are your interests?'}
                     />
                     {errors.interests && <div className="invalid-feedback d-block">{errors.interests}</div>}
 
@@ -176,84 +198,194 @@ class ProfileFields extends Component {
                 <ul className="skill-interest-list">{interestList}</ul>
 
                 {/* Education field */}
-                <div className="form-group">
-                    <label>Education</label>
-                    {this.state.education.map((educ, id) => (
-                        <div className="education">
+                <div className="education mt-4">
+                    <h4>Education</h4>
+                    <div className="row">
+                        <div className="col">
                             <TextFieldGroup
                                 label="Insitute name"
-                                placeholder="instituteName"
+                                placeholder="Institute name"
                                 name="instituteName"
                                 type="text"
-                                value={educ.instituteName}
-                                onChange={this.onChange}
+                                value={this.state.educationInput.instituteName}
+                                onChange={this.onChangeEducation}
                                 error={errors.education}
                             />
-                            <TextFieldGroup
-                                label="Degree"
-                                placeholder="degree"
-                                name="degree"
-                                type="text"
-                                value={educ.degree}
-                                onChange={this.onChange}
-                                error={errors.education}
-                            />
-                            <TextFieldGroup
-                                label="Field of study"
-                                placeholder="fieldOfStudy"
-                                name="fieldOfStudy"
-                                type="text"
-                                value={educ.fieldOfStudy}
-                                onChange={this.onChange}
-                                error={errors.education}
-                            />
-                            <TextFieldGroup
-                                lable="From"
-                                placeholder="fromDate"
-                                name="fromDate"
-                                type="date"
-                                value={educ.fromDate}
-                                onChange={this.onChange}
-                                error={errors.education}
-                            />
-                            <TextFieldGroup
-                                label="To"
-                                placeholder="endDate"
-                                name="endDate"
-                                type="date"
-                                value={educ.endDate}
-                                onChange={this.onChange}
-                                error={errors.education}
-                            />
-                            <TextFieldGroup
-                                label="Description"
-                                placeholder="description"
-                                name="description"
-                                type="text"
-                                value={educ.description}
-                                onChange={this.onChange}
-                                error={errors.education}
-                            />
-                            <button
-                                type="button"
-                                onClick={() => this.removeEducation(id)}
-                                className="btn btn-secondary"
-                            >
-                                -
-                            </button>
                         </div>
-                    ))}
-
-                    <a className="btn btn-link btn-secondary" onClick={() => this.addEducation}>Add more</a>
+                    </div>
+                    <div className="row">
+                        <div className="col"><TextFieldGroup
+                            label="Degree"
+                            placeholder="Degree"
+                            name="degree"
+                            type="text"
+                            value={this.state.educationInput.degree}
+                            onChange={this.onChangeEducation}
+                            error={errors.education}
+                        /></div>
+                        <div className="col"><TextFieldGroup
+                            label="Field of study"
+                            placeholder="Field of study"
+                            name="fieldOfStudy"
+                            type="text"
+                            value={this.state.educationInput.fieldOfStudy}
+                            onChange={this.onChangeEducation}
+                            error={errors.education}
+                        /></div>
+                    </div>
+                    <div className="row">
+                        <div className="col"> <TextFieldGroup
+                            label="From"
+                            placeholder="From"
+                            name="fromDate"
+                            type="date"
+                            value={this.state.educationInput.fromDate}
+                            onChange={this.onChangeEducation}
+                            error={errors.education}
+                        /></div>
+                        <div className="col"><TextFieldGroup
+                            label="To"
+                            placeholder="To"
+                            name="endDate"
+                            type="date"
+                            value={this.state.educationInput.endDate}
+                            onChange={this.onChangeEducation}
+                            error={errors.education}
+                        /></div>
+                    </div>
+                    <TextAreaFieldGroup
+                        label="Description"
+                        placeholder="Description"
+                        name="description"
+                        type="text"
+                        value={this.state.educationInput.description}
+                        onChange={this.onChangeEducation}
+                        error={errors.education}
+                    />
+                    <button className="btn btn-secondary" onClick={this.addEducation}>Add education</button>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Institute name</th>
+                                <th>Degree</th>
+                                <th>Field of study</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Description</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.education.map((edu, i) => (
+                                <tr key={i}>
+                                    <td>{edu.instituteName}</td>
+                                    <td>{edu.degree}</td>
+                                    <td>{edu.fieldOfStudy}</td>
+                                    <td>{edu.fromDate}</td>
+                                    <td>{edu.endDate}</td>
+                                    <td>{edu.description}</td>
+                                    <td><i onClick={() => this.removeEducation(i)} class="fas fa-times hover"></i></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
 
                 {/* Experience field */}
-                <div className="form-group">
-                    <label>Experience</label>
-                    <button className="btn btn-secondary" onClick={this.addExperience}>Add more</button>
+                <div className="experience mt-4">
+                    <h4>Experience</h4>
+                    <div className="row">
+                        <div className="col">
+                            <TextFieldGroup
+                                label="Company name"
+                                placeholder="Company name"
+                                name="company"
+                                type="text"
+                                value={this.state.experienceInput.company}
+                                onChange={this.onChangeExperience}
+                                error={errors.experience}
+                            />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col"><TextFieldGroup
+                            label="Title"
+                            placeholder="Title"
+                            name="title"
+                            type="text"
+                            value={this.state.experienceInput.title}
+                            onChange={this.onChangeExperience}
+                            error={errors.experience}
+                        /></div>
+                        <div className="col"><TextFieldGroup
+                            label="Location"
+                            placeholder="Location"
+                            name="location"
+                            type="text"
+                            value={this.state.experienceInput.location}
+                            onChange={this.onChangeExperience}
+                            error={errors.experience}
+                        /></div>
+                    </div>
+                    <div className="row">
+                        <div className="col"> <TextFieldGroup
+                            label="From"
+                            placeholder="From"
+                            name="fromDate"
+                            type="date"
+                            value={this.state.experienceInput.fromDate}
+                            onChange={this.onChangeExperience}
+                            error={errors.experience}
+                        /></div>
+                        <div className="col"><TextFieldGroup
+                            label="To"
+                            placeholder="To"
+                            name="endDate"
+                            type="date"
+                            value={this.state.experienceInput.endDate}
+                            onChange={this.onChangeExperience}
+                            error={errors.experience}
+                        /></div>
+                    </div>
+                    <TextAreaFieldGroup
+                        label="Description"
+                        placeholder="Description"
+                        name="description"
+                        type="text"
+                        value={this.state.experienceInput.description}
+                        onChange={this.onChangeExperience}
+                        error={errors.experience}
+                    />
+                    <button className="btn btn-secondary" onClick={this.addExperience}>Add experience</button>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Company name</th>
+                                <th>Title</th>
+                                <th>Location</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Description</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.pastExperience.map((exp, i) => (
+                                <tr key={i}>
+                                    <td>{exp.company}</td>
+                                    <td>{exp.title}</td>
+                                    <td>{exp.location}</td>
+                                    <td>{exp.fromDate}</td>
+                                    <td>{exp.endDate}</td>
+                                    <td>{exp.description}</td>
+                                    <td><i onClick={() => this.removeExperience(i)} class="fas fa-times hover"></i></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
 
-                <div>
+                <div className='social mt-4'>
                     <InputGroup
                         placeholder="Github Profile URL"
                         name="github"
