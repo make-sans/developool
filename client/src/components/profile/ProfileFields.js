@@ -24,7 +24,7 @@ class ProfileFields extends Component {
             lastName: '',
             interests: [],
             skills: [],
-            education: [],
+            education: [{ instituteName: "", degree: "", fieldOfStudy: "", fromDate: "", endDate: "", description: "" }],
             pastExperience: [],
             projects: [],
             github: '',
@@ -54,7 +54,7 @@ class ProfileFields extends Component {
                 linkedin: profile.linkedin,
                 twitter: profile.twitter,
                 instagram: profile.instagram
-              });
+            });
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -89,6 +89,26 @@ class ProfileFields extends Component {
             [e.target.name]: e.target.value
         });
     };
+
+    // Education
+    addEducation = () => {
+        this.setState({
+            education: this.state.education.concat([{ instituteName: "", degree: "", fieldOfStudy: "", fromDate: "", endDate: "", description: "" }])
+        });
+    };
+
+    removeEducation = (id) => {
+        this.setState({
+            education: this.state.education.filter((s, eid) => id !== eid)
+        });
+    };
+
+
+    // Experience
+    addExperience = () => {
+
+    };
+
     render() {
         const { errors } = this.state;
         const skillList = this.state.skills.map(skill => (
@@ -155,8 +175,84 @@ class ProfileFields extends Component {
                 </div>
                 <ul className="skill-interest-list">{interestList}</ul>
 
-                <p>Education</p>
-                <p>Experience</p>
+                {/* Education field */}
+                <div className="form-group">
+                    <label>Education</label>
+                    {this.state.education.map((educ, id) => (
+                        <div className="education">
+                            <TextFieldGroup
+                                label="Insitute name"
+                                placeholder="instituteName"
+                                name="instituteName"
+                                type="text"
+                                value={educ.instituteName}
+                                onChange={this.onChange}
+                                error={errors.education}
+                            />
+                            <TextFieldGroup
+                                label="Degree"
+                                placeholder="degree"
+                                name="degree"
+                                type="text"
+                                value={educ.degree}
+                                onChange={this.onChange}
+                                error={errors.education}
+                            />
+                            <TextFieldGroup
+                                label="Field of study"
+                                placeholder="fieldOfStudy"
+                                name="fieldOfStudy"
+                                type="text"
+                                value={educ.fieldOfStudy}
+                                onChange={this.onChange}
+                                error={errors.education}
+                            />
+                            <TextFieldGroup
+                                lable="From"
+                                placeholder="fromDate"
+                                name="fromDate"
+                                type="date"
+                                value={educ.fromDate}
+                                onChange={this.onChange}
+                                error={errors.education}
+                            />
+                            <TextFieldGroup
+                                label="To"
+                                placeholder="endDate"
+                                name="endDate"
+                                type="date"
+                                value={educ.endDate}
+                                onChange={this.onChange}
+                                error={errors.education}
+                            />
+                            <TextFieldGroup
+                                label="Description"
+                                placeholder="description"
+                                name="description"
+                                type="text"
+                                value={educ.description}
+                                onChange={this.onChange}
+                                error={errors.education}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => this.removeEducation(id)}
+                                className="btn btn-secondary"
+                            >
+                                -
+                            </button>
+                        </div>
+                    ))}
+
+                    <a className="btn btn-link btn-secondary" onClick={() => this.addEducation}>Add more</a>
+                </div>
+
+                {/* Experience field */}
+                <div className="form-group">
+                    <label>Experience</label>
+                    <button className="btn btn-secondary" onClick={this.addExperience}>Add more</button>
+                </div>
+
                 <div>
                     <InputGroup
                         placeholder="Github Profile URL"
