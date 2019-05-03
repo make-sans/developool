@@ -104,3 +104,11 @@
 .hover:hover {
   cursor: pointer;
 }
+
+
+/* Profile landing page fields */
+
+.profile-field-group {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
