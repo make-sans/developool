@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getProjects } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 import InterestSkillList from './InterestSkillList';
+import FiltersBar from './FiltersBar/FiltersBar';
 
 export class ListProjects extends Component {
   // get the data as soon as component is initialzied
@@ -48,6 +49,7 @@ export class ListProjects extends Component {
     return (
       <div className="project-list">
         <div className="container-fluid my-4">
+        <FiltersBar/>
           <div className="card-columns">{projectsList}</div>
         </div>
       </div>
