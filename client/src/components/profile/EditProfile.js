@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getCurrentProfile, editProfile } from '../../actions/profileAction';
 import Spinner from '../common/Spinner';
-import ProfileFields from './ProfileFields';
+import ProfileFields from './ProfileFields/ProfileFields'
 
 class EditProfile extends Component {
     constructor(props) {

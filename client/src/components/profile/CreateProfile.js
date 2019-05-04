@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ProfileFields from './ProfileFields';
+import ProfileFields from './ProfileFields/ProfileFields';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import { getProfileById, createProfile } from '../../actions/profileAction'
