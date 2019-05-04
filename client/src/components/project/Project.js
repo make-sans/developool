@@ -52,8 +52,8 @@ class Project extends Component {
             <div className="d-flex align-items-center">
               <h2 className="mr-2">{project.title}</h2>
               <p className="text-muted m-0 mr-3">{`· by ${
-                project.ownerName
-              }`}</p>
+                project.owner.username
+                }`}</p>
               {project.private ? (
                 <div className="project-visibility private">
                   <i className="fas fa-lock pr-2" />
@@ -66,7 +66,7 @@ class Project extends Component {
                 </div>
                 )}
             </div>
-            
+
             {project.owner.id === this.props.auth.user.id ? (
               <div className="dropdown align-self-start">
                 <i
@@ -101,7 +101,7 @@ class Project extends Component {
           />
           <div className="row justify-content-end">
             <div className="col-auto">
-              {project.members.some(memb => memb == this.auth.user.id) ? (
+              {project.members.some(memb => memb === this.props.auth.user.id) ? (
                 <button
                   onClick={this.onLeaveProject}
                   className="btn btn-danger btn-block"
@@ -109,13 +109,13 @@ class Project extends Component {
                   Leave project
                 </button>
               ) : (
-                <button
-                  onClick={this.onJoinProject}
-                  className="btn btn-primary btn-block"
-                >
-                  Join project
+                  <button
+                    onClick={this.onJoinProject}
+                    className="btn btn-primary btn-block"
+                  >
+                    Join project
                 </button>
-              )}
+                )}
             </div>
           </div>
         </div>
