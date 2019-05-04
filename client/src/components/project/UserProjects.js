@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getUserProjects } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 import InterestSkillList from './InterestSkillList';
+import FiltersBar from './FiltersBar/FiltersBar';
 
 export class UserProjects extends Component {
   // get the data as soon as component is initialzied
@@ -14,14 +15,12 @@ export class UserProjects extends Component {
 
   render() {
     // get the properties
-    const { loading } = this.props;
+    const { loading } = this.props.projects;
     const projects = this.props.projects.projects;
     let projectsList;
-    if (loading) {
-      projectsList = <Spinner />;
-    }
+
     if (projects.length <= 0) {
-      projectsList = <div>You haven't created any projects :(</div>;
+      projectsList = <div>No projects found :(</div>;
     } else {
       // map projects to list of projects with markup
       projectsList = projects.map(project => (
@@ -45,9 +44,12 @@ export class UserProjects extends Component {
       ));
     }
     return (
-      <div className="project-list">
-        <div className="container-fluid my-4">
-          <div className="card-columns">{projectsList}</div>
+      <div className="project-list m-4">
+        <FiltersBar />
+        <div className="container-fluid">
+          {loading ? <Spinner /> : (
+            <div className="card-columns">{projectsList}</div>
+          )}
         </div>
       </div>
     );
