@@ -42,7 +42,7 @@ class ProfileFields extends Component {
       linkedin: '',
       twitter: '',
       instagram: '',
-      errors: {}
+      errors: { educationInput: {}, experienceInput: {} }
     };
   }
   componentDidMount() {
@@ -115,31 +115,53 @@ class ProfileFields extends Component {
       }
     });
   };
+  validateEducationInput = data => {
+    let validatedErrors = {}
+    if (data.instituteName.length < 3) validatedErrors.instituteName = 'Institute name must be at least 3 characters'
+    if (data.degree.length < 3) validatedErrors.degree = 'Degree must be at least 3 characters'
+    if (data.fieldOfStudy.length < 3) validatedErrors.fieldOfStudy = 'Field of study must be at least 3 characters'
+    return validatedErrors;
+  }
+  validateExperienceInput = data => {
+    let validatedErrors = {}
+    if (data.company.length < 3) validatedErrors.company = 'Company name must be at least 3 characters'
+    if (data.title.length < 3) validatedErrors.title = 'Title must be at least 3 characters'
+    if (data.location.length < 3) validatedErrors.location = 'Location of study must be at least 3 characters'
+    return validatedErrors;
+  }
 
   // Education
   addEducation = e => {
     e.preventDefault();
-    this.setState({
-      education: [
-        ...this.state.education,
-        {
-          instituteName: this.state.educationInput.instituteName,
-          degree: this.state.educationInput.degree,
-          fieldOfStudy: this.state.educationInput.fieldOfStudy,
-          fromDate: this.state.educationInput.fromDate,
-          endDate: this.state.educationInput.endDate,
-          description: this.state.educationInput.description
-        }
-      ],
-      educationInput: {
-        instituteName: '',
-        degree: '',
-        fieldOfStudy: '',
-        fromDate: '',
-        endDate: '',
-        description: ''
-      }
-    });
+    const validatedErrors = this.validateEducationInput(this.state.educationInput);
+    if (Object.keys(validatedErrors).length > 0) {
+      this.setState({ errors: { ...this.state.errors, educationInput: validatedErrors } })
+    }
+    else {
+      this.setState({
+        education: [
+          ...this.state.education,
+          {
+            instituteName: this.state.educationInput.instituteName,
+            degree: this.state.educationInput.degree,
+            fieldOfStudy: this.state.educationInput.fieldOfStudy,
+            fromDate: this.state.educationInput.fromDate,
+            endDate: this.state.educationInput.endDate,
+            description: this.state.educationInput.description
+          }
+        ],
+        educationInput: {
+          instituteName: '',
+          degree: '',
+          fieldOfStudy: '',
+          fromDate: '',
+          endDate: '',
+          description: ''
+        },
+        errors: { ...this.state.errors, educationInput: {} }
+      });
+    }
+
   };
 
   removeEducation = i => {
@@ -151,27 +173,36 @@ class ProfileFields extends Component {
   // Experience
   addExperience = e => {
     e.preventDefault();
-    this.setState({
-      pastExperience: [
-        ...this.state.pastExperience,
-        {
-          company: this.state.experienceInput.company,
-          title: this.state.experienceInput.title,
-          location: this.state.experienceInput.location,
-          fromDate: this.state.experienceInput.fromDate,
-          endDate: this.state.experienceInput.endDate,
-          description: this.state.experienceInput.description
-        }
-      ],
-      experienceInput: {
-        company: '',
-        title: '',
-        location: '',
-        fromDate: '',
-        endDate: '',
-        description: ''
-      }
-    });
+    const validatedErrors = this.validateExperienceInput(this.state.experienceInput);
+    if (Object.keys(validatedErrors).length > 0) {
+      this.setState({ errors: { ...this.state.errors, experienceInput: validatedErrors } })
+    }
+    else {
+      this.setState({
+        pastExperience: [
+          ...this.state.pastExperience,
+          {
+            company: this.state.experienceInput.company,
+            title: this.state.experienceInput.title,
+            location: this.state.experienceInput.location,
+            fromDate: this.state.experienceInput.fromDate,
+            endDate: this.state.experienceInput.endDate,
+            description: this.state.experienceInput.description
+          }
+        ],
+        experienceInput: {
+          company: '',
+          title: '',
+          location: '',
+          fromDate: '',
+          endDate: '',
+          description: ''
+        },
+        errors: { ...this.state.errors, experienceInput: {} }
+
+      });
+    }
+
   };
 
   removeExperience = i => {
@@ -257,7 +288,7 @@ class ProfileFields extends Component {
                 type="text"
                 value={this.state.educationInput.instituteName}
                 onChange={this.onChangeEducation}
-                error={errors.education}
+                error={errors.educationInput.instituteName}
               />
             </div>
           </div>
@@ -270,7 +301,7 @@ class ProfileFields extends Component {
                 type="text"
                 value={this.state.educationInput.degree}
                 onChange={this.onChangeEducation}
-                error={errors.education}
+                error={errors.educationInput.degree}
               />
             </div>
             <div className="col">
@@ -281,7 +312,7 @@ class ProfileFields extends Component {
                 type="text"
                 value={this.state.educationInput.fieldOfStudy}
                 onChange={this.onChangeEducation}
-                error={errors.education}
+                error={errors.educationInput.fieldOfStudy}
               />
             </div>
           </div>
@@ -295,7 +326,7 @@ class ProfileFields extends Component {
                 type="date"
                 value={this.state.educationInput.fromDate}
                 onChange={this.onChangeEducation}
-                error={errors.education}
+                error={errors.educationInput.fromDate}
               />
             </div>
             <div className="col">
@@ -306,7 +337,7 @@ class ProfileFields extends Component {
                 type="date"
                 value={this.state.educationInput.endDate}
                 onChange={this.onChangeEducation}
-                error={errors.education}
+                error={errors.educationInput.endDate}
               />
             </div>
           </div>
@@ -317,12 +348,12 @@ class ProfileFields extends Component {
             type="text"
             value={this.state.educationInput.description}
             onChange={this.onChangeEducation}
-            error={errors.education}
+            error={errors.educationInput.description}
           />
           <button className="btn btn-secondary" onClick={this.addEducation}>
             Add education
           </button>
-          <table className="table">
+          {this.state.education.length > 0 ? (<table className="table">
             <thead>
               <tr>
                 <th>Institute name</th>
@@ -346,13 +377,16 @@ class ProfileFields extends Component {
                   <td>
                     <i
                       onClick={() => this.removeEducation(i)}
-                      class="fas fa-times hover"
+                      className="fas fa-times hover"
                     />
                   </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>) : (
+              <p className="text-muted">No education added</p>
+            )}
+
         </div>
 
         {/* Experience field */}
@@ -367,7 +401,7 @@ class ProfileFields extends Component {
                 type="text"
                 value={this.state.experienceInput.company}
                 onChange={this.onChangeExperience}
-                error={errors.experience}
+                error={errors.experienceInput.company}
               />
             </div>
           </div>
@@ -380,7 +414,7 @@ class ProfileFields extends Component {
                 type="text"
                 value={this.state.experienceInput.title}
                 onChange={this.onChangeExperience}
-                error={errors.experience}
+                error={errors.experienceInput.title}
               />
             </div>
             <div className="col">
@@ -391,7 +425,7 @@ class ProfileFields extends Component {
                 type="text"
                 value={this.state.experienceInput.location}
                 onChange={this.onChangeExperience}
-                error={errors.experience}
+                error={errors.experienceInput.location}
               />
             </div>
           </div>
@@ -432,7 +466,7 @@ class ProfileFields extends Component {
           <button className="btn btn-secondary" onClick={this.addExperience}>
             Add experience
           </button>
-          <table className="table">
+          {this.state.pastExperience.length > 0 ? (<table className="table">
             <thead>
               <tr>
                 <th>Company name</th>
@@ -456,13 +490,16 @@ class ProfileFields extends Component {
                   <td>
                     <i
                       onClick={() => this.removeExperience(i)}
-                      class="fas fa-times hover"
+                      className="fas fa-times hover"
                     />
                   </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>) : (
+              <p className="text-muted">No past experience added</p>
+            )}
+
         </div>
 
         <div className="social mt-4">
