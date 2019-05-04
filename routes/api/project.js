@@ -28,24 +28,24 @@ router.get('/', (req, res) => {
 
   const query = {}
 
-  if (req.body.public !== undefined) query.private = !req.body.public;
-  if (req.body.private !== undefined) query.private = req.body.private;
+  if (req.query.public !== undefined) query.private = !JSON.parse(req.query.public);
+  if (req.query.private !== undefined) query.private = JSON.parse(req.query.private);
 
   Project.find(query)
     .then((projects) => {
 
-      if (req.body.title !== undefined) {
+      if (req.query.title) {
         projects = projects.filter(
-          (project) => project.title.includes(req.body.title)
+          (project) => project.title.includes(req.query.title)
         );
       }
 
-      if (req.body.skills !== undefined) {
+      if (req.query.skills) {
         projects = projects.filter((project) => {
-          const skillsToMatch = req.body.skills.length;
+          const skillsToMatch = req.query.skills.length;
           let matched = 0;
-          
-          req.body.skills.forEach((skill) => {
+
+          req.query.skills.forEach((skill) => {
             if (project.skills.includes(skill)) {
               matched += 1;
             }
@@ -55,19 +55,33 @@ router.get('/', (req, res) => {
         })
       }
 
-      if (req.body.interests !== undefined) {
-        projects = projects.filter((project) => {
-          const interestsToMatch = req.body.interests.length;
+      // if (req.body.interests !== undefined) {
+      //   projects = projects.filter((project) => {
+      //     const interestsToMatch = req.body.interests.length;
+      //     let matched = 0;
+
+      //     req.body.interests.forEach((interest) => {
+      //       if (project.interests.includes(interest)) {
+      //         matched += 1;
+      //       }
+      //     })
+
+      //     return matched >= interestsToMatch;
+      //   })
+      // }
+      if (req.query.interests) {
+        projects = projects.filter(project => {
+          const interestsToMatch = req.query.interests.length;
           let matched = 0;
-          
-          req.body.interests.forEach((interest) => {
+
+          req.query.interests.forEach(interest => {
             if (project.interests.includes(interest)) {
               matched += 1;
             }
-          })
+          });
 
           return matched >= interestsToMatch;
-        })
+        });
       }
 
       res.status(200).json(projects);
@@ -204,7 +218,7 @@ router.post('/join/:projectID', auth, (req, res) => {
         return;
       }
 
-      const alreadyAMember = project.members.some((memberID) => 
+      const alreadyAMember = project.members.some((memberID) =>
         memberID === req.account.id
       );
       if (alreadyAMember) {
@@ -242,7 +256,7 @@ router.post('/leave/:projectID', auth, (req, res) => {
         return;
       }
 
-      const isAMember = project.members.some((memberID) => 
+      const isAMember = project.members.some((memberID) =>
         memberID === req.account.id
       );
       if (!isAMember) {
