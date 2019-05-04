@@ -28,6 +28,19 @@ export const getProject = id => dispatch => {
     });
 };
 
+//get projects using filters
+export const filterProjects = params => dispatch => {
+  dispatch({ type: PROJECT_LOADING });
+  axios
+    .get(`http://localhost:5000/api/project`, { params })
+    .then(res => {
+      dispatch({ type: GET_PROJECTS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: GET_PROJECTS, payload: null });
+    });
+};
+
 //get a list of projects
 export const getProjects = () => dispatch => {
   dispatch({ type: PROJECT_LOADING });
@@ -74,12 +87,22 @@ export const joinProject = proj_id => dispatch => {
   axios
     .post(`http://localhost:5000/api/project/join/${proj_id.toString()}`)
     .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
-    .catch(err => dispatch({ type: GET_ERRORS, payload: { id: proj_id, ...err.response.data } }));
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: { id: proj_id, ...err.response.data }
+      })
+    );
 };
 //leave a project
 export const leaveProject = proj_id => dispatch => {
   axios
     .post(`http://localhost:5000/api/project/leave/${proj_id.toString()}`)
     .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
-    .catch(err => dispatch({ type: GET_ERRORS, payload: { id: proj_id, error: err.response.data } }));
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: { id: proj_id, error: err.response.data }
+      })
+    );
 };
