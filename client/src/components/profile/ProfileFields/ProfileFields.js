@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TextFieldGroup from '../../common/TextFieldGroup';
-import TextAreaFieldGroup from '../../common/TextAreaFieldGroup';
 import InputGroup from '../../common/InputGroup';
 import SuggestInput from '../../common/SuggestInput';
 import PropTypes from 'prop-types';
@@ -34,8 +33,7 @@ class ProfileFields extends Component {
     componentDidMount() {
         const { profile } = this.props;
         if (profile) {
-            console.log('profile supplied - its an update');
-
+            //profile supplied - its an update
             //set state to profile values
             this.setState({
                 firstName: profile.firstName,
@@ -187,7 +185,7 @@ class ProfileFields extends Component {
                 <EducationFields profile={this.props.profile} addEducation={this.addEducation} removeEducation={this.removeEducation} />
                 <ExperienceFields profile={this.props.profile} addExperience={this.addExperience} removeExperience={this.removeExperience} />
 
-                <div className="social mt-4">
+                <div className="social mt-5">
                     <InputGroup
                         placeholder="Github Profile URL"
                         name="github"

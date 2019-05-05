@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import isEmpty from '../../utils/is-empty';
-import TextFieldGroup from '../common/TextFieldGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
-import SuggestInput from '../common/SuggestInput';
 import { getProject, editProject } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
 import ProjectFields from './ProjectFields';
@@ -73,8 +70,8 @@ class EditProject extends Component {
         {loading ? (
           <Spinner />
         ) : (
-          <div className="row  mt-3 ">{projectContent}</div>
-        )}
+            <div className="row  mt-3 ">{projectContent}</div>
+          )}
       </div>
     );
   }
