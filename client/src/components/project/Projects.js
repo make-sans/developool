@@ -21,7 +21,9 @@ export class ListProjects extends Component {
     let projectsList;
 
     if (projects.length <= 0) {
-      projectsList = <div>No projects found :(</div>;
+      projectsList = <div className="text-center mt-5">
+        <h1 className="display-4 text-black-50">No projects found</h1>
+      </div>
     } else {
       // map projects to list of projects with markup
       projectsList = projects.map(project => (
