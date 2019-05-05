@@ -13,15 +13,15 @@ class App extends Component {
         </div>
         <div className="row justify-content-center mt-5 text-white bg-dark p-3">
           <div className="col-md-3 text-center">
-            <i class="far fa-lightbulb fa-2x p-3" />
+            <i className="far fa-lightbulb fa-2x p-3" />
             <p>Explore ideas</p>
           </div>
           <div className="col-md-3 text-center">
-            <i class="fas fa-share-alt fa-2x p-3" />
+            <i className="fas fa-share-alt fa-2x p-3" />
             <p>Share your idea</p>
           </div>
           <div className="col-md-3 text-center">
-            <i class="fas fa-users fa-2x p-3" />
+            <i className="fas fa-users fa-2x p-3" />
             <p>Join a project</p>
           </div>
         </div>
