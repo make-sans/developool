@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextFieldGroup from '../../common/TextFieldGroup'
 import TextAreaFieldGroup from '../../common/TextAreaFieldGroup'
+import validateDateInput from '../../../utils/validation/validateDateInput'
 
 export default class EducationFields extends Component {
     constructor(props) {
@@ -39,8 +40,14 @@ export default class EducationFields extends Component {
     validateEducationInput = data => {
         let validatedErrors = {}
         if (data.instituteName.length < 3) validatedErrors.instituteName = 'Institute name must be at least 3 characters'
+        if (data.instituteName.length > 100) validatedErrors.instituteName = 'Institute name must be max 100 characters'
         if (data.degree.length < 3) validatedErrors.degree = 'Degree must be at least 3 characters'
+        if (data.degree.length > 100) validatedErrors.degree = 'Degree must be max 100 characters'
         if (data.fieldOfStudy.length < 3) validatedErrors.fieldOfStudy = 'Field of study must be at least 3 characters'
+        if (data.fieldOfStudy.length > 100) validatedErrors.fieldOfStudy = 'Field of study must be max 100 characters'
+        if (data.description.length > 300) validatedErrors.description = 'Description must be max 300 characters'
+        const dateErrors = validateDateInput(data.fromDate, data.endDate)
+        validatedErrors = { ...validatedErrors, ...dateErrors }
         return validatedErrors;
     }
     // Education

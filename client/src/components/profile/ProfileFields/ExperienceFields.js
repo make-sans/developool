@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextFieldGroup from '../../common/TextFieldGroup'
 import TextAreaFieldGroup from '../../common/TextAreaFieldGroup'
+import validateDateInput from '../../../utils/validation/validateDateInput'
 
 export default class ExperienceFields extends Component {
     constructor(props) {
@@ -39,8 +40,14 @@ export default class ExperienceFields extends Component {
     validateExperienceInput = data => {
         let validatedErrors = {}
         if (data.company.length < 3) validatedErrors.company = 'Company name must be at least 3 characters'
+        if (data.company.length > 100) validatedErrors.company = 'Company name must be max 100 characters'
         if (data.title.length < 3) validatedErrors.title = 'Title must be at least 3 characters'
-        if (data.location.length < 3) validatedErrors.location = 'Location of study must be at least 3 characters'
+        if (data.title.length > 100) validatedErrors.title = 'Title must be max 100 characters'
+        if (data.location.length < 3) validatedErrors.location = 'Location must be at least 3 characters'
+        if (data.location.length > 100) validatedErrors.location = 'Location must be max 100 characters'
+        if (data.description.length > 300) validatedErrors.description = 'Description must be max 300 characters'
+        const dateErrors = validateDateInput(data.fromDate, data.endDate)
+        validatedErrors = { ...validatedErrors, ...dateErrors }
         return validatedErrors;
     }
     // Experience
@@ -145,7 +152,7 @@ export default class ExperienceFields extends Component {
                             type="date"
                             value={this.state.experienceInput.fromDate}
                             onChange={this.onChangeExperience}
-                            error={errors.experience}
+                            error={errors.fromDate}
                         />
                     </div>
                     <div className="col">
@@ -156,7 +163,7 @@ export default class ExperienceFields extends Component {
                             type="date"
                             value={this.state.experienceInput.endDate}
                             onChange={this.onChangeExperience}
-                            error={errors.experience}
+                            error={errors.endDate}
                         />
                     </div>
                 </div>
@@ -167,7 +174,7 @@ export default class ExperienceFields extends Component {
                     type="text"
                     value={this.state.experienceInput.description}
                     onChange={this.onChangeExperience}
-                    error={errors.experience}
+                    error={errors.description}
                 />
                 <button className="btn btn-secondary" onClick={this.addExperience}>
                     Add experience
