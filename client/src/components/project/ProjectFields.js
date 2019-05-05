@@ -32,8 +32,6 @@ class ProjectFields extends Component {
   componentDidMount() {
     if (this.props.project) {
       const { project } = this.props;
-      console.log('proejct supplied');
-
       this.setState({
         title: project.title,
         publicDescription: project.publicDescription,
