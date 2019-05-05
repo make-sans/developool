@@ -180,7 +180,7 @@ export default class ExperienceFields extends Component {
                     Add experience
 </button>
                 {
-                    this.state.pastExperience.length > 0 ? (<table className="table">
+                    this.state.pastExperience.length > 0 ? (<table className="table mt-4">
                         <thead>
                             <tr>
                                 <th>Company name</th>
@@ -211,7 +211,7 @@ export default class ExperienceFields extends Component {
                             ))}
                         </tbody>
                     </table>) : (
-                            <p className="text-muted">No past experience added</p>
+                            <p className="text-muted text-center">No past experience added</p>
                         )
                 }
             </div >

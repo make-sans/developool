@@ -179,7 +179,7 @@ export default class EducationFields extends Component {
                 <button className="btn btn-secondary" onClick={this.addEducation}>
                     Add education
           </button>
-                {this.state.education.length > 0 ? (<table className="table">
+                {this.state.education.length > 0 ? (<table className="table mt-4">
                     <thead>
                         <tr>
                             <th>Institute name</th>
@@ -210,7 +210,7 @@ export default class EducationFields extends Component {
                         ))}
                     </tbody>
                 </table>) : (
-                        <p className="text-muted">No education added</p>
+                        <p className="text-muted text-center">No education added</p>
                     )}
 
             </div>
