@@ -7,7 +7,7 @@ const ProfileLink = ({ iconName, name, value }) => {
             <div className="d-inline-flex align-items-center">
                 <i className={`fab fa-2x ${iconName}`}></i>
                 <h4 className="px-2 m-0"> {name} </h4>
-                {value}
+                <a href={value} target="_blank" rel="noopener noreferrer">{value}</a>
             </div>
         </div>
     );
