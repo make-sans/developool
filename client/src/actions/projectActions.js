@@ -7,11 +7,12 @@ import {
   PROJECT_LOADING,
   DELETE_PROJECT
 } from './types';
+import { API_URL } from '../constants/index';
 
 //create a project
 export const createProject = (projectData, history) => dispatch => {
   axios
-    .post('http://localhost:5000/api/project/', projectData)
+    .post(`${API_URL}/project`, projectData)
     .then(res => history.push(`/project/${res.data._id}`))
     .catch(err => {
       dispatch({ type: GET_ERRORS, payload: err.response.data });
@@ -21,7 +22,7 @@ export const createProject = (projectData, history) => dispatch => {
 export const getProject = id => dispatch => {
   dispatch({ type: PROJECT_LOADING });
   axios
-    .get(`http://localhost:5000/api/project/${id.toString()}`)
+    .get(`${API_URL}/project/${id.toString()}`)
     .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
     .catch(err => {
       dispatch({ type: GET_PROJECT, payload: null });
@@ -32,7 +33,7 @@ export const getProject = id => dispatch => {
 export const filterProjects = params => dispatch => {
   dispatch({ type: PROJECT_LOADING });
   axios
-    .get(`http://localhost:5000/api/project`, { params })
+    .get(`${API_URL}/project`, { params })
     .then(res => {
       dispatch({ type: GET_PROJECTS, payload: res.data });
     })
@@ -45,7 +46,7 @@ export const filterProjects = params => dispatch => {
 export const getProjects = () => dispatch => {
   dispatch({ type: PROJECT_LOADING });
   axios
-    .get(`http://localhost:5000/api/project/`)
+    .get(`${API_URL}/project`)
     .then(res => dispatch({ type: GET_PROJECTS, payload: res.data }))
     .catch(err => {
       dispatch({ type: GET_PROJECTS, payload: null });
@@ -56,7 +57,7 @@ export const getProjects = () => dispatch => {
 export const getUserProjects = () => dispatch => {
   dispatch({ type: PROJECT_LOADING });
   axios
-    .get(`http://localhost:5000/api/accounts/projects/`)
+    .get(`${API_URL}/accounts/projects`)
     .then(res => dispatch({ type: GET_USER_PROJECTS, payload: res.data }))
     .catch(err => {
       dispatch({ type: GET_USER_PROJECTS, payload: null });
@@ -66,7 +67,7 @@ export const getUserProjects = () => dispatch => {
 //edit a project
 export const editProject = (id, projectData, history) => dispatch => {
   axios
-    .put(`http://localhost:5000/api/project/${id.toString()}`, projectData)
+    .put(`${API_URL}/project/${id.toString()}`, projectData)
     .then(res => history.push(`/project/${res.data._id}`))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
@@ -74,7 +75,7 @@ export const editProject = (id, projectData, history) => dispatch => {
 //delete a project
 export const deleteProject = (id, history) => dispatch => {
   axios
-    .delete(`http://localhost:5000/api/project/${id.toString()}`)
+    .delete(`${API_URL}/project/${id.toString()}`)
     .then(res => {
       dispatch({ type: DELETE_PROJECT, payload: id });
       history.push('/projects');
@@ -85,7 +86,7 @@ export const deleteProject = (id, history) => dispatch => {
 //join a project
 export const joinProject = proj_id => dispatch => {
   axios
-    .post(`http://localhost:5000/api/project/join/${proj_id.toString()}`)
+    .post(`${API_URL}/project/join/${proj_id.toString()}`)
     .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
     .catch(err =>
       dispatch({
@@ -97,7 +98,7 @@ export const joinProject = proj_id => dispatch => {
 //leave a project
 export const leaveProject = proj_id => dispatch => {
   axios
-    .post(`http://localhost:5000/api/project/leave/${proj_id.toString()}`)
+    .post(`${API_URL}/project/leave/${proj_id.toString()}`)
     .then(res => dispatch({ type: GET_PROJECT, payload: res.data }))
     .catch(err =>
       dispatch({
