@@ -26,10 +26,10 @@ export class Navbar extends Component {
           </Link>
         </li>,
         <li className="nav-item" key="signout" >
-          <a href="" className="nav-link" onClick={this.props.logoutUser}>
+          <button className="btn nav-link" onClick={this.props.logoutUser}>
             Sign out
             <i className="fas fa-sign-out-alt px-2" />
-          </a>
+          </button>
         </li>
       ];
     }
