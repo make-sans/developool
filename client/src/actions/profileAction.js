@@ -49,13 +49,13 @@ export const getProfileById = id => dispatch => {
 };
 
 //create profile
-export const createProfile = profileData => dispatch => {
+export const createProfile = (profileData, history) => dispatch => {
   console.log(profileData);
   const body = { profile: profileData };
   axios
     .post(`${API_URL}/profile`, body)
     .then(res => {
-      console.log(res.data);
+      history.push('/profile');
     })
     .catch(err =>
       dispatch({
