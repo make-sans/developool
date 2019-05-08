@@ -1,3 +1,6 @@
+* {
+  margin: 0;
+}
 .bg-dark {
   background-color: #161616 !important;
 }
@@ -52,6 +55,22 @@
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
 }
+nav.navbar {
+  padding: 0.8rem 1.5rem;
+}
+nav.navbar .navbar-nav .nav-item {
+  margin: 0 0.5rem;
+}
+nav.navbar .navbar-nav .nav-item .nav-link {
+  padding: 0.5rem 0;
+}
+.nav-link.active {
+  border-bottom: 3px solid #4cb5ff;
+  color: black;
+}
+.nav-link:not(.active):hover {
+  border-bottom: 3px solid #82cbff;
+}
 .skill-interest-list {
   list-style-type: none;
   overflow: auto;
@@ -103,12 +122,4 @@
 }
 .hover:hover {
   cursor: pointer;
-}
-
-
-/* Profile landing page fields */
-
-.profile-field-group {
-  margin-top: 1.2rem;
-  margin-bottom: 1.2rem;
 }
