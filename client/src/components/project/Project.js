@@ -33,6 +33,7 @@ class Project extends Component {
 
   render() {
     const { project, loading } = this.props.projects;
+    const { auth } = this.props;
     let projectContent;
 
     if (project === null) {
@@ -53,21 +54,21 @@ class Project extends Component {
               <h2 className="mr-2">{project.title}</h2>
               <p className="text-muted m-0 mr-3">{`· by ${
                 project.owner.username
-                }`}</p>
+              }`}</p>
               {project.private ? (
                 <div className="project-visibility private">
                   <i className="fas fa-lock pr-2" />
                   Private
                 </div>
               ) : (
-                  <div className="project-visibility public">
-                    <i className="fas fa-lock-open pr-2" />
-                    Public
+                <div className="project-visibility public">
+                  <i className="fas fa-lock-open pr-2" />
+                  Public
                 </div>
-                )}
+              )}
             </div>
 
-            {project.owner.id === this.props.auth.user.id ? (
+            {project.owner.id === auth.user.id ? (
               <div className="dropdown align-self-start">
                 <i
                   className="fas fa-ellipsis-v"
@@ -76,18 +77,29 @@ class Project extends Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 />
-                <div className="dropdown-menu" aria-labelledby="project-options">
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="project-options"
+                >
                   <div>
-                    <Link to={`/project/edit/${project._id}`} className="dropdown-item">
+                    <Link
+                      to={`/project/edit/${project._id}`}
+                      className="dropdown-item"
+                    >
                       Edit project
                     </Link>
-                    <button onClick={this.onDeleteProject} className="dropdown-item">
+                    <button
+                      onClick={this.onDeleteProject}
+                      className="dropdown-item"
+                    >
                       Delete project
                     </button>
                   </div>
                 </div>
               </div>
-            ) : (<div />)}
+            ) : (
+              <div />
+            )}
           </div>
           <p>{project.publicDescription}</p>
 
@@ -101,7 +113,7 @@ class Project extends Component {
           />
           <div className="row justify-content-end">
             <div className="col-auto">
-              {project.members.some(memb => memb === this.props.auth.user.id) ? (
+              {project.members.some(memb => memb === auth.user.id) ? (
                 <button
                   onClick={this.onLeaveProject}
                   className="btn btn-danger btn-block"
@@ -109,13 +121,14 @@ class Project extends Component {
                   Leave project
                 </button>
               ) : (
-                  <button
-                    onClick={this.onJoinProject}
-                    className="btn btn-primary btn-block"
-                  >
-                    Join project
+                <button
+                  onClick={this.onJoinProject}
+                  className="btn btn-primary btn-block"
+                  disabled={auth.user.id === project.owner.id ? true : false}
+                >
+                  Join project
                 </button>
-                )}
+              )}
             </div>
           </div>
         </div>
