@@ -26,9 +26,9 @@ class CreateProject extends Component {
 
   render() {
     return (
-      <div className="create-project">
-        <div className="row align-items-center mt-5">
-          <div className="col-md-7 m-auto">
+      <div className="create-project p-3">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
             <h1 className="display-4 text-center">Create a project</h1>
             <p className="lead text-center" />
             <ProjectFields

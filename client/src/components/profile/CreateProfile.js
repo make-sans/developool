@@ -42,9 +42,9 @@ class CreateProfile extends Component {
       }
     }
     return (
-      <div className="create-profile">
-        <div className="row">
-          <div className="col">
+      <div className="create-profile p-3">
+        <div className="row justify-content-center">
+          <div className="col-md-8">
             <h1 className="display-4 text-center">Create your profile</h1>
             <p className="lead text-center" />
             {profileContent}

@@ -23,14 +23,17 @@ class Profile extends Component {
     const { profile, loading } = this.props.profile;
     let profileContent;
     if (loading) {
-      console.log('loading');
       profileContent = <Spinner />;
     } else {
       if (!profile) {
         profileContent = (
-          <div>
-            <h1>You dont have a profile. Create one!</h1>
-            <Link to="/create-profile">Create your profile</Link>
+          <div className="text-center mt-4">
+            <h1 className="display-4 mb-3">
+              You dont have a profile. Create one!
+            </h1>
+            <Link className="btn btn-primary" to="/create-profile">
+              Create your profile
+            </Link>
           </div>
         );
       } else {
@@ -177,7 +180,7 @@ class Profile extends Component {
         );
       }
     }
-    return <div>{profileContent}</div>;
+    return <div className="profile">{profileContent}</div>;
   }
 }
 Profile.propTypes = {
