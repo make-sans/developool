@@ -95,7 +95,14 @@ class ProjectFields extends Component {
       </li>
     ));
     return (
-      <form onSubmit={e => this.props.onSubmit(e, this.state)}>
+      <form
+        onSubmit={e => this.props.onSubmit(e, this.state)}
+        onKeyPress={event => {
+          if (event.which === 13) {
+            event.preventDefault();
+          }
+        }}
+      >
         <TextFieldGroup
           label="Title"
           placeholder="Project title"
@@ -132,8 +139,9 @@ class ProjectFields extends Component {
             onSelected={this.onSkillSelected}
             placeholder={'What skills are needed for this project?'}
           />
-          {errors.skills && <div className="invalid-feedback d-block">{errors.skills}</div>}
-
+          {errors.skills && (
+            <div className="invalid-feedback d-block">{errors.skills}</div>
+          )}
         </div>
         <ul className="skill-interest-list">{skillList}</ul>
         <div className="form-group">
@@ -144,8 +152,9 @@ class ProjectFields extends Component {
             onSelected={this.onInterestSelected}
             placeholder={'What interests are suitable for this project?'}
           />
-          {errors.interests && <div className="invalid-feedback d-block">{errors.interests}</div>}
-
+          {errors.interests && (
+            <div className="invalid-feedback d-block">{errors.interests}</div>
+          )}
         </div>
         <ul className="skill-interest-list">{interestList}</ul>
 
