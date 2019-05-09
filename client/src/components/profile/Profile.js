@@ -11,29 +11,21 @@ class Profile extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     if (id) {
-      console.log('by id');
       this.props.getProfileById(id);
-    } else {
-      console.log('current');
-      this.props.getProfileById(this.props.auth.user.id);
     }
   }
 
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
+
     if (loading) {
       profileContent = <Spinner />;
     } else {
       if (!profile) {
         profileContent = (
           <div className="text-center mt-4">
-            <h1 className="display-4 mb-3">
-              You dont have a profile. Create one!
-            </h1>
-            <Link className="btn btn-primary" to="/create-profile">
-              Create your profile
-            </Link>
+            <h1 className="display-4 mb-3 text-muted">Profile not found</h1>
           </div>
         );
       } else {
@@ -44,13 +36,6 @@ class Profile extends Component {
                 <h1 className="display-4 text-center">
                   {profile.firstName} {profile.lastName}
                 </h1>
-                <Link
-                  to="/edit-profile"
-                  className="btn btn-primary align-self-center"
-                >
-                  Edit your profile
-                </Link>
-
                 <div className="profile-field-group">
                   <h3 className="font-weight-light">Skills</h3>
                   {profile.skills.length > 0 ? (
@@ -185,17 +170,12 @@ class Profile extends Component {
 }
 Profile.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
   getProfileById: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  profile: state.profile,
-  errors: state.errors,
-  auth: state.auth
+  profile: state.profile
 });
 export default connect(
   mapStateToProps,
-  { getCurrentProfile, getProfileById }
+  { getProfileById }
 )(Profile);
