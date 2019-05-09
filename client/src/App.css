@@ -63,12 +63,13 @@ nav.navbar .navbar-nav .nav-item {
 }
 nav.navbar .navbar-nav .nav-item .nav-link {
   padding: 0.5rem 0;
+  border-bottom: 3px solid #fff;
 }
-.nav-link.active {
+nav.navbar .navbar-nav .nav-item .nav-link.active {
   border-bottom: 3px solid #4cb5ff;
   color: black;
 }
-.nav-link:not(.active):hover {
+nav.navbar .nav-link:not(.active):hover {
   border-bottom: 3px solid #82cbff;
 }
 .skill-interest-list {
