@@ -27,6 +27,6 @@ app.use('/api/auth', auth);
 app.use('/api/project', project);
 app.use('/api/profile', profile);
 
-app.listen(config.get('port'), () =>
-  console.log(`Server started on port ${config.get('port')}`)
+app.listen(config.get('serverPort'), () =>
+  console.log(`Server started on port ${config.get('serverPort')}`)
 );
