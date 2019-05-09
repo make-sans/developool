@@ -29,17 +29,21 @@ import MyProfile from './components/MyProfile/MyProfile';
 if (localStorage.jwtToken) {
   //set auth token header auth
   setAuthToken(localStorage.jwtToken);
-  //decode token and get user info and exp
-  const decoded = jwt_decode(localStorage.jwtToken);
-  //set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-  //check for expired token
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    //logout
+  try {
+    //decode token and get user info and exp
+    const decoded = jwt_decode(localStorage.jwtToken);
+    //set user and isAuthenticated
+    store.dispatch(setCurrentUser(decoded));
+    //check for expired token
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      //logout
+      store.dispatch(logoutUser());
+      //clear current profile
+      //store.dispatch(clearCurrentProfile());
+    }
+  } catch {
     store.dispatch(logoutUser());
-    //clear current profile
-    //store.dispatch(clearCurrentProfile());
   }
 } else {
   //logout

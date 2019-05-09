@@ -9,14 +9,18 @@ const PrivateRoute = ({ component: Component, auth, logoutUser, ...rest }) => {
   let isAuthenticated = false;
   //check for token
   if (localStorage.jwtToken) {
-    const decoded = jwt_decode(localStorage.jwtToken);
-    const currentTime = Date.now() / 1000;
-    isAuthenticated = auth.isAuthenticated;
+    try {
+      const decoded = jwt_decode(localStorage.jwtToken);
+      const currentTime = Date.now() / 1000;
+      isAuthenticated = auth.isAuthenticated;
 
-    if (decoded.exp < currentTime) {
-      //logout
+      if (decoded.exp < currentTime) {
+        //logout
+        logoutUser();
+        isAuthenticated = false;
+      }
+    } catch {
       logoutUser();
-      isAuthenticated = false;
     }
   } else {
     //logout
