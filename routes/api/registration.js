@@ -10,7 +10,7 @@ const VerificationToken = require('../../models/VerificationToken');
 
 const router = express.Router();
 
-const domainname = 'localhost:3000';
+const domainname = `${config.get('domainName')}:${config.get('clientPort')}`
 const emailTransporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {

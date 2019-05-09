@@ -55,20 +55,6 @@ router.get('/', (req, res) => {
         })
       }
 
-      // if (req.body.interests !== undefined) {
-      //   projects = projects.filter((project) => {
-      //     const interestsToMatch = req.body.interests.length;
-      //     let matched = 0;
-
-      //     req.body.interests.forEach((interest) => {
-      //       if (project.interests.includes(interest)) {
-      //         matched += 1;
-      //       }
-      //     })
-
-      //     return matched >= interestsToMatch;
-      //   })
-      // }
       if (req.query.interests) {
         projects = projects.filter(project => {
           const interestsToMatch = req.query.interests.length;
