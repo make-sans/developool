@@ -21,18 +21,18 @@ router.post('/', (req, res) => {
   Account.findOne({ email })
     .then((account) => {
       if (!account) {
-        res.status(401).json({ email: 'Invalid credentials' });
+        res.status(401).json({ msg: 'Invalid credentials' });
         return;
       }
 
       bcrypt.compare(password, account.passwordHash)
         .then((match) => {
           if (!match) {
-            res.status(401).json({ password: 'Invalid credentials' });
+            res.status(401).json({ msg: 'Invalid credentials' });
             return;
           }
           if (!account.verified) {
-            res.status(400).json({ verification: 'Email has not been verified.' });
+            res.status(403).json({ msg: 'Email has not been verified.' });
             return;
           }
 
@@ -53,7 +53,6 @@ router.post('/', (req, res) => {
           );
         })
     });
-
 });
 
 // /api/auth/user GET

@@ -15,7 +15,7 @@ router.get('/:id', auth, (req, res) => {
       res.status(200).json(project);
     })
     .catch(err =>
-      res.status(404).json({ msg: "Project with that ID doesn't exist" })
+      res.status(404).json({ msg: 'Project with that ID doesn\'t exist' })
     );
 })
 
