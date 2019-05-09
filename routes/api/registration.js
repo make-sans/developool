@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
 
                   emailTransporter.sendMail(mailOptions, (err, info) => {
                     if (err) {
-                      res.status(500).json({ msg: 'Something wen\'t wrong' });
+                      res.status(500).json({ msg: 'Something went wrong' });
                       console.log(err);
                       return;
                     }
@@ -76,12 +76,12 @@ router.post('/', (req, res) => {
                   })
                 })
                 .catch((err) => {
-                  res.status(500).json({ msg: 'Something wen\'t wrong' });
+                  res.status(500).json({ msg: 'Something went wrong' });
                   console.log(err);
                 });
             })
             .catch((err) => {
-              res.status(500).json({ msg: 'Something wen\'t wrong' });
+              res.status(500).json({ msg: 'Something went wrong' });
               console.log(err);
             });
         });
@@ -100,14 +100,14 @@ router.get('/confirm/:token', (req, res) => {
   VerificationToken.findOne({ token: userToken })
     .then((token) => {
       if (!token) {
-        res.status(400).json({ msg: 'No such token found, maybe your token expired?' });
+        res.status(404).json({ msg: 'No such token found, maybe your token expired?' });
         return;
       }
       
       Account.findOne({ _id: token.accountId })
         .then((account) => {
           if (!account) {
-            res.status(400).json({ msg: 'Unable to find account bound to this token.' });
+            res.status(404).json({ msg: 'Unable to find account bound to this token.' });
             return;
           }
           if (account.verified) {
@@ -121,17 +121,17 @@ router.get('/confirm/:token', (req, res) => {
               res.status(200).json({ msg: 'Account verified successfuly' });
             })
             .catch((err) => {
-              res.status(500).json({ msg: 'Something wen\'t wrong' });
+              res.status(500).json({ msg: 'Something went wrong' });
               console.log(err);
             });
         })
         .catch((err) => {
-          res.status(500).json({ msg: 'Something wen\'t wrong' });
+          res.status(500).json({ msg: 'Something went wrong' });
           console.log(err);
         });
     })
     .catch((err) => {
-      res.status(500).json({ msg: 'Something wen\'t wrong' });
+      res.status(500).json({ msg: 'Something went wrong' });
       console.log(err);
     });
 });
