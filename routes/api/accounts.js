@@ -6,7 +6,12 @@ const Project = require('../../models/Project')
 const router = express();
 
 // /api/accounts GET
-router.get('/', auth, (_, res) => {
+router.get('/', auth, (req, res) => {
+  // This will always return until the admin functionality is implemented
+  if (!req.account.isAdmin) {
+    res.status(403).end();
+    return;
+  }
   Account.find()
     .then(accounts => {
       res.status(200).json(accounts);
@@ -16,15 +21,6 @@ router.get('/', auth, (_, res) => {
       console.log(err);
     });
 });
-
-// /api/accounts/:id GET
-// router.get('/:id', auth, (req, res) => {
-//   Account.findById(req.params.id)
-//     .select('-passwordHash')
-//     .then((account) => {
-//       res.json(account);
-//     });
-// })
 
 // /api/accounts/projects GET
 router.get('/projects', auth, (req, res) => {
