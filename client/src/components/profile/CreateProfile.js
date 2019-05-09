@@ -25,7 +25,6 @@ class CreateProfile extends Component {
       twitter: state.twitter,
       instagram: state.instagram
     };
-    console.log(profileData);
     this.props.createProfile(profileData, this.props.history);
   };
   render() {
@@ -37,7 +36,6 @@ class CreateProfile extends Component {
       if (!profile) {
         profileContent = <ProfileFields onSubmit={this.onSubmit} />;
       } else {
-        console.log(profile);
         profileContent = <h2>You already have a profile</h2>;
       }
     }

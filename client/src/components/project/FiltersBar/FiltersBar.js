@@ -4,7 +4,7 @@ import { SKILLS } from '../../../constants/Skills';
 import SuggestInput from '../../common/SuggestInput';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TextFieldGroup from '../../common/TextFieldGroup'
+import TextFieldGroup from '../../common/TextFieldGroup';
 import { filterProjects } from '../../../actions/projectActions';
 
 class FiltersBar extends Component {
@@ -19,10 +19,12 @@ class FiltersBar extends Component {
     };
   }
   onChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    },
-      () => this.props.filterProjects(this.buildParams()));
+    this.setState(
+      {
+        [e.target.name]: e.target.value
+      },
+      () => this.props.filterProjects(this.buildParams())
+    );
   };
   buildParams = () => {
     let params = {
@@ -31,12 +33,11 @@ class FiltersBar extends Component {
       title: this.state.title
     };
     if (this.state.private) {
-      params.private = this.state.private
+      params.private = this.state.private;
     }
     if (this.state.public) {
-      params.public = this.state.public
+      params.public = this.state.public;
     }
-    console.log(params);
     return params;
   };
 
@@ -60,15 +61,18 @@ class FiltersBar extends Component {
   };
   onSkillSelected = (e, res) => {
     if (this.state.skills.indexOf(res.suggestion) === -1) {
-      this.setState({ skills: [...this.state.skills, res.suggestion] },
-        () => this.props.filterProjects(this.buildParams()));
+      this.setState({ skills: [...this.state.skills, res.suggestion] }, () =>
+        this.props.filterProjects(this.buildParams())
+      );
     }
   };
   removeSkill = (e, i) => {
-    this.setState({
-      skills: this.state.skills.filter(skill => skill !== e.target.innerText)
-    },
-      () => this.props.filterProjects(this.buildParams()));
+    this.setState(
+      {
+        skills: this.state.skills.filter(skill => skill !== e.target.innerText)
+      },
+      () => this.props.filterProjects(this.buildParams())
+    );
   };
   render() {
     const interestList = this.state.interests.map(interest => (
@@ -90,8 +94,8 @@ class FiltersBar extends Component {
       </li>
     ));
     return (
-      <div className='container-fluid'>
-        <div className='mb-4 border p-4 rounded'>
+      <div className="container-fluid">
+        <div className="mb-4 border p-4 rounded">
           <p>Filters</p>
           <TextFieldGroup
             placeholder="Search by title..."
@@ -126,11 +130,10 @@ class FiltersBar extends Component {
               type="checkbox"
               id="private"
               name="private"
-
             />
             <label className="custom-control-label" htmlFor="private">
               Show private projects
-          </label>
+            </label>
           </div>
           <div className="custom-control custom-checkbox">
             <input
@@ -146,11 +149,10 @@ class FiltersBar extends Component {
               type="checkbox"
               id="public"
               name="public"
-
             />
             <label className="custom-control-label" htmlFor="public">
               Show public projects
-          </label>
+            </label>
           </div>
         </div>
       </div>

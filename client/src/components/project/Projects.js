@@ -17,13 +17,14 @@ export class ListProjects extends Component {
     // get the properties
     const { loading } = this.props.projects;
     const projects = this.props.projects.projects;
-    console.dir(projects);
     let projectsList;
 
     if (projects.length <= 0) {
-      projectsList = <div className="text-center mt-5">
-        <h1 className="display-4 text-black-50">No projects found</h1>
-      </div>
+      projectsList = (
+        <div className="text-center mt-5">
+          <h1 className="display-4 text-black-50">No projects found</h1>
+        </div>
+      );
     } else {
       // map projects to list of projects with markup
       projectsList = projects.map(project => (
@@ -41,17 +42,18 @@ export class ListProjects extends Component {
             />
             <Link to={'/project/' + project._id} className="btn btn-primary">
               Project page
-              </Link>
+            </Link>
           </div>
         </div>
       ));
     }
     return (
-      <div className="project-list p-4" >
+      <div className="project-list p-4">
         <FiltersBar />
         <div className="container-fluid">
-          {loading ? <Spinner /> : (
-
+          {loading ? (
+            <Spinner />
+          ) : (
             <div className="card-columns">{projectsList}</div>
           )}
         </div>

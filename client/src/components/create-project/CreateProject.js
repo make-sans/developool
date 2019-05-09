@@ -15,7 +15,6 @@ class CreateProject extends Component {
       skills: state.skills,
       private: state.private
     };
-    console.log(newProject);
     this.props.createProject(newProject, this.props.history);
   };
   componentWillReceiveProps(nextProps) {

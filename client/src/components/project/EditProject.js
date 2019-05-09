@@ -33,7 +33,6 @@ class EditProject extends Component {
       skills: state.skills,
       private: state.private
     };
-    console.log(newProject);
     this.props.editProject(
       this.props.match.params.id,
       newProject,
@@ -70,8 +69,8 @@ class EditProject extends Component {
         {loading ? (
           <Spinner />
         ) : (
-            <div className="row  mt-3 ">{projectContent}</div>
-          )}
+          <div className="row  mt-3 ">{projectContent}</div>
+        )}
       </div>
     );
   }
