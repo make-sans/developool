@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getCurrentProfile, editProfile } from '../../actions/profileAction';
 import Spinner from '../common/Spinner';
 import ProfileFields from './ProfileFields/ProfileFields';
+import { Link } from 'react-router-dom';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -56,14 +57,27 @@ class EditProfile extends Component {
       profileContent = <Spinner />;
     } else {
       if (!profile) {
-        profileContent = <h2>Oh oh..</h2>;
+        profileContent = (
+          <div className="text-center mt-4">
+            <h1 className="display-4 mb-3">
+              You dont have a profile. Create one!
+            </h1>
+            <Link className="btn btn-primary" to="/create-profile">
+              Create your profile
+            </Link>
+          </div>
+        );
       } else {
         profileContent = (
-          <ProfileFields
-            profile={profile}
-            cancelRoute="/profile"
-            onSubmit={this.onEditProfileSubmit}
-          />
+          <React.Fragment>
+            <h1 className="display-4 text-center">Edit your profile</h1>
+            <p className="lead text-center" />
+            <ProfileFields
+              profile={profile}
+              cancelRoute="/profile"
+              onSubmit={this.onEditProfileSubmit}
+            />
+          </React.Fragment>
         );
       }
     }
@@ -71,11 +85,7 @@ class EditProfile extends Component {
     return (
       <div className="edit-profile p-3">
         <div className="row justify-content-center">
-          <div className="col-md-8">
-            <h1 className="display-4 text-center">Edit your profile</h1>
-            <p className="lead text-center" />
-            {profileContent}
-          </div>
+          <div className="col-md-8">{profileContent}</div>
         </div>
       </div>
     );
