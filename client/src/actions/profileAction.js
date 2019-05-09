@@ -17,7 +17,7 @@ export const getCurrentProfile = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_PROFILE,
-        payload: {}
+        payload: null
       })
     );
 };
@@ -55,7 +55,7 @@ export const createProfile = (profileData, history) => dispatch => {
   axios
     .post(`${API_URL}/profile`, body)
     .then(res => {
-      history.push('/profile');
+      history.push('/my-profile');
     })
     .catch(err =>
       dispatch({
@@ -69,7 +69,7 @@ export const createProfile = (profileData, history) => dispatch => {
 export const editProfile = (profileData, history) => dispatch => {
   axios
     .put(`${API_URL}/profile`, profileData)
-    .then(res => history.push('/profile'))
+    .then(res => history.push('/my-profile'))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

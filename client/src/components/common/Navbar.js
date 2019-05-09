@@ -21,7 +21,7 @@ export class Navbar extends Component {
           </NavLink>
         </li>,
         <li className="nav-item" key="profile">
-          <NavLink className="nav-link" to="/profile">
+          <NavLink className="nav-link" to="/my-profile">
             Profile
           </NavLink>
         </li>,

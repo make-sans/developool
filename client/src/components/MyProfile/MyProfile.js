@@ -2,30 +2,29 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
 import { connect } from 'react-redux';
-import { getProfileById } from '../../actions/profileAction';
+import { getCurrentProfile } from '../../actions/profileAction';
+import { Link } from 'react-router-dom';
 import ProfileData from '../profile/ProfileData/ProfileData';
 
-class Profile extends Component {
+class MyProfile extends Component {
   componentDidMount() {
-    const { id } = this.props.match.params;
-    if (id === this.props.auth.user.id) {
-      this.props.history.push('/my-profile');
-    } else {
-      this.props.getProfileById(id);
-    }
+    this.props.getCurrentProfile();
   }
-
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
-
     if (loading) {
       profileContent = <Spinner />;
     } else {
       if (!profile) {
         profileContent = (
           <div className="text-center mt-4">
-            <h1 className="display-4 mb-3 text-muted">Profile not found</h1>
+            <h1 className="display-4 mb-3">
+              You dont have a profile. Create one!
+            </h1>
+            <Link className="btn btn-primary" to="/create-profile">
+              Create your profile
+            </Link>
           </div>
         );
       } else {
@@ -34,6 +33,12 @@ class Profile extends Component {
             <div className="row">
               <div className="col-md-12 py-2">
                 <ProfileData profile={profile} />
+                <Link
+                  to="/edit-profile"
+                  className="btn btn-primary mt-3 float-right"
+                >
+                  Edit your profile
+                </Link>
               </div>
             </div>
           </div>
@@ -43,16 +48,14 @@ class Profile extends Component {
     return <div className="profile">{profileContent}</div>;
   }
 }
-Profile.propTypes = {
+MyProfile.propTypes = {
   profile: PropTypes.object.isRequired,
-  getProfileById: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  getCurrentProfile: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth
+  profile: state.profile
 });
 export default connect(
   mapStateToProps,
-  { getProfileById }
-)(Profile);
+  { getCurrentProfile }
+)(MyProfile);

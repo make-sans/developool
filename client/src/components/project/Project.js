@@ -46,15 +46,21 @@ class Project extends Component {
       );
     } else if (Object.keys(project).length > 0) {
       //everything fine
-      console.log(project);
+      const isOwnersProject = project.owner.id === auth.user.id;
+
       projectContent = (
         <div className="col border rounded p-3">
           <div className="project-header d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
               <h2 className="mr-2">{project.title}</h2>
-              <p className="text-muted m-0 mr-3">{`· by ${
-                project.owner.username
-              }`}</p>
+              {/* <p className="text-muted m-0 mr-3"> */}
+              <p className="text-muted m-0 mr-1">· by</p>
+              <Link
+                className={'text-muted m-0 mr-3'}
+                to={`/profile/${project.owner.id}`}
+              >
+                {project.owner.username}
+              </Link>
               {project.private ? (
                 <div className="project-visibility private">
                   <i className="fas fa-lock pr-2" />
@@ -68,7 +74,7 @@ class Project extends Component {
               )}
             </div>
 
-            {project.owner.id === auth.user.id ? (
+            {isOwnersProject ? (
               <div className="dropdown align-self-start">
                 <i
                   className="fas fa-ellipsis-v"
