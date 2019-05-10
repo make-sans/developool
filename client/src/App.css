@@ -62,8 +62,7 @@ nav.navbar .navbar-nav .nav-item {
   margin: 0 0.5rem;
 }
 nav.navbar .navbar-nav .nav-item .nav-link {
-  padding: 0.5rem 0;
-  border-bottom: 3px solid #fff;
+  padding: 0.5rem 0 inherit;
 }
 nav.navbar .navbar-nav .nav-item .nav-link.active {
   border-bottom: 3px solid #4cb5ff;
