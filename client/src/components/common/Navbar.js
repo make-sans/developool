@@ -10,22 +10,42 @@ export class Navbar extends Component {
     // when authenticated user
     if (this.props.auth.isAuthenticated) {
       return [
-        <li className="nav-item" key="my-projects">
+        <li
+          className="nav-item"
+          key="my-projects"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+        >
           <NavLink className="nav-link" to="/my-projects">
             My projects
           </NavLink>
         </li>,
-        <li className="nav-item" key="secret">
+        <li
+          className="nav-item"
+          key="create-project"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+        >
           <NavLink className="nav-link" to="/create-project">
             Create Project
           </NavLink>
         </li>,
-        <li className="nav-item" key="profile">
+        <li
+          className="nav-item"
+          key="profile"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+        >
           <NavLink className="nav-link" to="/my-profile">
             Profile
           </NavLink>
         </li>,
-        <li className="nav-item" key="signout">
+        <li
+          className="nav-item"
+          key="signout"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+        >
           <span className="nav-link hover" onClick={this.props.logoutUser}>
             Sign out
             <i className="fas fa-sign-out-alt px-2" />
@@ -34,12 +54,22 @@ export class Navbar extends Component {
       ];
     }
     return [
-      <li className="nav-item" key="signin">
+      <li
+        className="nav-item"
+        key="signin"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+      >
         <NavLink className="nav-link" to="/login">
           Login
         </NavLink>
       </li>,
-      <li className="nav-item" key="signup">
+      <li
+        className="nav-item"
+        key="signup"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+      >
         <NavLink className="nav-link" to="/register">
           Register
         </NavLink>
@@ -67,7 +97,12 @@ export class Navbar extends Component {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
-            <li key="home" className="nav-item">
+            <li
+              key="home"
+              className="nav-item"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+            >
               <NavLink
                 className="nav-link"
                 exact
@@ -77,7 +112,12 @@ export class Navbar extends Component {
                 Home
               </NavLink>
             </li>
-            <li key="projects" className="nav-item">
+            <li
+              key="projects"
+              className="nav-item"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+            >
               <NavLink
                 className="nav-link"
                 to="/projects"
