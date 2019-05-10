@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import TextAreaFieldGroup from '../../common/TextAreaFieldGroup';
 import validateDateInput from '../../../utils/validation/validateDateInput';
+import Moment from 'react-moment';
 
 export default class EducationFields extends Component {
   constructor(props) {
@@ -208,8 +209,12 @@ export default class EducationFields extends Component {
                   <td>{edu.instituteName}</td>
                   <td>{edu.degree}</td>
                   <td>{edu.fieldOfStudy}</td>
-                  <td>{edu.fromDate}</td>
-                  <td>{edu.endDate}</td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{edu.fromDate}</Moment>
+                  </td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{edu.endDate}</Moment>
+                  </td>
                   <td>{edu.description}</td>
                   <td>
                     <i

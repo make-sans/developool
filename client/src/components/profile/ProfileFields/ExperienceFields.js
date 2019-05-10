@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import TextAreaFieldGroup from '../../common/TextAreaFieldGroup';
 import validateDateInput from '../../../utils/validation/validateDateInput';
+import Moment from 'react-moment';
 
 export default class ExperienceFields extends Component {
   constructor(props) {
@@ -203,8 +204,12 @@ export default class ExperienceFields extends Component {
                   <td>{exp.company}</td>
                   <td>{exp.title}</td>
                   <td>{exp.location}</td>
-                  <td>{exp.fromDate}</td>
-                  <td>{exp.endDate}</td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{exp.fromDate}</Moment>
+                  </td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{exp.endDate}</Moment>
+                  </td>
                   <td>{exp.description}</td>
                   <td>
                     <i
