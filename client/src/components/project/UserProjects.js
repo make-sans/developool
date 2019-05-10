@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getUserProjects } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
-import InterestSkillList from './InterestSkillList';
 import FiltersBar from './FiltersBar/FiltersBar';
+import ProjectCard from './ProjectCard';
 
 export class UserProjects extends Component {
   // get the data as soon as component is initialzied
@@ -20,36 +19,24 @@ export class UserProjects extends Component {
     let projectsList;
 
     if (projects.length <= 0) {
-      projectsList = <div className="col text-center mt-5">
-        <h1 className="display-4 text-black-50">No projects found</h1>
-      </div>;
+      projectsList = (
+        <div className="col text-center mt-5">
+          <h1 className="display-4 text-black-50">No projects found</h1>
+        </div>
+      );
     } else {
       // map projects to list of projects with markup
       projectsList = projects.map(project => (
-        <div className="card mb-4 shadow-sm rounded" key={project._id}>
-          <div className="card-body">
-            <h3 className="card-title font-weight-lighter">{project.title}</h3>
-            <p className="card-text">{project.publicDescription}</p>
-            <InterestSkillList
-              list={project.skills}
-              customStyle={'skill-list-item'}
-            />
-            <InterestSkillList
-              list={project.interests}
-              customStyle={'interest-list-item'}
-            />
-            <Link to={'/project/' + project._id} className="btn btn-primary">
-              Project page
-            </Link>
-          </div>
-        </div>
+        <ProjectCard key={project._id} project={project} />
       ));
     }
     return (
       <div className="project-list m-4">
         <FiltersBar />
         <div className="container-fluid">
-          {loading ? <Spinner /> : (
+          {loading ? (
+            <Spinner />
+          ) : (
             <div className="card-columns">{projectsList}</div>
           )}
         </div>

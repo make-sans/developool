@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProjects } from '../../actions/projectActions';
 import Spinner from '../common/Spinner';
-import InterestSkillList from './InterestSkillList';
 import FiltersBar from './FiltersBar/FiltersBar';
+import ProjectCard from './ProjectCard';
 
 export class ListProjects extends Component {
   // get the data as soon as component is initialzied
@@ -28,23 +27,7 @@ export class ListProjects extends Component {
     } else {
       // map projects to list of projects with markup
       projectsList = projects.map(project => (
-        <div className="card mb-4 shadow-sm rounded" key={project._id}>
-          <div className="card-body">
-            <h3 className="card-title font-weight-lighter">{project.title}</h3>
-            <p className="card-text">{project.publicDescription}</p>
-            <InterestSkillList
-              list={project.skills}
-              customStyle={'skill-list-item'}
-            />
-            <InterestSkillList
-              list={project.interests}
-              customStyle={'interest-list-item'}
-            />
-            <Link to={'/project/' + project._id} className="btn btn-primary">
-              Project page
-            </Link>
-          </div>
-        </div>
+        <ProjectCard key={project._id} project={project} />
       ));
     }
     return (
