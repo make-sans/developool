@@ -23,7 +23,7 @@ class App extends Component {
     // }
     return (
       <div className="App">
-        <div className="row my-5 justify-content-around -3">
+        <div className="row my-5 justify-content-around p-3">
           <div className="col-md-5">
             <h1>The palace where ideas meet developers</h1>
             <p>
@@ -38,14 +38,7 @@ class App extends Component {
           </div>
         </div>
         <div className="row justify-content-around p-6 skew bg-light align-items-center">
-          <div className="col-md-5 text-center skew-content">
-            <img
-              className="h-auto w-50"
-              src={joinProjectIll}
-              alt="Join a project"
-            />
-          </div>
-          <div className="col-md-5 skew-content">
+          <div className="col-md-5 skew-content order-md-2">
             <h3 className="semibold">Join a project</h3>
             <p className="m-0">
               Cras finibus ipsum non lacus euismod, in maximus sem auctor. Sed
@@ -54,6 +47,13 @@ class App extends Component {
               Nulla in turpis tristique, iaculis ex vel, tempor purus.
             </p>
             <Link to="/projects">See projects</Link>
+          </div>
+          <div className="col-md-5 text-center skew-content">
+            <img
+              className="h-auto w-50"
+              src={joinProjectIll}
+              alt="Join a project"
+            />
           </div>
         </div>
         <div className="row justify-content-around p-6">
