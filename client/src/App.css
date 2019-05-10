@@ -31,6 +31,13 @@
   color: white;
   background-color: #82cbff;
 }
+@media (max-width: 768px) {
+  .card-columns {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+  }
+}
 .react-autosuggest__container {
   position: relative;
   width: 100%;
