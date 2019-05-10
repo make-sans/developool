@@ -14,7 +14,7 @@ export class Navbar extends Component {
           className="nav-item"
           key="my-projects"
           data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-target=".navbar-collapse.show"
         >
           <NavLink className="nav-link" to="/my-projects">
             My projects
@@ -24,7 +24,7 @@ export class Navbar extends Component {
           className="nav-item"
           key="create-project"
           data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-target=".navbar-collapse.show"
         >
           <NavLink className="nav-link" to="/create-project">
             Create Project
@@ -34,7 +34,7 @@ export class Navbar extends Component {
           className="nav-item"
           key="profile"
           data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-target=".navbar-collapse.show"
         >
           <NavLink className="nav-link" to="/my-profile">
             Profile
@@ -44,7 +44,7 @@ export class Navbar extends Component {
           className="nav-item"
           key="signout"
           data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-target=".navbar-collapse.show"
         >
           <span className="nav-link hover" onClick={this.props.logoutUser}>
             Sign out
@@ -58,7 +58,7 @@ export class Navbar extends Component {
         className="nav-item"
         key="signin"
         data-toggle="collapse"
-        data-target="#navbarSupportedContent"
+        data-target=".navbar-collapse.show"
       >
         <NavLink className="nav-link" to="/login">
           Login
@@ -68,7 +68,7 @@ export class Navbar extends Component {
         className="nav-item"
         key="signup"
         data-toggle="collapse"
-        data-target="#navbarSupportedContent"
+        data-target=".navbar-collapse.show"
       >
         <NavLink className="nav-link" to="/register">
           Register
@@ -101,7 +101,7 @@ export class Navbar extends Component {
               key="home"
               className="nav-item"
               data-toggle="collapse"
-              data-target="#navbarSupportedContent"
+              data-target=".navbar-collapse.show"
             >
               <NavLink
                 className="nav-link"
@@ -116,7 +116,7 @@ export class Navbar extends Component {
               key="projects"
               className="nav-item"
               data-toggle="collapse"
-              data-target="#navbarSupportedContent"
+              data-target=".navbar-collapse.show"
             >
               <NavLink
                 className="nav-link"
