@@ -87,7 +87,7 @@ class Project extends Component {
                   aria-expanded="false"
                 />
                 <div
-                  className="dropdown-menu"
+                  className="dropdown-menu dropdown-menu-right"
                   aria-labelledby="project-options"
                 >
                   <div>
