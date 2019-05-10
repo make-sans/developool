@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import TextAreaFieldGroup from '../../common/TextAreaFieldGroup';
 import validateDateInput from '../../../utils/validation/validateDateInput';
-import Moment from 'react-moment';
+import Experience from '../ProfileData/Experience';
 
 export default class ExperienceFields extends Component {
   constructor(props) {
@@ -186,41 +186,18 @@ export default class ExperienceFields extends Component {
           Add experience
         </button>
         {this.state.pastExperience.length > 0 ? (
-          <table className="table mt-4">
-            <thead>
-              <tr>
-                <th>Company name</th>
-                <th>Title</th>
-                <th>Location</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Description</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.pastExperience.map((exp, i) => (
-                <tr key={i}>
-                  <td>{exp.company}</td>
-                  <td>{exp.title}</td>
-                  <td>{exp.location}</td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{exp.fromDate}</Moment>
-                  </td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{exp.endDate}</Moment>
-                  </td>
-                  <td>{exp.description}</td>
-                  <td>
-                    <i
-                      onClick={() => this.removeExperience(i)}
-                      className="fas fa-times hover"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="row mt-3">
+            {this.state.pastExperience.map((exp, i) => (
+              <div key={i} className="col-md-6 mb-3">
+                <Experience
+                  exp={exp}
+                  i={i}
+                  isRemovable
+                  onRemoveClick={() => this.removeExperience(i)}
+                />
+              </div>
+            ))}
+          </div>
         ) : (
           <p className="text-muted text-center">No past experience added</p>
         )}

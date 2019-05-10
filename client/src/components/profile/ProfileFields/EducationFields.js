@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TextFieldGroup from '../../common/TextFieldGroup';
 import TextAreaFieldGroup from '../../common/TextAreaFieldGroup';
 import validateDateInput from '../../../utils/validation/validateDateInput';
-import Moment from 'react-moment';
+import Education from '../ProfileData/Education';
 
 export default class EducationFields extends Component {
   constructor(props) {
@@ -191,41 +191,18 @@ export default class EducationFields extends Component {
           Add education
         </button>
         {this.state.education.length > 0 ? (
-          <table className="table mt-4">
-            <thead>
-              <tr>
-                <th>Institute name</th>
-                <th>Degree</th>
-                <th>Field of study</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Description</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.education.map((edu, i) => (
-                <tr key={i}>
-                  <td>{edu.instituteName}</td>
-                  <td>{edu.degree}</td>
-                  <td>{edu.fieldOfStudy}</td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{edu.fromDate}</Moment>
-                  </td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{edu.endDate}</Moment>
-                  </td>
-                  <td>{edu.description}</td>
-                  <td>
-                    <i
-                      onClick={() => this.removeEducation(i)}
-                      className="fas fa-times hover"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="row mt-3">
+            {this.state.education.map((edu, i) => (
+              <div key={i} className="col-md-6 mb-3">
+                <Education
+                  edu={edu}
+                  i={i}
+                  isRemovable
+                  onRemoveClick={() => this.removeEducation(i)}
+                />
+              </div>
+            ))}
+          </div>
         ) : (
           <p className="text-muted text-center">No education added</p>
         )}

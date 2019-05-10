@@ -1,7 +1,8 @@
 import React from 'react';
 import InterestSkillList from '../../project/InterestSkillList';
 import ProfileLink from '../../common/ProfileLink';
-import Moment from 'react-moment';
+import Education from './Education';
+import Experience from './Experience';
 
 export default function ProfileData(props) {
   const { profile } = props;
@@ -83,74 +84,36 @@ export default function ProfileData(props) {
       </div>
       <div className="profile-field-group mb-4">
         <h3 className="font-weight-light">Education</h3>
-        {profile.education.length > 0 ? (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Institute name</th>
-                <th>Degree</th>
-                <th>Field of study</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {profile.education.map((edu, i) => (
-                <tr key={i}>
-                  <td>{edu.instituteName}</td>
-                  <td>{edu.degree}</td>
-                  <td>{edu.fieldOfStudy}</td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{edu.fromDate}</Moment>
-                  </td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{edu.endDate}</Moment>
-                  </td>
-                  <td>{edu.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p className="text-muted">No education added</p>
-        )}
+        <div className="row">
+          {profile.education.length > 0 ? (
+            profile.education.map((edu, i) => (
+              <div key={i} className="col-md-6 mb-3">
+                <Education edu={edu} />
+              </div>
+            ))
+          ) : (
+            <div className="col">
+              <p className="text-muted">No education added</p>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="profile-field-group mb-4">
         <h3 className="font-weight-light">Experience</h3>
-        {profile.pastExperience.length > 0 ? (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Company name</th>
-                <th>Title</th>
-                <th>Location</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {profile.pastExperience.map((exp, i) => (
-                <tr key={i}>
-                  <td>{exp.company}</td>
-                  <td>{exp.title}</td>
-                  <td>{exp.location}</td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{exp.fromDate}</Moment>
-                  </td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{exp.endDate}</Moment>
-                  </td>
-                  <td>{exp.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p className="text-muted">No past experience added</p>
-        )}
+        <div className="row">
+          {profile.pastExperience.length > 0 ? (
+            profile.pastExperience.map((exp, i) => (
+              <div key={i} className="col-md-6 mb-3">
+                <Experience exp={exp} />
+              </div>
+            ))
+          ) : (
+            <div className="col">
+              <p className="text-muted">No past experience added</p>
+            </div>
+          )}
+        </div>
       </div>
     </React.Fragment>
   );
