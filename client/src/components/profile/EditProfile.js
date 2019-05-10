@@ -46,7 +46,6 @@ class EditProfile extends Component {
       twitter: state.twitter,
       instagram: state.instagram
     };
-
     this.props.editProfile(editedProfile, this.props.history);
   };
   render() {
@@ -74,7 +73,7 @@ class EditProfile extends Component {
             <p className="lead text-center" />
             <ProfileFields
               profile={profile}
-              cancelRoute="/profile"
+              cancelRoute="/my-profile"
               onSubmit={this.onEditProfileSubmit}
             />
           </React.Fragment>
