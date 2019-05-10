@@ -51,27 +51,30 @@ class Project extends Component {
       projectContent = (
         <div className="col border rounded p-3">
           <div className="project-header d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center">
-              <h2 className="mr-2">{project.title}</h2>
-              {/* <p className="text-muted m-0 mr-3"> */}
-              <p className="text-muted m-0 mr-1">· by</p>
-              <Link
-                className={'text-muted m-0 mr-3'}
-                to={`/profile/${project.owner.id}`}
-              >
-                {project.owner.username}
-              </Link>
-              {project.private ? (
-                <div className="project-visibility private">
-                  <i className="fas fa-lock pr-2" />
-                  Private
-                </div>
-              ) : (
-                <div className="project-visibility public">
-                  <i className="fas fa-lock-open pr-2" />
-                  Public
-                </div>
-              )}
+            <div className="row align-items-center px-3 mb-2">
+              <div className="col-auto p-0">
+                <h2 className="mr-2">{project.title}</h2>
+              </div>
+              <div className="col-auto p-0 d-flex">
+                <p className="text-muted m-0 mr-1">· by</p>
+                <Link
+                  className={'text-muted m-0 mr-3'}
+                  to={`/profile/${project.owner.id}`}
+                >
+                  {project.owner.username}
+                </Link>
+                {project.private ? (
+                  <div className="project-visibility private">
+                    <i className="fas fa-lock pr-2" />
+                    Private
+                  </div>
+                ) : (
+                  <div className="project-visibility public">
+                    <i className="fas fa-lock-open pr-2" />
+                    Public
+                  </div>
+                )}
+              </div>
             </div>
 
             {isOwnersProject ? (
