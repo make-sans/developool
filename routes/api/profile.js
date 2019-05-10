@@ -153,11 +153,11 @@ router.put('/', auth, (req, res) => {
     if (req.body.skills) update.skills = req.body.skills;
     if (req.body.education) update.education = req.body.education;
     if (req.body.pastExperience) update.pastExperience = req.body.pastExperience;
-    if (req.body.github) update.github = req.body.github;
-    if (req.body.facebook) update.facebook = req.body.facebook;
-    if (req.body.linkedin) update.linkedin = req.body.linkedin;
-    if (req.body.twitter) update.twitter = req.body.twitter;
-    if (req.body.instagram) update.instagram = req.body.instagram;
+    if (req.body.github || req.body.github === '') update.github = req.body.github;
+    if (req.body.facebook || req.body.facebook === '') update.facebook = req.body.facebook;
+    if (req.body.linkedin || req.body.linkedin === '') update.linkedin = req.body.linkedin;
+    if (req.body.twitter || req.body.twitter === '') update.twitter = req.body.twitter;
+    if (req.body.instagram || req.body.instagram === '') update.instagram = req.body.instagram;
 
     Profile.findByIdAndUpdate(account.profileId, { $set: update }, { new: true }, (err, profile) => {
       if (err) {
