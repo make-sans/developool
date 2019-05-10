@@ -4,15 +4,15 @@ import propTypes from 'prop-types';
 const ProfileLink = ({ iconName, name, value }) => {
   return (
     <div className="profile-field-group">
-      <div className="d-inline-flex align-items-center">
-        <i className={`fab fa-2x ${iconName}`} />
+      <div className="d-inline-flex flex-column align-items-center">
         <a
           href={value}
           className="px-2 m-0"
           target="_blank"
           rel="noopener noreferrer"
+          title={value}
         >
-          {name}
+          <i className={`fab ${iconName}`} />
         </a>
       </div>
     </div>
