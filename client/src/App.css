@@ -1,8 +1,35 @@
 * {
   margin: 0;
 }
+.p-6 {
+  padding: 4rem !important;
+}
+.light {
+  font-weight: 300;
+}
+.semibold {
+  font-weight: 400;
+}
 .bg-dark {
   background-color: #161616 !important;
+}
+.skew {
+  transform: skew(0deg, -3deg);
+}
+.skew .skew-content {
+  transform: skew(0deg, 3deg);
+}
+.btn-register {
+  background-color: #4cb5ff;
+  color: white;
+  font-size: 1.4rem;
+  border-radius: 12px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 300;
+}
+.btn-register:hover {
+  color: white;
+  background-color: #82cbff;
 }
 .react-autosuggest__container {
   position: relative;
