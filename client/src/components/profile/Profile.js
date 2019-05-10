@@ -32,7 +32,7 @@ class Profile extends Component {
         profileContent = (
           <div className="container">
             <div className="row">
-              <div className="col-md-12 py-2">
+              <div className="col-md-12 my-4">
                 <ProfileData profile={profile} />
               </div>
             </div>
