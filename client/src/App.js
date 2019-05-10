@@ -3,12 +3,10 @@ import mainIll from './assets/img/undraw/undraw_programmer_imem.svg';
 import joinProjectIll from './assets/img/undraw/undraw_mobile_testing_reah.svg';
 import exploreProjectIll from './assets/img/undraw/undraw_search_2dfv.svg';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 class App extends Component {
-  onRegisterButtonClick = () => {
-    this.props.history.push('/register');
-  };
   render() {
     const { isAuthenticated } = this.props.auth;
 
@@ -25,8 +23,8 @@ class App extends Component {
     // }
     return (
       <div className="App">
-        <div className="row my-5 p-3">
-          <div className="col-md-5 offset-md-1">
+        <div className="row my-5 justify-content-around -3">
+          <div className="col-md-5">
             <h1>The palace where ideas meet developers</h1>
             <p>
               Cras finibus ipsum non lacus euismod, in maximus sem auctor. Sed
@@ -35,22 +33,27 @@ class App extends Component {
               Nulla in turpis tristique, iaculis ex vel, tempor purus.
             </p>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-5">
             <img className="img-fluid" src={mainIll} alt="" />
           </div>
         </div>
         <div className="row justify-content-around p-6 skew bg-light align-items-center">
           <div className="col-md-5 text-center skew-content">
-            <img className="h-auto w-50" src={joinProjectIll} alt="" />
+            <img
+              className="h-auto w-50"
+              src={joinProjectIll}
+              alt="Join a project"
+            />
           </div>
           <div className="col-md-5 skew-content">
             <h3 className="semibold">Join a project</h3>
-            <p>
+            <p className="m-0">
               Cras finibus ipsum non lacus euismod, in maximus sem auctor. Sed
               quam ex, mattis sodales eros nec, consectetur elementum leo.
               Nullam varius ultricies justo, et egestas risus tempor vitae.
               Nulla in turpis tristique, iaculis ex vel, tempor purus.
             </p>
+            <Link to="/projects">See projects</Link>
           </div>
         </div>
         <div className="row justify-content-around p-6">
@@ -64,18 +67,20 @@ class App extends Component {
             </p>
           </div>
           <div className="col-md-5 text-center">
-            <img className="h-auto w-50" src={exploreProjectIll} alt="" />
+            <img
+              className="h-auto w-50"
+              src={exploreProjectIll}
+              alt="Explore ideas"
+            />
           </div>
         </div>
+
         {!isAuthenticated && (
-          <div className="row justify-content-center mb-5">
+          <div className="row justify-content-around mb-5 align-items-center">
             <div className="col-auto">
-              <button
-                onClick={this.onRegisterButtonClick}
-                className="btn btn-register"
-              >
+              <Link className="btn btn-register" to="/register">
                 Register now
-              </button>
+              </Link>
             </div>
           </div>
         )}
