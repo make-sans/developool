@@ -60,7 +60,7 @@ export default function ProfileData(props) {
         )}
       </div>
       <div className="profile-field-group mb-4">
-        <h3 className="font-weight-light">Skills</h3>
+        <h3 className="font-weight-light mb-3">Skills</h3>
         {profile.skills.length > 0 ? (
           <InterestSkillList
             list={profile.skills}
@@ -72,7 +72,7 @@ export default function ProfileData(props) {
       </div>
 
       <div className="profile-field-group mb-4">
-        <h3 className="font-weight-light">Interests</h3>
+        <h3 className="font-weight-light mb-3">Interests</h3>
         {profile.interests.length > 0 ? (
           <InterestSkillList
             list={profile.interests}
@@ -83,7 +83,7 @@ export default function ProfileData(props) {
         )}
       </div>
       <div className="profile-field-group mb-4">
-        <h3 className="font-weight-light">Education</h3>
+        <h3 className="font-weight-light mb-3">Education</h3>
         <div className="row">
           {profile.education.length > 0 ? (
             profile.education.map((edu, i) => (
@@ -93,14 +93,14 @@ export default function ProfileData(props) {
             ))
           ) : (
             <div className="col">
-              <p className="text-muted">No education added</p>
+              <p className="text-muted m-0">No education added</p>
             </div>
           )}
         </div>
       </div>
 
       <div className="profile-field-group mb-4">
-        <h3 className="font-weight-light">Experience</h3>
+        <h3 className="font-weight-light mb-3">Experience</h3>
         <div className="row">
           {profile.pastExperience.length > 0 ? (
             profile.pastExperience.map((exp, i) => (
@@ -110,7 +110,7 @@ export default function ProfileData(props) {
             ))
           ) : (
             <div className="col">
-              <p className="text-muted">No past experience added</p>
+              <p className="text-muted m-0">No past experience added</p>
             </div>
           )}
         </div>
