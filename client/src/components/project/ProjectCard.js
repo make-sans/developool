@@ -23,10 +23,12 @@ export default function ProjectCard(props) {
         </div>
         <p className="card-text">{project.publicDescription}</p>
         <InterestSkillList
+          limited
           list={project.skills}
           customStyle={'skill-list-item'}
         />
         <InterestSkillList
+          limited
           list={project.interests}
           customStyle={'interest-list-item'}
         />
