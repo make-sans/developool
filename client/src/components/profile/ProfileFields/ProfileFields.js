@@ -10,6 +10,7 @@ import { SKILLS } from '../../../constants/Skills';
 import { INTERESTS } from '../../../constants/Interests';
 import ExperienceFields from './ExperienceFields';
 import EducationFields from './EducationFields';
+import validateURL from '../../../utils/validation/validateURL';
 
 class ProfileFields extends Component {
   constructor(props) {
@@ -109,6 +110,27 @@ class ProfileFields extends Component {
       pastExperience: this.state.pastExperience.filter((exp, j) => i !== j)
     });
   };
+  onFormSubmit = e => {
+    e.preventDefault();
+    let errors = validateURL([
+      { name: 'facebook', url: this.state.facebook },
+      { name: 'linkedin', url: this.state.linkedin },
+      { name: 'github', url: this.state.github },
+      { name: 'instagram', url: this.state.instagram },
+      { name: 'twitter', url: this.state.twitter }
+    ]);
+    if (this.state.firstName.length === 0) {
+      errors.firstName = 'First name is required';
+    }
+    if (this.state.lastName.length === 0) {
+      errors.lastName = 'Last name is required';
+    }
+    if (Object.keys(errors).length > 0) {
+      this.setState({ errors });
+    } else {
+      this.props.onSubmit(e, this.state);
+    }
+  };
 
   render() {
     const { errors } = this.state;
@@ -132,7 +154,7 @@ class ProfileFields extends Component {
     ));
     return (
       <form
-        onSubmit={e => this.props.onSubmit(e, this.state)}
+        onSubmit={e => this.onFormSubmit(e)}
         onKeyPress={event => {
           if (event.which === 13) {
             event.preventDefault();
