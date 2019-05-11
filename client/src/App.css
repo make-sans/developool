@@ -10,6 +10,9 @@
 .semibold {
   font-weight: 400;
 }
+.bg-lightgrey {
+  background-color: #f4f4f4;
+}
 .bg-dark {
   background-color: #161616 !important;
 }

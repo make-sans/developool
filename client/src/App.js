@@ -37,7 +37,7 @@ class App extends Component {
             <img className="img-fluid" src={mainIll} alt="" />
           </div>
         </div>
-        <div className="row justify-content-around p-6 skew bg-light align-items-center">
+        <div className="row justify-content-around p-6 skew bg-lightgrey align-items-center">
           <div className="col-md-5 skew-content order-md-2">
             <h3 className="semibold">Join a project</h3>
             <p className="m-0">
