@@ -53,7 +53,7 @@ class Project extends Component {
           <div className="project-header d-flex justify-content-between align-items-center">
             <div className="row align-items-center px-3 mb-2">
               <div className="col-auto p-0">
-                <h2 className="mr-2">{project.title}</h2>
+                <h2 className="mr-2 light">{project.title}</h2>
               </div>
               <div className="col-auto p-0 d-flex">
                 <p className="text-muted m-0 mr-1">· by</p>
