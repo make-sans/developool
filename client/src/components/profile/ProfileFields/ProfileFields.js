@@ -261,7 +261,10 @@ class ProfileFields extends Component {
 
         <div className="form-row mt-3 justify-content-end">
           <div className="col-auto">
-            <Link to={this.props.cancelRoute} className="btn btn-secondary">
+            <Link
+              to={this.props.cancelRoute || '/'}
+              className="btn btn-secondary"
+            >
               Cancel
             </Link>
           </div>
