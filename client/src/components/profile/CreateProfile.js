@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getProfileById, createProfile } from '../../actions/profileAction';
 import Spinner from '../common/Spinner';
+import { Link } from 'react-router-dom';
 
 class CreateProfile extends Component {
   componentDidMount() {
@@ -34,19 +35,28 @@ class CreateProfile extends Component {
       profileContent = <Spinner />;
     } else {
       if (!profile) {
-        profileContent = <ProfileFields onSubmit={this.onSubmit} />;
+        profileContent = (
+          <React.Fragment>
+            <h1 className="display-4 text-center">Create your profile</h1>
+            <ProfileFields onSubmit={this.onSubmit} />;
+          </React.Fragment>
+        );
       } else {
-        profileContent = <h2>You already have a profile</h2>;
+        profileContent = (
+          <div className="text-center mt-4">
+            <h2 className="light">You already have a profile</h2>
+            <p>If you want to update it, click on the button below</p>
+            <Link to="edit-profile" className="btn btn-primary">
+              Edit profile
+            </Link>
+          </div>
+        );
       }
     }
     return (
       <div className="create-profile p-3">
         <div className="row justify-content-center">
-          <div className="col-md-8">
-            <h1 className="display-4 text-center">Create your profile</h1>
-            <p className="lead text-center" />
-            {profileContent}
-          </div>
+          <div className="col-md-8">{profileContent}</div>
         </div>
       </div>
     );
