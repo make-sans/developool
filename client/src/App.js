@@ -25,7 +25,7 @@ class App extends Component {
       <div className="App">
         <div className="row my-5 justify-content-around p-3">
           <div className="col-md-5">
-            <h1>The palace where ideas meet developers</h1>
+            <h1>The place where ideas meet developers</h1>
             <p>
               Cras finibus ipsum non lacus euismod, in maximus sem auctor. Sed
               quam ex, mattis sodales eros nec, consectetur elementum leo.
