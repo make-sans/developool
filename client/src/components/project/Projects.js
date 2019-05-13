@@ -31,15 +31,13 @@ export class ListProjects extends Component {
       ));
     }
     return (
-      <div className="project-list p-4">
+      <div className="project-list p-3">
         <FiltersBar />
-        <div className="container-fluid">
-          {loading ? (
-            <Spinner />
-          ) : (
-            <div className="card-columns">{projectsList}</div>
-          )}
-        </div>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="card-columns">{projectsList}</div>
+        )}
       </div>
     );
   }

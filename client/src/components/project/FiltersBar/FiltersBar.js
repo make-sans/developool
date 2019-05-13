@@ -94,66 +94,64 @@ class FiltersBar extends Component {
       </li>
     ));
     return (
-      <div className="container-fluid">
-        <div className="mb-4 border p-4 rounded">
-          <p>Filters</p>
-          <TextFieldGroup
-            placeholder="Search by title..."
-            name="title"
-            type="text"
-            value={this.state.title}
-            onChange={this.onChange}
+      <div className="mb-4 border p-4 rounded">
+        <p>Filters</p>
+        <TextFieldGroup
+          placeholder="Search by title..."
+          name="title"
+          type="text"
+          value={this.state.title}
+          onChange={this.onChange}
+        />
+        <SuggestInput
+          suggestions={INTERESTS}
+          onSelected={this.onInterestSelected}
+          placeholder={'Filter by interests'}
+        />
+        <ul className="skill-interest-list my-2">{interestList}</ul>
+        <SuggestInput
+          suggestions={SKILLS}
+          onSelected={this.onSkillSelected}
+          placeholder={'Filter by skills'}
+        />
+        <ul className="skill-interest-list my-2">{skillList}</ul>
+        <div className="custom-control custom-checkbox">
+          <input
+            onChange={e => {
+              this.onChange({
+                target: {
+                  name: e.target.name,
+                  value: e.target.checked
+                }
+              });
+            }}
+            className="custom-control-input"
+            type="checkbox"
+            id="private"
+            name="private"
           />
-          <SuggestInput
-            suggestions={INTERESTS}
-            onSelected={this.onInterestSelected}
-            placeholder={'Filter by interests'}
+          <label className="custom-control-label" htmlFor="private">
+            Only private projects
+          </label>
+        </div>
+        <div className="custom-control custom-checkbox">
+          <input
+            onChange={e => {
+              this.onChange({
+                target: {
+                  name: e.target.name,
+                  value: e.target.checked
+                }
+              });
+            }}
+            className="custom-control-input"
+            type="checkbox"
+            id="public"
+            name="public"
           />
-          <ul className="skill-interest-list my-2">{interestList}</ul>
-          <SuggestInput
-            suggestions={SKILLS}
-            onSelected={this.onSkillSelected}
-            placeholder={'Filter by skills'}
-          />
-          <ul className="skill-interest-list my-2">{skillList}</ul>
-          <div className="custom-control custom-checkbox">
-            <input
-              onChange={e => {
-                this.onChange({
-                  target: {
-                    name: e.target.name,
-                    value: e.target.checked
-                  }
-                });
-              }}
-              className="custom-control-input"
-              type="checkbox"
-              id="private"
-              name="private"
-            />
-            <label className="custom-control-label" htmlFor="private">
-              Show private projects
-            </label>
-          </div>
-          <div className="custom-control custom-checkbox">
-            <input
-              onChange={e => {
-                this.onChange({
-                  target: {
-                    name: e.target.name,
-                    value: e.target.checked
-                  }
-                });
-              }}
-              className="custom-control-input"
-              type="checkbox"
-              id="public"
-              name="public"
-            />
-            <label className="custom-control-label" htmlFor="public">
-              Show public projects
-            </label>
-          </div>
+          <label className="custom-control-label" htmlFor="public">
+            Only public projects
+          </label>
         </div>
       </div>
     );
