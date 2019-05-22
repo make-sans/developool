@@ -24,33 +24,9 @@ import Project from './components/project/Project';
 import CreateProfile from './components/profile/CreateProfile';
 import EditProfile from './components/profile/EditProfile';
 import MyProfile from './components/MyProfile/MyProfile';
+import checkAuthToken from './utils/checkAuthToken';
 
-//check for token
-if (localStorage.jwtToken) {
-  //set auth token header auth
-  setAuthToken(localStorage.jwtToken);
-  try {
-    //decode token and get user info and exp
-    const decoded = jwt_decode(localStorage.jwtToken);
-    //set user and isAuthenticated
-    store.dispatch(setCurrentUser(decoded));
-    //check for expired token
-    const currentTime = Date.now() / 1000;
-    if (decoded.exp < currentTime) {
-      //logout
-      store.dispatch(logoutUser());
-      //clear current profile
-      //store.dispatch(clearCurrentProfile());
-    }
-  } catch {
-    store.dispatch(logoutUser());
-  }
-} else {
-  //logout
-  store.dispatch(logoutUser());
-  //clear current profile
-  //store.dispatch(clearCurrentProfile());
-}
+checkAuthToken();
 
 ReactDOM.render(
   <Provider store={store}>

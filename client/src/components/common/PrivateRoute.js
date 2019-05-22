@@ -3,29 +3,10 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import PropTypes from 'prop-types';
-import jwt_decode from 'jwt-decode';
+import checkAuthToken from '../../utils/checkAuthToken';
 
 const PrivateRoute = ({ component: Component, auth, logoutUser, ...rest }) => {
-  let isAuthenticated = false;
-  //check for token
-  if (localStorage.jwtToken) {
-    try {
-      const decoded = jwt_decode(localStorage.jwtToken);
-      const currentTime = Date.now() / 1000;
-      isAuthenticated = auth.isAuthenticated;
-
-      if (decoded.exp < currentTime) {
-        //logout
-        logoutUser();
-        isAuthenticated = false;
-      }
-    } catch {
-      logoutUser();
-    }
-  } else {
-    //logout
-    logoutUser();
-  }
+  let isAuthenticated = checkAuthToken();
 
   return (
     <Route
