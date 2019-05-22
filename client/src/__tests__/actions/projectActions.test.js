@@ -15,11 +15,11 @@ describe('Project Actions', () => {
     });
 
     // get the project that shouldn't exist
-    it('creates GET_PROJECT with payload null when trying to get a project with id that doesn\'t exist or not authenticated', (done) => {
+    it('creates GET_PROJECT with payload null when trying to get a project with id that doesn\'t exist', (done) => {
         // fake id
-        const id = "1id";
+        const id = "fid1";
         // mock the axios call of the action
-        mock.onGet('/api/project/'+id).reply(401, {});
+        mock.onGet('/api/project/'+id).reply(404, {}, {'Authorization':'auth_key'});
         // expected actions
         const expectedActions = [
             { type: types.PROJECT_LOADING },
@@ -39,10 +39,3 @@ describe('Project Actions', () => {
 
     });
 });
-
-
-// create the project
-
-// get the created project
-
-// delete the project
