@@ -7,7 +7,7 @@
     "production": "node server.js",
     "dev-server": "nodemon server.js",
     "dev-client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\""
   },
   "repository": {
     "type": "git",
