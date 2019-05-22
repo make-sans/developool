@@ -1,1 +1,1 @@
-export const API_URL = 'http://federlizer.com/api';
+export const API_URL = 'http://developool.com/api';
